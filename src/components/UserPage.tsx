@@ -8,7 +8,6 @@ import { useState } from 'react';
 // name: string;
 interface Istate {
     users: {
-
         age: number,
         name: string,
         phone: string,
@@ -16,8 +15,6 @@ interface Istate {
 }
 const User: React.FC = () => {
     const [user, setUser] = useState<Istate["users"]>([]);
-    // const { baseURL } = useContext(UserContext);
-
     async function getUsers() {
         try {
             debugger

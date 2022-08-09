@@ -5,6 +5,8 @@ import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
 import InsetDividers from "./components/system";
 import OneSystem from "./components/system";
+import Systems from "./components/systems";
+
 function App() {
   return (
     <div className="app">
@@ -15,6 +17,7 @@ function App() {
           <Route path="/reset" element={<Reset />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/OneSystem" element={<OneSystem />} />
+          <Route path="/systems" element={<Systems />} />
         </Routes>
       </Router>
     </div>

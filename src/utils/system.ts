@@ -1,4 +1,5 @@
 export interface System{
+    id: string,
     topic: string,
     objectName: string,
     managerUid: string,

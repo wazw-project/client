@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
@@ -51,7 +52,8 @@ const signInWithGoogle = async () => {
 };
 const logInWithEmailAndPassword = async (email:string, password:string) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    const x=await signInWithEmailAndPassword(auth, email, password);
+    console.log(x);
   } catch (err:any) {
     console.error(err);
     alert(err.message);
@@ -60,6 +62,7 @@ const logInWithEmailAndPassword = async (email:string, password:string) => {
 const registerWithEmailAndPassword = async (name:string, email:string, password:string) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
+    console.log(res);
     const user = res.user;
     await addDoc(collection(db, "users"), {
       uid: user.uid,
@@ -67,6 +70,7 @@ const registerWithEmailAndPassword = async (name:string, email:string, password:
       authProvider: "local",
       email,
     });
+    
   } catch (err:any) {
     console.error(err);
     alert(err.message);

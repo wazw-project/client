@@ -4,6 +4,7 @@ import Register from "./components/Register";
 import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
 import Systems from "./components/systems";
+import SystemDetails from "./components/SystemDetails";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/reset" element={<Reset />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/systems" element={<Systems />} />
+           <Route path="/systemDetails" element={<SystemDetails/>}/>
         </Routes>
       </Router>
     </div>

@@ -145,10 +145,9 @@ export default function SystemDetails() {
                   </IconButton>
                   <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                     details
-                  </Typography>
-                  <Button autoFocus color="inherit" onClick={handleClose}>
+                  </Typography>git
                     save
-                  </Button>
+                 
                 </Toolbar>
               </AppBar>
               <List>

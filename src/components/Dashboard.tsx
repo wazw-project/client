@@ -20,7 +20,6 @@ function Dashboard() {
     }
   };
   useEffect(() => {
-    debugger
     if (loading) return;
     if (!user) return navigate("/");
     fetchUserName();

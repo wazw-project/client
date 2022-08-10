@@ -47,6 +47,17 @@ export default function SystemDetails() {
     }
   }
 
+  async function deleteSystem() {
+    try {
+      console.log(from)
+      const res = await axios.delete(` http://localhost:3333/system/${from.id}`)
+      console.log(res.data);
+      setSystem(res.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
     getSystem();
   }, [from.id]);
@@ -63,7 +74,6 @@ export default function SystemDetails() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    debugger;
     console.log("open");
     setOpen(true);
   };
@@ -124,7 +134,7 @@ export default function SystemDetails() {
             <Button variant="outlined" onClick={handleClickOpen}>
               edit
             </Button>
-            <Button variant="outlined" >
+            <Button variant="outlined" onClick={deleteSystem}>
               delete
             </Button>
             <Dialog

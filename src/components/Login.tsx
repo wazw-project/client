@@ -11,7 +11,6 @@ const Login: React.FC=()=> {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
-    debugger;
     if (loading) {
       // maybe trigger a loading screen
       return;

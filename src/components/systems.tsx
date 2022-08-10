@@ -57,8 +57,7 @@ const Systems: React.FC = () => {
             "urlImage":inputUrlImage.current?.value
            }
            console.log(dataSystem)
-        try {
-              debugger;      
+        try {     
             const res = await axios.post(`http://localhost:3333/system/addSystem`,dataSystem);
             //let tempList = await res.data;
             console.log(res)
@@ -67,12 +66,6 @@ const Systems: React.FC = () => {
         finally{setOpen(false);}
         
     }
-
-
-
-
-
-
 
     async function getSystems() {
         try {
@@ -85,7 +78,6 @@ const Systems: React.FC = () => {
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
-        debugger;
         getSystems();
     }, [])
 

@@ -17,7 +17,6 @@ const User: React.FC = () => {
     const [user, setUser] = useState<Istate["users"]>([]);
     async function getUsers() {
         try {
-            debugger
             const res = await axios.get('http://localhost:3333/user');
             let tempList = await res.data
             setUser(tempList)
@@ -27,7 +26,6 @@ const User: React.FC = () => {
     }
     const [usersList, setUsersList] = useState();
     useEffect(() => {
-        debugger
         getUsers();
     }, [])
 

@@ -37,7 +37,7 @@ const Systems: React.FC = () => {
     const inputPhone:any = useRef();
     const inputUrlName:any = useRef();
     const inputUrlImage:any = useRef();
-    const managerUid = '62f1fefd238a932105836927'
+    const managerUid = '62f1fefd238a932105836927';
     const handleClickOpen = () => {
         setOpen(true);
     };

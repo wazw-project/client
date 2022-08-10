@@ -35,7 +35,7 @@ export default function SystemDetails() {
   const [system, setSystem] = useState<System>();
   const location = useLocation();
   const from: any = location.state;
-  // const { nameURL } = useParams();
+  const { nameURL } = useParams();
   async function getSystem() {
     try {
       console.log(from)
@@ -94,6 +94,7 @@ export default function SystemDetails() {
 
   return (
     <div>
+      <h1>{ nameURL }</h1>
       {system &&
         <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: 2 }}>
           <CardMedia

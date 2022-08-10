@@ -3,6 +3,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
+import InsetDividers from "./components/system";
+import OneSystem from "./components/system";
 import Systems from "./components/systems";
 import SystemDetails from "./components/SystemDetails";
 
@@ -15,6 +17,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/OneSystem" element={<OneSystem />} />
           <Route path="/systems" element={<Systems />} />
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails/>}/>
         </Routes>

@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { System } from '../utils/system';
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
@@ -36,7 +36,7 @@ export default function SystemDetails() {
   const [system, setSystem] = useState<System>();
   const location = useLocation();
   const from: any = location.state;
-
+  const { nameURL } = useParams();
   async function getSystem() {
     try {
       console.log(from)
@@ -128,6 +128,7 @@ export default function SystemDetails() {
 
   return (
     <div>
+      <h1>{ nameURL }</h1>
       {system &&
         <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: 2 }}>
           <CardMedia

@@ -38,7 +38,7 @@ const Systems: React.FC = () => {
     const inputPhone:any = useRef();
     const inputUrlName:any = useRef();
     const inputUrlImage:any = useRef();
-    const managerUid = '62f1fefd238a932105836927'
+    const managerUid = '62f1fefd238a932105836927';
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -114,11 +114,9 @@ const Systems: React.FC = () => {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button variant="contained" onClick={() => navigate('/systemDetails', { state: { id: system._id } })}>see the system</Button>
+                            <Button variant="contained" onClick={() => navigate(`/systemDetails/hello/${system.urlName}/${system._id}`, { state: { id: system._id } })}>see the system</Button>
                         </CardActions>
-
                     </Card>)}
-
                 <Dialog
                     fullWidth={fullWidth}
                     maxWidth={maxWidth}

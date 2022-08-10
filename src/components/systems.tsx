@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect,useState } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
 import { System } from '../utils/system';
 import { Card } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
@@ -18,13 +17,15 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
-            const managerId='62ea7b1303ceb00a0131daa7';
+            const managerId='62f1fefd238a932105836927';
             const res = await axios.get(`http://localhost:3333/system/${managerId}`);
             let tempList = await res.data;
+            console.log(tempList[0]._id)
             setSystems(tempList);
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
+        debugger;
         getSystems();
     }, [])
 
@@ -52,9 +53,10 @@ const Systems: React.FC = () => {
                                 {system.description}
                             </Typography>
                         </CardContent>
-                        <CardActions>
-                            <Button variant="contained" onClick={() => navigate('/businessServices', { state: { system: system.id } })}>see the system</Button>
+                        <CardActions>   
+                            <Button variant="contained" onClick={() => navigate('/systemDetails', { state: { id: system._id } })}>see the system</Button>
                         </CardActions>
+                                                       
                     </Card>
                 )}
             </Stack>

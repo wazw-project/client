@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import InsetDividers from "./components/system";
 import OneSystem from "./components/system";
 import Systems from "./components/systems";
+import SystemDetails from "./components/SystemDetails";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/OneSystem" element={<OneSystem />} />
           <Route path="/systems" element={<Systems />} />
+           <Route path="/systemDetails" element={<SystemDetails/>}/>
         </Routes>
       </Router>
     </div>

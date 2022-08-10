@@ -23,6 +23,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Dashboard from './Dashboard';
+import swal from 'sweetalert';
 
 const Systems: React.FC = () => {
     const [systems, setSystems] = useState<System[]>([]);
@@ -61,6 +62,7 @@ const Systems: React.FC = () => {
             const res = await axios.post(`http://localhost:3333/system/addSystem`,dataSystem);
             //let tempList = await res.data;
             console.log(res)
+            swal("your system added!!", "You clicked the button!", "success");
            // setSystems(tempList);
         } catch (error) { console.log(error); }
         finally{setOpen(false);}
@@ -69,7 +71,7 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
-            const managerId='62f263ea1729335c6aff4480';
+            const managerId='62f1fefd238a932105836927';
             const res = await axios.get(`http://localhost:3333/system/${managerId}`);
             let tempList = await res.data;
             console.log(tempList[0]._id)

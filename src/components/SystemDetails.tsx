@@ -22,6 +22,7 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import swal from 'sweetalert';
 
 export default function SystemDetails() {
   const inputTopic: any = useRef();
@@ -48,14 +49,36 @@ export default function SystemDetails() {
   }
 
   async function deleteSystem() {
-    try {
-      console.log(from)
-      const res = await axios.delete(` http://localhost:3333/system/${from.id}`)
-      console.log(res.data);
-      setSystem(res.data)
-    } catch (err) {
-      console.log(err)
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+    //  buttons:true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        try {
+
+          console.log(from)
+          const res:any = axios.delete(` http://localhost:3333/system/${from.id}`)
+          console.log(res.data);
+          setSystem(res.data)
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+        } catch (err) {
+          console.log(err)
+          swal("Your imaginary file is safe!");
+        }
+      
+      } else {
+        swal("Your imaginary file is safe!");
+      }
+    });
+
+
+   
   }
 
   useEffect(() => {
@@ -93,6 +116,7 @@ export default function SystemDetails() {
     try {
       const res = await axios.put(` http://localhost:3333/system/${from.id}`, systemToUpdate)
       console.log(res.data)
+      swal("your details update!", "You clicked the button!", "success");
     } catch (err) {
       return err
     }

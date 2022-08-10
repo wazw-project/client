@@ -32,16 +32,7 @@ export default function SystemDetails() {
 
   const navigate = useNavigate();
   return (
-    // description: "here you can rent Wheelchair"
-    // email: "naama@gmail.com"
-    // managerUid: "62f1fefd238a932105836927"
-    // objectName: "Wheelchair"
-    // phone: "0556772275"
-    // topic: "Wheelchairs"
-    // urlImage: "https://www.animatedimages.org/data/media/1655/animated-wheelchair-image-0017.gif"
-    // urlName: "Wheelchair"
-    // __v: 0
-    // _id: "62f28df56fb8b91779082e80"
+   
     <>
     {system&&
       <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: 2 }}>
@@ -52,26 +43,21 @@ export default function SystemDetails() {
           alt="ha ha ha"
         />
         <CardContent>
-          <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h3" component="div">
-            {/* {businessDetails.businessName} */}
+          <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h3" component="div">         
             {system?.description}
           </Typography>
           <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-            {/* {businessDetails.ownersName} */}
             {system?.objectName}
           </Typography>
-          {/* <Grid container spacing={{ xs: 2, md: 3, }}>
-            {services === [] ? <p>no services</p> : services.map((item) => (
-              <Grid item xs={2} sm={3} md={3} key={item.name}>
-                <Card >
-                  <CardContent >
+       
+            
                     <Typography variant="h5" component="div" color="primary" textAlign="center">
-                      {item.name}
+                      {system.email}
                     </Typography>
                     <Typography variant="h6" component="div" textAlign="center">
-                      num of meetings: {item.num}
+                   {system.topic}
                     </Typography>
-                    <Typography variant="h6" component="div" textAlign="center">
+                    {/* <Typography variant="h6" component="div" textAlign="center">
                       duration: {item.duration}
                     </Typography>
                     <Typography variant="h6" component="div" textAlign="center">
@@ -86,17 +72,14 @@ export default function SystemDetails() {
                     </Typography>
                     <Typography variant="body2">
                       <br />
-                    </Typography>
+                    </Typography> */}
                     <Button onClick={() => {
                       debugger
-                      navigate('/UserFormDetails', { state: { service: item } }, { replace: true })
+                     // navigate('/UserFormDetails', { state: { service: item } }, { replace: true })
                     }}
                       variant="outlined" size="small">schedule </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid> */}
+               
+     
         </CardContent>
         <div style={{ marginRight: 'left' }}></div>
       </Card>}

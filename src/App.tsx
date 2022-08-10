@@ -16,7 +16,7 @@ function App() {
           <Route path="/reset" element={<Reset />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/systems" element={<Systems />} />
-           <Route path="/systemDetails" element={<SystemDetails/>}/>
+          <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails/>}/>
         </Routes>
       </Router>
     </div>

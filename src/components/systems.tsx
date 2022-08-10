@@ -17,7 +17,8 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
-            const managerId='62f1fefd238a932105836927';
+            debugger
+            const managerId='62ea7b1303ceb00a0131daa7';
             const res = await axios.get(`http://localhost:3333/system/${managerId}`);
             let tempList = await res.data;
             console.log(tempList[0]._id)
@@ -54,9 +55,8 @@ const Systems: React.FC = () => {
                             </Typography>
                         </CardContent>
                         <CardActions>   
-                            <Button variant="contained" onClick={() => navigate('/systemDetails', { state: { id: system._id } })}>see the system</Button>
-                        </CardActions>
-                                                       
+                            <Button variant="contained" onClick={() => navigate(`/systemDetails/hello/${system.urlName}/${system._id}`, { state: { id: system._id } })}>see the system</Button>
+                        </CardActions>                                                  
                     </Card>
                 )}
             </Stack>

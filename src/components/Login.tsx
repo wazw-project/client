@@ -15,7 +15,7 @@ const Login: React.FC=()=> {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/systems");
+    if (user) navigate("/dashboard");
   }, [user, loading]);
   return (
     <div className="login">

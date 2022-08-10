@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { System } from '../utils/system';
 
 export default function SystemDetails() {
@@ -14,12 +14,12 @@ export default function SystemDetails() {
   const [system, setSystem] = useState<System>();
   const location = useLocation();
   const from:any = location.state;
+  // const { nameURL } = useParams();
+
   useEffect(() => {
     async function getSystem() {
       try {
-        debugger;
-     
-      console.log(from)
+        console.log(from)
         const res = await axios.get(` http://localhost:3333/system/systemById/${from.id}`)
         console.log(res.data);
         setSystem(res.data)      

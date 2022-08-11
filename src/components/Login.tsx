@@ -4,19 +4,38 @@ import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../style/Login.css";
 import { Auth } from "@firebase/auth";
+import axios from "axios";
 
 const Login: React.FC=()=> {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [user, loading, error] = useAuthState(auth);
+  const [userFromDb,setUserFromDb]  = useState<any>();
   const navigate = useNavigate();
+  
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/systems");
+    if (user){
+      loginFromDB(user.uid);
+      navigate("/systems")
+    } ;
   }, [user, loading]);
+
+  const logIn=async()=>{
+    await logInWithEmailAndPassword(email, password);
+  }
+
+  const loginFromDB=async(Uid:any)=>{  
+    try {
+      const res = await axios.get(`http://localhost:3333/user/${Uid}`);
+      let tempList = await res.data;
+      setUserFromDb(tempList);
+  } catch (error) { console.log(error); }
+  }
+
   return (
     <div className="login">
       <div className="login__container">
@@ -36,7 +55,8 @@ const Login: React.FC=()=> {
         />
         <button
           className="login__btn"
-          onClick={() => logInWithEmailAndPassword(email, password)}
+          onClick={() => logIn()}
+          // onClick={() => logInWithEmailAndPassword(email, password)}
         >
           Login
         </button>

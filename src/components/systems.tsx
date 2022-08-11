@@ -71,7 +71,7 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
-            const managerId='62f1fefd238a932105836927';
+            const managerId='62f4bec1c9f7408b6d78e779';
             const res = await axios.get(`http://localhost:3333/system/${managerId}`);
             let tempList = await res.data;
             console.log(tempList[0]._id)

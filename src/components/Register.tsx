@@ -17,18 +17,18 @@ function Register() {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const [res,setRes]  = useState<any>();
   const [userFromDb,setUserFromDb]  = useState<any>();
   const navigate = useNavigate();
   const register = async() => {
     if (!firstName) alert("Please enter firstName");
     const fullName = firstName+' '+lastName;
     await registerWithEmailAndPassword(fullName, email, password);
-    await addUserToDb();
+    // await addUserToDb(res);
   };
 
-  const addUserToDb=async()=>{
+  const addUserToDb=async(uid:string)=>{
     const userToDb={
+      "fireBaseUid":uid,
       "firstName":firstName,
       "lastName":lastName,
       "phone":phone,
@@ -43,7 +43,10 @@ function Register() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate("/dashboard");
+    if (user){
+      addUserToDb(user.uid);
+      navigate("/dashboard");
+    } 
   }, [user, loading]);
   return (
     <div className="register">

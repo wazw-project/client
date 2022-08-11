@@ -52,8 +52,7 @@ const signInWithGoogle = async () => {
 };
 const logInWithEmailAndPassword = async (email:string, password:string) => {
   try {
-    const x=await signInWithEmailAndPassword(auth, email, password);
-    console.log(x);
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (err:any) {
     console.error(err);
     alert(err.message);
@@ -62,7 +61,6 @@ const logInWithEmailAndPassword = async (email:string, password:string) => {
 const registerWithEmailAndPassword = async (name:string, email:string, password:string) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(res);
     const user = res.user;
     await addDoc(collection(db, "users"), {
       uid: user.uid,

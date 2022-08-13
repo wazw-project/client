@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { System } from '../utils/system';
 import { Card } from '@mui/material';
@@ -9,7 +10,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { padding, style } from "@mui/system";
 import Stack from '@mui/material/Stack';
-import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Dialog, { DialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -26,6 +26,9 @@ import Dashboard from './Dashboard';
 import swal from 'sweetalert';
 
 const Systems: React.FC = () => {
+    const location = useLocation();
+    const from: any = location.state;
+
     const [systems, setSystems] = useState<System[]>([]);
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
@@ -38,7 +41,6 @@ const Systems: React.FC = () => {
     const inputPhone:any = useRef();
     const inputUrlName:any = useRef();
     const inputUrlImage:any = useRef();
-    const managerUid = '62f1fefd238a932105836927';
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -47,10 +49,11 @@ const Systems: React.FC = () => {
         setOpen(false);
     };
     const addSystem= async()=>{
+        debugger
         const dataSystem={
             "topic":inputTopic.current?.value,
             "objectName":inputObjectName.current?.value,
-             "managerUid":managerUid,
+             "managerUid":from.id,
             "description":inputDescription.current?.value,
             "email":inputEmail.current?.value,
             "phone":inputPhone.current?.value,
@@ -68,11 +71,11 @@ const Systems: React.FC = () => {
     }
 
     async function getSystems() {
-        try {
-            const managerId='62f4bec1c9f7408b6d78e779';
-            const res = await axios.get(`http://localhost:3333/system/${managerId}`);
+        try {      
+         debugger;
+            const res = await axios.get(`http://localhost:3333/system/${from.id}`);
             let tempList = await res.data;
-            console.log(tempList[0]._id)
+            // console.log(tempList[0]._id)
             setSystems(tempList);
         } catch (error) { console.log(error); }
     }

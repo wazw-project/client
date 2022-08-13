@@ -20,7 +20,10 @@ const Login: React.FC=()=> {
     }
     if (user){
       loginFromDB(user.uid);
-      navigate("/systems")
+      // debugger;
+      // console.log(user.uid)
+      // debugger;
+      // console.log(userFromDb)
     } ;
   }, [user, loading]);
 
@@ -30,9 +33,13 @@ const Login: React.FC=()=> {
 
   const loginFromDB=async(Uid:any)=>{  
     try {
+      debugger;
       const res = await axios.get(`http://localhost:3333/user/${Uid}`);
       let tempList = await res.data;
+      console.log(tempList)
       setUserFromDb(tempList);
+      navigate("/systems", { state: { id: tempList._id } })
+
   } catch (error) { console.log(error); }
   }
 

@@ -106,7 +106,7 @@ export default function SystemDetails() {
       
       "topic": inputTopic.current?.value,
       "objectName": inputObjectName.current?.value,
-      "managerUid": "62f263ea1729335c6aff4480",
+      "managerUid":from.id,
       "description": inputDescription.current?.value,
       "email": inputEmail.current?.value,
       "phone": inputPhone.current?.value,

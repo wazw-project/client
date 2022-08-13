@@ -60,10 +60,8 @@ const Systems: React.FC = () => {
            console.log(dataSystem)
         try {     
             const res = await axios.post(`http://localhost:3333/system/addSystem`,dataSystem);
-            //let tempList = await res.data;
             console.log(res)
             swal("your system added!!", "You clicked the button!", "success");
-           // setSystems(tempList);
         } catch (error) { console.log(error); }
         finally{setOpen(false);}
         
@@ -95,7 +93,7 @@ const Systems: React.FC = () => {
                     add system
                 </Button>
                 {systems && systems.map((system: System) =>
-                    <Card >
+                    <Card key={system._id}>
                         <CardMedia
                             component="img"
                             alt="system"

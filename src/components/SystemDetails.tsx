@@ -51,9 +51,9 @@ export default function SystemDetails() {
   async function deleteSystem() {
     swal({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      text: "Once deleted, you will not be able to recover your service!",
       icon: "warning",
-    //  buttons:true,
+     // buttons: true,
       dangerMode: true,
     })
     .then((willDelete) => {
@@ -64,16 +64,16 @@ export default function SystemDetails() {
           const res:any = axios.delete(` http://localhost:3333/system/${from.id}`)
           console.log(res.data);
           setSystem(res.data)
-          swal("Poof! Your imaginary file has been deleted!", {
+          swal("Poof! Your system has been deleted!", {
             icon: "success",
           });
         } catch (err) {
           console.log(err)
-          swal("Your imaginary file is safe!");
+          swal("Your system is safe!");
         }
       
       } else {
-        swal("Your imaginary file is safe!");
+        swal("Your system file is safe!");
       }
     });
 
@@ -103,6 +103,7 @@ export default function SystemDetails() {
 
   const handleClose = async () => {
     const systemToUpdate = {
+      
       "topic": inputTopic.current?.value,
       "objectName": inputObjectName.current?.value,
       "managerUid": "62f263ea1729335c6aff4480",

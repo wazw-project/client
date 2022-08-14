@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { System } from '../utils/system';
-import { Card } from '@mui/material';
+import { Alert, Card } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -24,23 +24,28 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Dashboard from './Dashboard';
 import swal from 'sweetalert';
+import { useForm } from 'react-hook-form';
 
 const Systems: React.FC = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<System>();
     const location = useLocation();
     const from: any = location.state;
-
     const [systems, setSystems] = useState<System[]>([]);
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [fullWidth] = React.useState(true);
     const [maxWidth] = React.useState<DialogProps['maxWidth']>('sm');
-    const inputTopic:any = useRef();
-    const inputObjectName:any = useRef();
-    const inputDescription:any = useRef();
-    const inputEmail:any = useRef();
-    const inputPhone:any = useRef();
-    const inputUrlName:any = useRef();
-    const inputUrlImage:any = useRef();
+    const inputTopic = useRef<HTMLInputElement>();
+    const inputObjectName = useRef<HTMLInputElement>();
+    const inputDescription = useRef<HTMLInputElement>();
+    const inputEmail = useRef<HTMLInputElement>();
+    const inputPhone = useRef<HTMLInputElement>();
+    const inputUrlName = useRef<HTMLInputElement>();
+    const inputUrlImage = useRef<HTMLInputElement>();
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -48,31 +53,31 @@ const Systems: React.FC = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    const addSystem= async()=>{
+    const addSystem = async () => {
         debugger
-        const dataSystem={
-            "topic":inputTopic.current?.value,
-            "objectName":inputObjectName.current?.value,
-             "managerUid":from.id,
-            "description":inputDescription.current?.value,
-            "email":inputEmail.current?.value,
-            "phone":inputPhone.current?.value,
-            "urlName":inputUrlName.current?.value,
-            "urlImage":inputUrlImage.current?.value
-           }
-           console.log(dataSystem)
-        try {     
-            const res = await axios.post(`http://localhost:3333/system/addSystem`,dataSystem);
+        const dataSystem = {
+            "topic": inputTopic.current?.value,
+            "objectName": inputObjectName.current?.value,
+            "managerUid": from.id,
+            "description": inputDescription.current?.value,
+            "email": inputEmail.current?.value,
+            "phone": inputPhone.current?.value,
+            "urlName": inputUrlName.current?.value,
+            "urlImage": inputUrlImage.current?.value
+        }
+        console.log(dataSystem)
+        try {
+            const res = await axios.post(`http://localhost:3333/system/addSystem`, dataSystem);
             console.log(res)
             swal("your system added!!", "You clicked the button!", "success");
         } catch (error) { console.log(error); }
-        finally{setOpen(false);}
-        
+        finally { setOpen(false); }
+
     }
 
     async function getSystems() {
-        try {      
-         debugger;
+        try {
+            debugger;
             const res = await axios.get(`http://localhost:3333/system/${from.id}`);
             let tempList = await res.data;
             // console.log(tempList[0]._id)
@@ -83,12 +88,12 @@ const Systems: React.FC = () => {
         getSystems();
     }, [])
 
-    const logOut=()=>{
+    const logOut = () => {
         navigate('/Dashboard')
     }
     return (
         <div id="allBusiness" >
-            <button onClick={()=>logOut()}>log out</button>
+            <button onClick={() => logOut()}>log out</button>
             <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>All systems</Typography>
             <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
 
@@ -139,66 +144,73 @@ const Systems: React.FC = () => {
                                 width: 'fit-content',
                             }}
                         >
-                            <FormControl sx={{ mt: 2, minWidth: 120 }}>
+                            <FormControl sx={{ mt: 2, minWidth: 120 }} onSubmit={handleSubmit(addSystem)}>
+
                               
-                            <TextField
+                                <TextField
+                                    required
                                     inputRef={inputTopic}
                                     id="outlined-textarea"
-                                    label="Topic"                               
+                                    label="Topic"
                                     multiline
-                                    sx={{marginTop:1}}
+                                    sx={{ marginTop: 1 }}
+                                    {...register("topic", {
+                                        required: true,
+                                    })}
+
                                 />
-                              
-                              
-                                 <TextField
+                                {errors.topic &&
+                                    <Alert variant="outlined" style={{ borderColor: "white" }} severity="error">required!!</Alert>}
+
+                                <TextField
                                     inputRef={inputDescription}
                                     id="outlined-textarea"
-                                    label="Description"                               
+                                    label="Description"
                                     multiline
-                                    sx={{marginTop:1}}
+                                    sx={{ marginTop: 1 }}
                                 />
-                               
-                                 <TextField
+
+                                <TextField
                                     inputRef={inputObjectName}
                                     id="outlined-textarea"
-                                    label="object name"                               
+                                    label="object name"
                                     multiline
-                                    sx={{marginTop:1}}
+                                    sx={{ marginTop: 1 }}
                                 />
-                                 <TextField
+                                <TextField
                                     inputRef={inputEmail}
                                     id="outlined-textarea"
-                                    label="Email"                               
+                                    label="Email"
                                     multiline
-                                    sx={{marginTop:1}}
+                                    sx={{ marginTop: 1 }}
                                 />
-                                 <TextField
+                                <TextField
                                     inputRef={inputPhone}
                                     id="outlined-textarea"
-                                    label="phone"                               
+                                    label="phone"
                                     multiline
-                                    sx={{marginTop:1}}
+                                    sx={{ marginTop: 1 }}
                                 />
-                                 <TextField
+                                <TextField
                                     inputRef={inputUrlName}
                                     id="outlined-textarea"
-                                    label="name for navigate to your system"                               
+                                    label="name for navigate to your system"
                                     multiline
-                                    sx={{marginTop:1}}
+                                    sx={{ marginTop: 1 }}
                                 />
-                                 <TextField
+                                <TextField
                                     inputRef={inputUrlImage}
                                     id="outlined-textarea"
-                                    label="url of your image"                               
+                                    label="url of your image"
                                     multiline
-                                    sx={{marginTop:1}}
+                                    sx={{ marginTop: 1 }}
                                 />
-                            
-                            </FormControl>                                                                                                      
+
+                            </FormControl>
                         </Box>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={addSystem}>Add</Button>
+                        <Button type="submit">Add</Button>
                     </DialogActions>
                 </Dialog>
             </Stack>

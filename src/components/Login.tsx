@@ -123,7 +123,7 @@ const Login: React.FC = () => {
             fullWidth
             variant="contained"
             onClick={ signInWithGoogle}
-            sx={{ mt: 3, mb: 2 }}
+          
           >
             Login with Google
           </Button>

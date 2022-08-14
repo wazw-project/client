@@ -5,10 +5,11 @@ import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
 import Systems from "./components/systems";
 import SystemDetails from "./components/SystemDetails";
-
+import OurAppBar from './components/AppBar'
 function App() {
   return (
     <div className="app">
+      <OurAppBar/>
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -17,6 +18,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/systems" element={<Systems />} />
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails/>}/>
+          <Route path="OurAppBar" element={<OurAppBar/>}/>
         </Routes>
       </Router>
     </div>

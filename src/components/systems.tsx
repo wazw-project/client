@@ -8,7 +8,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { padding, style } from "@mui/system";
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Dialog, { DialogProps } from '@mui/material/Dialog';
@@ -17,16 +16,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import Dashboard from './Dashboard';
 import swal from 'sweetalert';
 import { useForm } from 'react-hook-form';
 
 const Systems: React.FC = () => {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -35,7 +30,6 @@ const Systems: React.FC = () => {
     const location = useLocation();
     const from: any = location.state;
     const [systems, setSystems] = useState<System[]>([]);
-    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [fullWidth] = React.useState(true);
     const [maxWidth] = React.useState<DialogProps['maxWidth']>('sm');
@@ -90,6 +84,8 @@ const Systems: React.FC = () => {
 
     const logOut = () => {
         navigate('/Dashboard')
+
+
     }
     return (
         <div id="allBusiness" >

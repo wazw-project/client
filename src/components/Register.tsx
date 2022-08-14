@@ -144,7 +144,7 @@ function Register() {
               autoComplete="password"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              value={email}
+              value={password}
             />
             <Button
               onClick={register}

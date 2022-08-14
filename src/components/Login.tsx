@@ -18,11 +18,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormLabel, Alert } from "@mui/material";
-import swal from 'sweetalert';
 import { useFormik } from "formik";
 import * as Yup from "yup"
 
 
+const validationSchema = Yup.object({
+  email: Yup.string().email('not valid email').required('require'),
+  password: Yup.string().required('require'),
+})
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -32,15 +35,10 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (loading) {
-      // maybe trigger a loading screen
       return;
     }
     if (user) {
       loginFromDB(user.uid);
-      // debugger;
-      // console.log(user.uid)
-      // debugger;
-      // console.log(userFromDb)
     };
   }, [user, loading]);
 

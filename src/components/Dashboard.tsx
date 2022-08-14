@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "../style/Dashboard.css";
 import { auth, db, logout } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
@@ -25,16 +31,37 @@ function Dashboard() {
     fetchUserName();
   }, [user, loading]);
   return (
-    <div className="dashboard">
-       <div className="dashboard__container">
-        Logged in as
-         <div>{name}</div>
-         <div>{user?.email}</div>
-         <button className="dashboard__btn" onClick={logout}>
+<Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h5"  sx={{ mt: 3, mb: 2 }}>
+          Logged in as  {name}
+        </Typography>
+
+        <Typography component="h1" variant="h5">
+          {user?.email}
+        </Typography>
+
+        {/* <button className="dashboard__btn" onClick={logout}>
           Logout
-         </button>
-       </div>
-     </div>
+         </button> */}
+        <Button
+          onClick={logout}
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          log out
+        </Button>
+      </Box>
+    </Container>
   );
 }
 export default Dashboard;

@@ -84,8 +84,6 @@ const Systems: React.FC = () => {
 
     const logOut = () => {
         navigate('/Dashboard')
-
-
     }
     return (
         <div id="allBusiness" >

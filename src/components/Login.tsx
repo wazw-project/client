@@ -41,6 +41,8 @@ const Login: React.FC = () => {
       return;
     }
     if (user) {
+      debugger;
+      console.log(user)
       loginFromDB(user.uid);
     };
   }, [user, loading]);
@@ -56,6 +58,7 @@ const Login: React.FC = () => {
       let tempList = await res.data;
       console.log(tempList)
       setUserFromDb(tempList);
+      debugger
       navigate("/systems", { state: { id: tempList._id } })
 
     } catch (error) { console.log(error); }

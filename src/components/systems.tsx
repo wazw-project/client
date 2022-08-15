@@ -41,14 +41,14 @@ const Systems: React.FC = () => {
     const inputPhone = useRef<HTMLInputElement>();
     const inputUrlName = useRef<HTMLInputElement>();
     const inputUrlImage = useRef<HTMLInputElement>();
-    const [topicV, setTopicV] = useState<string>("x")
-    const [objectNameV, setObjectNameV] = useState<string>("x")
-    const [descriptionV, setDescriptionV] = useState<string>("x")
-    const [emailV, setEmailV] = useState<string>("x")
-    const [phoneV, setPhoneV] = useState<string>("x")
-    const [urlNameV, setUrlNameV] = useState<string>("x")
-    const [urlImageV, setUrlImageV] = useState<string>("x")
-    const [errorV,setErrorV]=useState<boolean>(false)
+    const [topicV, setTopicV] = useState<string>("")
+    const [objectNameV, setObjectNameV] = useState<string>("")
+    const [descriptionV, setDescriptionV] = useState<string>("")
+    const [emailV, setEmailV] = useState<string>("")
+    const [phoneV, setPhoneV] = useState<string>("")
+    const [urlNameV, setUrlNameV] = useState<string>("")
+    const [urlImageV, setUrlImageV] = useState<string>("")
+    const [strartV, setStartV] = useState<boolean>(false)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -57,7 +57,7 @@ const Systems: React.FC = () => {
         setOpen(false);
     };
     const addSystem = async () => {
-        if(topicV===""||objectNameV===""||descriptionV===""||emailV===""||phoneV===""||urlNameV===""||urlImageV===""||!errorV){
+        if(topicV===""||objectNameV===""||descriptionV===""||emailV===""||phoneV===""||urlNameV===""||urlImageV===""){
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else{
@@ -161,10 +161,10 @@ const Systems: React.FC = () => {
                                     id="outlined-textarea"
                                     label="Topic"
                                     multiline
-                                    onChange={(e) => setTopicV(e.target.value)} 
+                                    onChange={(e) =>( setTopicV(e.target.value),setStartV(true))} 
                                     onBlur={(e) => setTopicV(e.target.value)}                              
                                     helperText={topicV === "" ? "required!" : " "}
-                                    error={topicV === ""}
+                                    error={topicV === ""&& strartV}
 
                                 />
 
@@ -174,10 +174,10 @@ const Systems: React.FC = () => {
                                     label="Description"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setDescriptionV(e.target.value))}
+                                    onChange={(e) => (setDescriptionV(e.target.value),setStartV(true))}
                                     onBlur={(e) => setDescriptionV(e.target.value)}   
                                     helperText={descriptionV === "" ? "required!" : " "}
-                                    error={descriptionV === ""}
+                                    error={descriptionV === ""&& strartV}
                                 />
 
                                 <TextField
@@ -186,10 +186,10 @@ const Systems: React.FC = () => {
                                     label="object name"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setObjectNameV(e.target.value))}
+                                    onChange={(e) => (setObjectNameV(e.target.value),setStartV(true))}
                                     onBlur={(e) => setObjectNameV(e.target.value)}  
                                     helperText={objectNameV === "" ? "required!" : " "}
-                                    error={objectNameV === ""}
+                                    error={objectNameV === ""&& strartV}
                                 />
                                 <TextField
                                     inputRef={inputEmail}
@@ -197,10 +197,10 @@ const Systems: React.FC = () => {
                                     label="Email"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setEmailV(e.target.value))}
+                                    onChange={(e) => (setEmailV(e.target.value),setStartV(true))}
                                     onBlur={(e) => setEmailV(e.target.value)}  
                                     helperText={emailV === "" ? "required!" : " "}
-                                    error={emailV === ""}
+                                    error={emailV === ""&& strartV}
                                 />
                                 <TextField
                                     inputRef={inputPhone}
@@ -208,10 +208,10 @@ const Systems: React.FC = () => {
                                     label="phone"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setPhoneV(e.target.value))}
+                                    onChange={(e) => (setPhoneV(e.target.value),setStartV(true))}
                                     onBlur={(e) => setPhoneV(e.target.value)}  
                                     helperText={phoneV === "" ? "required!" : " "}
-                                    error={phoneV === ""}
+                                    error={phoneV === ""&& strartV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -219,10 +219,10 @@ const Systems: React.FC = () => {
                                     label="name for navigate to your system"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlNameV(e.target.value))}
+                                    onChange={(e) => (setUrlNameV(e.target.value),setStartV(true))}
                                     onBlur={(e) => setUrlNameV(e.target.value)}  
                                     helperText={urlNameV === "" ? "required!" : " "}
-                                    error={urlNameV === ""}
+                                    error={urlNameV === ""&& strartV}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -230,10 +230,10 @@ const Systems: React.FC = () => {
                                     label="url of your image"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlImageV(e.target.value))}
+                                    onChange={(e) => (setUrlImageV(e.target.value),setStartV(true))}
                                     onBlur={(e) => setUrlImageV(e.target.value)}  
                                     helperText={urlImageV === "" ? "required!" : " "}
-                                    error={urlImageV === ""}
+                                    error={urlImageV === ""&& strartV}
                                 />
 
                             </FormControl>

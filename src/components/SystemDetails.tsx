@@ -37,6 +37,13 @@ export default function SystemDetails() {
   const inputPhone: any = useRef();
   const inputUrlName: any = useRef();
   const inputUrlImage: any = useRef();
+  const [topicV, setTopicV] = useState<string>("**")
+  const [objectNameV, setObjectNameV] = useState<string>("**")
+  const [descriptionV, setDescriptionV] = useState<string>("**")
+  const [emailV, setEmailV] = useState<string>("*@gmail.com")
+  const [phoneV, setPhoneV] = useState<string>("12345678")
+  const [urlNameV, setUrlNameV] = useState<string>("**")
+  const [urlImageV, setUrlImageV] = useState<string>("**")
 
   const [system, setSystem] = useState<System>();
   const location = useLocation();
@@ -209,7 +216,12 @@ export default function SystemDetails() {
                 </ListItem>
                 {/* <Divider /> */}
                 <ListItem button>
-                  <TextField id="outlined-basic" label="objectName" variant="outlined" defaultValue={system?.objectName} inputRef={inputObjectName} />
+                  <TextField
+                   id="outlined-basic"
+                    label="objectName"
+                     variant="outlined"
+                      defaultValue={system?.objectName}
+                       inputRef={inputObjectName} />
                 </ListItem>
                 <ListItem button>
                   <TextField id="outlined-basic" label="description" variant="outlined" defaultValue={system?.description} inputRef={inputDescription} />

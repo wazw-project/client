@@ -20,19 +20,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormLabel, Alert } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup"
+import { System } from '../utils/system';
+import { useForm } from 'react-hook-form';
 
-
-const validationSchema = Yup.object({
-  email: Yup.string().email('not valid email').required('require'),
-  password: Yup.string().required('require'),
-})
 const Login: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<System>();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [user, loading, error] = useAuthState(auth);
   const [userFromDb, setUserFromDb] = useState<any>();
   const navigate = useNavigate();
-
+  const [emailV, setEmailV] = useState<string>("z");
+  const [PasswordV, setPasswordV] = useState<string>("z");
   useEffect(() => {
     if (loading) {
       return;
@@ -80,6 +83,8 @@ const Login: React.FC = () => {
 
 
           <TextField
+           
+
             margin="normal"
             required
             fullWidth
@@ -90,10 +95,14 @@ const Login: React.FC = () => {
             autoComplete="email"
             autoFocus
             type="text"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => (setEmail(e.target.value),setEmailV(e.target.value))}
+            // onChange={(event) => setText(event.target.value)}
+            helperText={emailV === "" ? "required!" : " "}
+            error={emailV === ""}
           />
+     
           <TextField
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => (setPassword(e.target.value),setPasswordV(e.target.value))}
             margin="normal"
             required
             fullWidth
@@ -102,8 +111,10 @@ const Login: React.FC = () => {
             type="password"
             id="password"
             placeholder="Password"
+            helperText={PasswordV === "" ? "required!" : " "}
+            error={PasswordV === ""}
           />
-   
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -116,25 +127,25 @@ const Login: React.FC = () => {
           >
             Login
           </Button>
-       
+
           <Button
             fullWidth
             variant="contained"
-            onClick={ signInWithGoogle}
-          
+            onClick={signInWithGoogle}
+
           >
             Login with Google
           </Button>
           <Grid container>
-              <Grid item xs>
+            <Grid item xs>
               <Link to="/reset">Forgot Password</Link>
-              </Grid>
-              <Grid item>
-        <Link to="/register">   Don't have an account? Sign Up</Link> 
-           
-              </Grid>
             </Grid>
-         
+            <Grid item>
+              <Link to="/register">   Don't have an account? Sign Up</Link>
+
+            </Grid>
+          </Grid>
+
 
         </Box>
       </Box>

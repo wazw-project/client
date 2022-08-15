@@ -40,6 +40,13 @@ const Systems: React.FC = () => {
     const inputPhone = useRef<HTMLInputElement>();
     const inputUrlName = useRef<HTMLInputElement>();
     const inputUrlImage = useRef<HTMLInputElement>();
+    const [topicV, setTopicV] = useState<string>("x")
+    const [objectNameV, setObjectNameV] = useState<string>("x")
+    const [descriptionV, setDescriptionV] = useState<string>("x")
+    const [emailV, setEmailV] = useState<string>("x")
+    const [phoneV, setPhoneV] = useState<string>("x")
+    const [urlNameV, setUrlNameV] = useState<string>("x")
+    const [urlImageV, setUrlImageV] = useState<string>("x")
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -70,6 +77,7 @@ const Systems: React.FC = () => {
     }
 
     async function getSystems() {
+        debugger
         try {
             debugger;
             const res = await axios.get(`http://localhost:3333/system/${from.id}`);
@@ -140,21 +148,18 @@ const Systems: React.FC = () => {
                         >
                             <FormControl sx={{ mt: 2, minWidth: 120 }} onSubmit={handleSubmit(addSystem)}>
 
-                              
+
                                 <TextField
                                     required
                                     inputRef={inputTopic}
                                     id="outlined-textarea"
                                     label="Topic"
                                     multiline
-                                    sx={{ marginTop: 1 }}
-                                    {...register("topic", {
-                                        required: true,
-                                    })}
+                                    onChange={(e) => setTopicV(e.target.value)}                               
+                                    helperText={topicV === "" ? "required!" : " "}
+                                    error={topicV === ""}
 
                                 />
-                                {errors.topic &&
-                                    <Alert variant="outlined" style={{ borderColor: "white" }} severity="error">required!!</Alert>}
 
                                 <TextField
                                     inputRef={inputDescription}
@@ -162,6 +167,9 @@ const Systems: React.FC = () => {
                                     label="Description"
                                     multiline
                                     sx={{ marginTop: 1 }}
+                                    onChange={(e) => (setDescriptionV(e.target.value))}
+                                    helperText={descriptionV === "" ? "required!" : " "}
+                                    error={descriptionV === ""}
                                 />
 
                                 <TextField
@@ -170,6 +178,9 @@ const Systems: React.FC = () => {
                                     label="object name"
                                     multiline
                                     sx={{ marginTop: 1 }}
+                                    onChange={(e) => (setObjectNameV(e.target.value))}
+                                    helperText={objectNameV === "" ? "required!" : " "}
+                                    error={objectNameV === ""}
                                 />
                                 <TextField
                                     inputRef={inputEmail}
@@ -177,6 +188,9 @@ const Systems: React.FC = () => {
                                     label="Email"
                                     multiline
                                     sx={{ marginTop: 1 }}
+                                    onChange={(e) => (setEmailV(e.target.value))}
+                                    helperText={emailV === "" ? "required!" : " "}
+                                    error={emailV === ""}
                                 />
                                 <TextField
                                     inputRef={inputPhone}
@@ -184,6 +198,9 @@ const Systems: React.FC = () => {
                                     label="phone"
                                     multiline
                                     sx={{ marginTop: 1 }}
+                                    onChange={(e) => (setPhoneV(e.target.value))}
+                                    helperText={phoneV === "" ? "required!" : " "}
+                                    error={phoneV === ""}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -191,6 +208,9 @@ const Systems: React.FC = () => {
                                     label="name for navigate to your system"
                                     multiline
                                     sx={{ marginTop: 1 }}
+                                    onChange={(e) => (setUrlNameV(e.target.value))}
+                                    helperText={urlNameV === "" ? "required!" : " "}
+                                    error={urlNameV === ""}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -198,13 +218,16 @@ const Systems: React.FC = () => {
                                     label="url of your image"
                                     multiline
                                     sx={{ marginTop: 1 }}
+                                    onChange={(e) => (setUrlImageV(e.target.value))}
+                                    helperText={urlImageV === "" ? "required!" : " "}
+                                    error={urlImageV === ""}
                                 />
 
                             </FormControl>
                         </Box>
                     </DialogContent>
                     <DialogActions>
-                        <Button type="submit">Add</Button>
+                        <Button onClick={addSystem} type="submit">Add</Button>
                     </DialogActions>
                 </Dialog>
             </Stack>

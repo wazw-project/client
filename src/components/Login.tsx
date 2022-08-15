@@ -34,8 +34,8 @@ const Login: React.FC = () => {
   const [user, loading, error] = useAuthState(auth);
   const [userFromDb, setUserFromDb] = useState<any>();
   const navigate = useNavigate();
-  const [emailV, setEmailV] = useState<string>("z@gmail.com");
-  const [PasswordV, setPasswordV] = useState<string>("z");
+  const [emailV, setEmailV] = useState<string>("*@gmail.com");
+  const [PasswordV, setPasswordV] = useState<string>("******");
   useEffect(() => {
     if (loading) {
       return;
@@ -50,7 +50,7 @@ const Login: React.FC = () => {
   const logIn = async () => {
     await logInWithEmailAndPassword(email, password);
   }
-  function isValidEmail(email:string) {
+  function isValidEmail(email: string) {
     return /\S+@\S+\.\S+/.test(email);
   }
   const loginFromDB = async (Uid: any) => {
@@ -88,7 +88,7 @@ const Login: React.FC = () => {
 
 
           <TextField
-           
+
 
             margin="normal"
             required
@@ -100,15 +100,16 @@ const Login: React.FC = () => {
             autoComplete="email"
             autoFocus
             type="text"
-            onChange={(e) => (setEmail(e.target.value),setEmailV(e.target.value))}
+            onChange={(e) => (setEmail(e.target.value), setEmailV(e.target.value))}
+            onBlur={(e)=>setEmailV(e.target.value)}
 
-                       
-            helperText={emailV === "" ? "required!" :isValidEmail(emailV)? "":"not valid email"}
-            error={(emailV === ""||!isValidEmail(emailV))}
+            helperText={emailV === "" ? "required!" : isValidEmail(emailV) ? "" : "not valid email"}
+            error={(emailV === "" || !isValidEmail(emailV))}
           />
-     
+
           <TextField
-            onChange={(e) => (setPassword(e.target.value),setPasswordV(e.target.value))}
+            onChange={(e) => (setPassword(e.target.value), setPasswordV(e.target.value))}
+            onBlur={(e)=>setPasswordV(e.target.value)}
             margin="normal"
             required
             fullWidth
@@ -117,8 +118,8 @@ const Login: React.FC = () => {
             type="password"
             id="password"
             placeholder="Password"
-            helperText={PasswordV === "" ? "required!" : " "}
-            error={PasswordV === ""}
+            helperText={PasswordV === "" ? "required!" :PasswordV.length <= 5? "minimoom 6 digits": ""}
+            error={PasswordV === ""||PasswordV.length <= 5}
           />
 
           <FormControlLabel

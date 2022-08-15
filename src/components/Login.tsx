@@ -34,7 +34,7 @@ const Login: React.FC = () => {
   const [user, loading, error] = useAuthState(auth);
   const [userFromDb, setUserFromDb] = useState<any>();
   const navigate = useNavigate();
-  const [emailV, setEmailV] = useState<string>("z");
+  const [emailV, setEmailV] = useState<string>("z@gmail.com");
   const [PasswordV, setPasswordV] = useState<string>("z");
   useEffect(() => {
     if (loading) {
@@ -50,7 +50,9 @@ const Login: React.FC = () => {
   const logIn = async () => {
     await logInWithEmailAndPassword(email, password);
   }
-
+  function isValidEmail(email:string) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
   const loginFromDB = async (Uid: any) => {
     try {
       debugger;
@@ -99,9 +101,10 @@ const Login: React.FC = () => {
             autoFocus
             type="text"
             onChange={(e) => (setEmail(e.target.value),setEmailV(e.target.value))}
-            // onChange={(event) => setText(event.target.value)}
-            helperText={emailV === "" ? "required!" : " "}
-            error={emailV === ""}
+
+                       
+            helperText={emailV === "" ? "required!" :isValidEmail(emailV)? "":"not valid email"}
+            error={(emailV === ""||!isValidEmail(emailV))}
           />
      
           <TextField

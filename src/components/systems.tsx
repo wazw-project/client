@@ -62,8 +62,11 @@ const Systems: React.FC = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    function isValidEmail(email:string) {
+        return /\S+@\S+\.\S+/.test(email);
+      }
     const addSystem = async () => {
-        if(topicV===""||objectNameV===""||descriptionV===""||emailV===""||phoneV===""||urlNameV===""||urlImageV===""){
+        if(topicV===""||objectNameV===""||descriptionV===""||emailV===""||phoneV===""||urlNameV===""||urlImageV===""||!isValidEmail(emailV)){
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else{
@@ -205,8 +208,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setEmailV(e.target.value),setStartEmailV(true))}
                                     onBlur={(e) => (setEmailV(e.target.value),setStartEmailV(true))}  
-                                    helperText={emailV === "" ? "required!" : " "}
-                                    error={emailV === ""&& startEmailV}
+                                    helperText={emailV === "" ? "required!" :isValidEmail(emailV)? "":"not valid email"}
+                                    error={(emailV === ""||!isValidEmail(emailV))&& startEmailV}
                                 />
                                 <TextField
                                     inputRef={inputPhone}

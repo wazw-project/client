@@ -219,8 +219,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setPhoneV(e.target.value),setStartPhoneV(true))}
                                     onBlur={(e) => (setPhoneV(e.target.value),setStartPhoneV(true))}  
-                                    helperText={phoneV === "" ? "required!" : " "}
-                                    error={phoneV === ""&& startPhoneV}
+                                    helperText={phoneV === "" ? "required!" :phoneV.length<8? "At least 8 characters": " "}
+                                    error={(phoneV === ""||phoneV.length<8)&& startPhoneV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}

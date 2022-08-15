@@ -208,7 +208,7 @@ export default function SystemDetails() {
                   <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={system?.phone} inputRef={inputPhone} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={system?.urlImage} inputRef={inputUrlImage} />
+                  <TextField id="outlined-basic" label="image url" variant="outlined" defaultValue={system?.urlImage} inputRef={inputUrlImage} />
                 </ListItem>
                 {/* <ListItem button>
                   <ListItemText

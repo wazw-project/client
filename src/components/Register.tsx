@@ -34,12 +34,23 @@ function Register() {
   const [phone, setPhone] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const [userFromDb, setUserFromDb] = useState<any>();
+  const [emailV, setEmailV] = useState<string>("*@gmail.com");
+  const [PasswordV, setPasswordV] = useState<string>("******");
+  const [firstNameV,setFirstNameV]=useState<string>("**");
+  const [lastNameV,setLastNameV]=useState<string>("**");
+  const [phoneV,setPhoneV]=useState<string>("********");
   const navigate = useNavigate();
   const register = async () => {
+    if(firstNameV === "" || firstNameV.length < 2||lastNameV === "" || lastNameV.length < 2||phoneV === "" || phoneV.length < 8||emailV === "" || !isValidEmail(emailV)||PasswordV === "" || PasswordV.length <= 5)
+    {
+      swal("your form is not validate!!", "You clicked the button!", "error");
+    }
+    else{
     if (!firstName) alert("Please enter firstName");
     const fullName = firstName + ' ' + lastName;
     await registerWithEmailAndPassword(fullName, email, password);
     // await addUserToDb(res);
+  }
   };
 
   const addUserToDb = async (uid: string) => {
@@ -64,6 +75,9 @@ function Register() {
       navigate("/dashboard");
     }
   }, [user, loading]);
+  function isValidEmail(email: string) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
   return (
 
     <Container component="main" maxWidth="xs">
@@ -94,7 +108,10 @@ function Register() {
               label="firstName"
               name="firstName"
               autoComplete="family-name"
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => (setFirstName(e.target.value),setFirstNameV(e.target.value))}
+              onBlur={(e) => setFirstNameV(e.target.value)}
+              helperText={firstNameV === "" ? "required!"  :firstNameV.length < 2 ? "At least 2 characters":""}
+              error={firstNameV === "" || firstNameV.length < 2}
               placeholder="firstName"
             />
             <TextField
@@ -105,9 +122,12 @@ function Register() {
               label="lastName"
               name="lastName"
               autoComplete="family-name"
-              onChange={(e) => setLastName(e.target.value)}
               placeholder="lastName"
               value={lastName}
+              onChange={(e) => (setLastName(e.target.value),setLastNameV(e.target.value))}
+              onBlur={(e) => setLastNameV(e.target.value)}
+              helperText={lastNameV === "" ? "required!"  :lastNameV.length<2 ? "At least 2 characters":""}
+              error={lastNameV === "" || lastNameV.length < 2}
             />
             <TextField
               sx={{ marginTop: 1 }}
@@ -116,10 +136,13 @@ function Register() {
               id="phone"
               label="phone"
               name="phone"
-              autoComplete="phone"
-              onChange={(e) => setPhone(e.target.value)}
+              autoComplete="phone"    
               placeholder="phone"
               value={phone}
+              onChange={(e) => (setPhone(e.target.value),setPhoneV(e.target.value))}
+              onBlur={(e) => setPhoneV(e.target.value)}
+              helperText={phoneV === "" ? "required!"  :phoneV.length < 8 ? "At least 8 characters":""}
+              error={phoneV === "" || phoneV.length < 8}
             />
             <TextField
               sx={{ marginTop: 1 }}
@@ -129,7 +152,10 @@ function Register() {
               label="email"
               name="email"
               autoComplete="email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => (setEmail(e.target.value), setEmailV(e.target.value))}
+              onBlur={(e) => setEmailV(e.target.value)}
+              helperText={emailV === "" ? "required!" : isValidEmail(emailV) ? "" : "not valid email"}
+              error={(emailV === "" || !isValidEmail(emailV))}
               placeholder="E-mail Address"
               value={email}
             />
@@ -142,9 +168,12 @@ function Register() {
               label="password"
               name="password"
               autoComplete="password"
-              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               value={password}
+              onChange={(e) => (setPassword(e.target.value), setPasswordV(e.target.value))}
+              onBlur={(e) => setPasswordV(e.target.value)}
+              helperText={PasswordV === "" ? "required!" : PasswordV.length <= 5 ? "At least 6 characters" : ""}
+              error={PasswordV === "" || PasswordV.length <= 5}
             />
             <Button
               onClick={register}

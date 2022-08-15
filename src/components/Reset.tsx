@@ -9,10 +9,13 @@ import "../style/Reset.css";
 import { Button } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-
+function isValidEmail(email: string) {
+  return /\S+@\S+\.\S+/.test(email);
+}
 function Reset() {
   const [email, setEmail] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [emailV, setEmailV] = useState<string>("*@gmail.com");
   const navigate = useNavigate();
   useEffect(() => {
     if (loading) return;
@@ -33,7 +36,7 @@ function Reset() {
       >
 
         <TextField
-          onChange={(e) => setEmail(e.target.value)}
+         
           margin="normal"
           required
           fullWidth
@@ -43,6 +46,10 @@ function Reset() {
           type="email"
           id="email"
           placeholder="E-mail Address"
+          onBlur={(e) => setEmailV(e.target.value)}
+          onChange={(e) => (setEmail(e.target.value),setEmailV(e.target.value))}
+          helperText={emailV === "" ? "required!" : isValidEmail(emailV) ? "" : "not valid email"}
+          error={(emailV === "" || !isValidEmail(emailV))}
         />
 
 

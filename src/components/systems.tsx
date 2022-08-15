@@ -19,6 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import swal from 'sweetalert';
 import { useForm } from 'react-hook-form';
+import { url } from 'inspector';
 
 const Systems: React.FC = () => {
     const navigate = useNavigate();
@@ -47,6 +48,7 @@ const Systems: React.FC = () => {
     const [phoneV, setPhoneV] = useState<string>("x")
     const [urlNameV, setUrlNameV] = useState<string>("x")
     const [urlImageV, setUrlImageV] = useState<string>("x")
+    const [errorV,setErrorV]=useState<boolean>(false)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -55,6 +57,10 @@ const Systems: React.FC = () => {
         setOpen(false);
     };
     const addSystem = async () => {
+        if(topicV===""||objectNameV===""||descriptionV===""||emailV===""||phoneV===""||urlNameV===""||urlImageV===""||!errorV){
+            swal("your form is not validate!!", "You clicked the button!", "error");
+        }
+        else{
         debugger
         const dataSystem = {
             "topic": inputTopic.current?.value,
@@ -73,7 +79,7 @@ const Systems: React.FC = () => {
             swal("your system added!!", "You clicked the button!", "success");
         } catch (error) { console.log(error); }
         finally { setOpen(false); }
-
+    }
     }
 
     async function getSystems() {
@@ -155,7 +161,8 @@ const Systems: React.FC = () => {
                                     id="outlined-textarea"
                                     label="Topic"
                                     multiline
-                                    onChange={(e) => setTopicV(e.target.value)}                               
+                                    onChange={(e) => setTopicV(e.target.value)} 
+                                    onBlur={(e) => setTopicV(e.target.value)}                              
                                     helperText={topicV === "" ? "required!" : " "}
                                     error={topicV === ""}
 
@@ -168,6 +175,7 @@ const Systems: React.FC = () => {
                                     multiline
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setDescriptionV(e.target.value))}
+                                    onBlur={(e) => setDescriptionV(e.target.value)}   
                                     helperText={descriptionV === "" ? "required!" : " "}
                                     error={descriptionV === ""}
                                 />
@@ -179,6 +187,7 @@ const Systems: React.FC = () => {
                                     multiline
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setObjectNameV(e.target.value))}
+                                    onBlur={(e) => setObjectNameV(e.target.value)}  
                                     helperText={objectNameV === "" ? "required!" : " "}
                                     error={objectNameV === ""}
                                 />
@@ -189,6 +198,7 @@ const Systems: React.FC = () => {
                                     multiline
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setEmailV(e.target.value))}
+                                    onBlur={(e) => setEmailV(e.target.value)}  
                                     helperText={emailV === "" ? "required!" : " "}
                                     error={emailV === ""}
                                 />
@@ -199,6 +209,7 @@ const Systems: React.FC = () => {
                                     multiline
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setPhoneV(e.target.value))}
+                                    onBlur={(e) => setPhoneV(e.target.value)}  
                                     helperText={phoneV === "" ? "required!" : " "}
                                     error={phoneV === ""}
                                 />
@@ -209,6 +220,7 @@ const Systems: React.FC = () => {
                                     multiline
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlNameV(e.target.value))}
+                                    onBlur={(e) => setUrlNameV(e.target.value)}  
                                     helperText={urlNameV === "" ? "required!" : " "}
                                     error={urlNameV === ""}
                                 />
@@ -219,6 +231,7 @@ const Systems: React.FC = () => {
                                     multiline
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlImageV(e.target.value))}
+                                    onBlur={(e) => setUrlImageV(e.target.value)}  
                                     helperText={urlImageV === "" ? "required!" : " "}
                                     error={urlImageV === ""}
                                 />
@@ -227,6 +240,7 @@ const Systems: React.FC = () => {
                         </Box>
                     </DialogContent>
                     <DialogActions>
+                
                         <Button onClick={addSystem} type="submit">Add</Button>
                     </DialogActions>
                 </Dialog>

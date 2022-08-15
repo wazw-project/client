@@ -1,5 +1,6 @@
 import { Console } from "console";
 import { initializeApp } from "firebase/app";
+import swal from 'sweetalert';
 import {
   GoogleAuthProvider,
   getAuth,
@@ -55,7 +56,7 @@ const logInWithEmailAndPassword = async (email:string, password:string) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err:any) {
     console.error(err);
-    alert(err.message);
+    swal("Fails login!!", err.message, "error");
   }
 };
 const registerWithEmailAndPassword = async (name:string, email:string, password:string) => {

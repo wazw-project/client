@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../style/Login.css";
-import { Auth } from "@firebase/auth";
 import axios from "axios";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -16,19 +15,11 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { FormLabel, Alert } from "@mui/material";
-import { useFormik } from "formik";
-import * as Yup from "yup"
 import { System } from '../utils/system';
 import { useForm } from 'react-hook-form';
+import swal from 'sweetalert';
 
 const Login: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<System>();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [user, loading, error] = useAuthState(auth);
@@ -48,7 +39,12 @@ const Login: React.FC = () => {
   }, [user, loading]);
 
   const logIn = async () => {
-    await logInWithEmailAndPassword(email, password);
+    if (emailV === "" || !isValidEmail(emailV) || PasswordV === "" || PasswordV.length <= 5) {
+      swal("your form is not validate!!", "You clicked the button!", "error");
+    }
+    else {
+      await logInWithEmailAndPassword(email, password);
+    }
   }
   function isValidEmail(email: string) {
     return /\S+@\S+\.\S+/.test(email);
@@ -101,7 +97,7 @@ const Login: React.FC = () => {
             autoFocus
             type="text"
             onChange={(e) => (setEmail(e.target.value), setEmailV(e.target.value))}
-            onBlur={(e)=>setEmailV(e.target.value)}
+            onBlur={(e) => setEmailV(e.target.value)}
 
             helperText={emailV === "" ? "required!" : isValidEmail(emailV) ? "" : "not valid email"}
             error={(emailV === "" || !isValidEmail(emailV))}
@@ -109,7 +105,7 @@ const Login: React.FC = () => {
 
           <TextField
             onChange={(e) => (setPassword(e.target.value), setPasswordV(e.target.value))}
-            onBlur={(e)=>setPasswordV(e.target.value)}
+            onBlur={(e) => setPasswordV(e.target.value)}
             margin="normal"
             required
             fullWidth
@@ -118,8 +114,8 @@ const Login: React.FC = () => {
             type="password"
             id="password"
             placeholder="Password"
-            helperText={PasswordV === "" ? "required!" :PasswordV.length <= 5? "minimoom 6 digits": ""}
-            error={PasswordV === ""||PasswordV.length <= 5}
+            helperText={PasswordV === "" ? "required!" : PasswordV.length <= 5 ? "At least 6 characters" : ""}
+            error={PasswordV === "" || PasswordV.length <= 5}
           />
 
           <FormControlLabel

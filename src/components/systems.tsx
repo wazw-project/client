@@ -48,7 +48,13 @@ const Systems: React.FC = () => {
     const [phoneV, setPhoneV] = useState<string>("")
     const [urlNameV, setUrlNameV] = useState<string>("")
     const [urlImageV, setUrlImageV] = useState<string>("")
-    const [strartV, setStartV] = useState<boolean>(false)
+    const [strartTopic, setStrartTopic] = useState<boolean>(false)
+    const [strartDescriptionV, setStrartDescriptionV] = useState<boolean>(false)
+    const [strartobjectNameV, setStrartObjectNameV] = useState<boolean>(false)
+    const [strartemailV, setStartemailV] = useState<boolean>(false)
+    const [strartphoneV, setstrartphoneV] = useState<boolean>(false)
+    const [strarturlNameV, setstrarturlNameV] = useState<boolean>(false)
+    const [strarturlImageV, setStrarturlImageV] = useState<boolean>(false)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -161,10 +167,10 @@ const Systems: React.FC = () => {
                                     id="outlined-textarea"
                                     label="Topic"
                                     multiline
-                                    onChange={(e) =>( setTopicV(e.target.value),setStartV(true))} 
+                                    onChange={(e) =>( setTopicV(e.target.value),setStrartTopic(true))} 
                                     onBlur={(e) => setTopicV(e.target.value)}                              
                                     helperText={topicV === "" ? "required!" : " "}
-                                    error={topicV === ""&& strartV}
+                                    error={topicV === ""&& strartTopic}
 
                                 />
 
@@ -174,10 +180,10 @@ const Systems: React.FC = () => {
                                     label="Description"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setDescriptionV(e.target.value),setStartV(true))}
+                                    onChange={(e) => (setDescriptionV(e.target.value),setStrartDescriptionV(true))}
                                     onBlur={(e) => setDescriptionV(e.target.value)}   
                                     helperText={descriptionV === "" ? "required!" : " "}
-                                    error={descriptionV === ""&& strartV}
+                                    error={descriptionV === ""&& strartDescriptionV}
                                 />
 
                                 <TextField
@@ -186,10 +192,10 @@ const Systems: React.FC = () => {
                                     label="object name"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setObjectNameV(e.target.value),setStartV(true))}
+                                    onChange={(e) => (setObjectNameV(e.target.value),setStrartObjectNameV(true))}
                                     onBlur={(e) => setObjectNameV(e.target.value)}  
                                     helperText={objectNameV === "" ? "required!" : " "}
-                                    error={objectNameV === ""&& strartV}
+                                    error={objectNameV === ""&& strartobjectNameV}
                                 />
                                 <TextField
                                     inputRef={inputEmail}
@@ -197,10 +203,10 @@ const Systems: React.FC = () => {
                                     label="Email"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setEmailV(e.target.value),setStartV(true))}
+                                    onChange={(e) => (setEmailV(e.target.value),setStartemailV(true))}
                                     onBlur={(e) => setEmailV(e.target.value)}  
                                     helperText={emailV === "" ? "required!" : " "}
-                                    error={emailV === ""&& strartV}
+                                    error={emailV === ""&& strartemailV}
                                 />
                                 <TextField
                                     inputRef={inputPhone}
@@ -208,10 +214,10 @@ const Systems: React.FC = () => {
                                     label="phone"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setPhoneV(e.target.value),setStartV(true))}
+                                    onChange={(e) => (setPhoneV(e.target.value),setstrartphoneV(true))}
                                     onBlur={(e) => setPhoneV(e.target.value)}  
                                     helperText={phoneV === "" ? "required!" : " "}
-                                    error={phoneV === ""&& strartV}
+                                    error={phoneV === ""&& strartphoneV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -219,10 +225,10 @@ const Systems: React.FC = () => {
                                     label="name for navigate to your system"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlNameV(e.target.value),setStartV(true))}
+                                    onChange={(e) => (setUrlNameV(e.target.value),setstrarturlNameV(true))}
                                     onBlur={(e) => setUrlNameV(e.target.value)}  
                                     helperText={urlNameV === "" ? "required!" : " "}
-                                    error={urlNameV === ""&& strartV}
+                                    error={urlNameV === ""&& strarturlNameV}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -230,10 +236,10 @@ const Systems: React.FC = () => {
                                     label="url of your image"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlImageV(e.target.value),setStartV(true))}
+                                    onChange={(e) => (setUrlImageV(e.target.value),setStrarturlImageV(true))}
                                     onBlur={(e) => setUrlImageV(e.target.value)}  
                                     helperText={urlImageV === "" ? "required!" : " "}
-                                    error={urlImageV === ""&& strartV}
+                                    error={urlImageV === ""&& strarturlImageV}
                                 />
 
                             </FormControl>

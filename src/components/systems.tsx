@@ -48,13 +48,13 @@ const Systems: React.FC = () => {
     const [phoneV, setPhoneV] = useState<string>("")
     const [urlNameV, setUrlNameV] = useState<string>("")
     const [urlImageV, setUrlImageV] = useState<string>("")
-    const [strartTopic, setStrartTopic] = useState<boolean>(false)
-    const [strartDescriptionV, setStrartDescriptionV] = useState<boolean>(false)
-    const [strartobjectNameV, setStrartObjectNameV] = useState<boolean>(false)
-    const [strartemailV, setStartemailV] = useState<boolean>(false)
-    const [strartphoneV, setstrartphoneV] = useState<boolean>(false)
-    const [strarturlNameV, setstrarturlNameV] = useState<boolean>(false)
-    const [strarturlImageV, setStrarturlImageV] = useState<boolean>(false)
+    const [startTopic, setStartTopic] = useState<boolean>(false)
+    const [startDescriptionV, setStartDescriptionV] = useState<boolean>(false)
+    const [startObjectNameV, setStartObjectNameV] = useState<boolean>(false)
+    const [startEmailV, setStartEmailV] = useState<boolean>(false)
+    const [startPhoneV, setStartPhoneV] = useState<boolean>(false)
+    const [startUrlNameV, setStartUrlNameV] = useState<boolean>(false)
+    const [startUrlImageV, setStartUrlImageV] = useState<boolean>(false)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -167,10 +167,10 @@ const Systems: React.FC = () => {
                                     id="outlined-textarea"
                                     label="Topic"
                                     multiline
-                                    onChange={(e) =>( setTopicV(e.target.value),setStrartTopic(true))} 
-                                    onBlur={(e) => setTopicV(e.target.value)}                              
+                                    onChange={(e) =>( setTopicV(e.target.value),setStartTopic(true))} 
+                                    onBlur={(e) => (setTopicV(e.target.value),setStartTopic(true))}                              
                                     helperText={topicV === "" ? "required!" : " "}
-                                    error={topicV === ""&& strartTopic}
+                                    error={topicV === ""&& startTopic}
 
                                 />
 
@@ -180,10 +180,10 @@ const Systems: React.FC = () => {
                                     label="Description"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setDescriptionV(e.target.value),setStrartDescriptionV(true))}
-                                    onBlur={(e) => setDescriptionV(e.target.value)}   
+                                    onChange={(e) => (setDescriptionV(e.target.value),setStartDescriptionV(true))}
+                                    onBlur={(e) => (setDescriptionV(e.target.value),setStartDescriptionV(true))}   
                                     helperText={descriptionV === "" ? "required!" : " "}
-                                    error={descriptionV === ""&& strartDescriptionV}
+                                    error={descriptionV === ""&& startDescriptionV}
                                 />
 
                                 <TextField
@@ -192,10 +192,10 @@ const Systems: React.FC = () => {
                                     label="object name"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setObjectNameV(e.target.value),setStrartObjectNameV(true))}
-                                    onBlur={(e) => setObjectNameV(e.target.value)}  
+                                    onChange={(e) => (setObjectNameV(e.target.value),setStartObjectNameV(true))}
+                                    onBlur={(e) => (setObjectNameV(e.target.value),setStartObjectNameV(true))}  
                                     helperText={objectNameV === "" ? "required!" : " "}
-                                    error={objectNameV === ""&& strartobjectNameV}
+                                    error={objectNameV === ""&& startObjectNameV}
                                 />
                                 <TextField
                                     inputRef={inputEmail}
@@ -203,10 +203,10 @@ const Systems: React.FC = () => {
                                     label="Email"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setEmailV(e.target.value),setStartemailV(true))}
-                                    onBlur={(e) => setEmailV(e.target.value)}  
+                                    onChange={(e) => (setEmailV(e.target.value),setStartEmailV(true))}
+                                    onBlur={(e) => (setEmailV(e.target.value),setStartEmailV(true))}  
                                     helperText={emailV === "" ? "required!" : " "}
-                                    error={emailV === ""&& strartemailV}
+                                    error={emailV === ""&& startEmailV}
                                 />
                                 <TextField
                                     inputRef={inputPhone}
@@ -214,10 +214,10 @@ const Systems: React.FC = () => {
                                     label="phone"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setPhoneV(e.target.value),setstrartphoneV(true))}
-                                    onBlur={(e) => setPhoneV(e.target.value)}  
+                                    onChange={(e) => (setPhoneV(e.target.value),setStartPhoneV(true))}
+                                    onBlur={(e) => (setPhoneV(e.target.value),setStartPhoneV(true))}  
                                     helperText={phoneV === "" ? "required!" : " "}
-                                    error={phoneV === ""&& strartphoneV}
+                                    error={phoneV === ""&& startPhoneV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -225,10 +225,10 @@ const Systems: React.FC = () => {
                                     label="name for navigate to your system"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlNameV(e.target.value),setstrarturlNameV(true))}
-                                    onBlur={(e) => setUrlNameV(e.target.value)}  
+                                    onChange={(e) => (setUrlNameV(e.target.value),setStartUrlNameV(true))}
+                                    onBlur={(e) => (setUrlNameV(e.target.value),setStartUrlNameV(true))}  
                                     helperText={urlNameV === "" ? "required!" : " "}
-                                    error={urlNameV === ""&& strarturlNameV}
+                                    error={urlNameV === ""&& startUrlNameV}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -236,10 +236,10 @@ const Systems: React.FC = () => {
                                     label="url of your image"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlImageV(e.target.value),setStrarturlImageV(true))}
-                                    onBlur={(e) => setUrlImageV(e.target.value)}  
+                                    onChange={(e) => (setUrlImageV(e.target.value),setStartUrlImageV(true))}
+                                    onBlur={(e) => (setUrlImageV(e.target.value),setStartUrlImageV(true))}  
                                     helperText={urlImageV === "" ? "required!" : " "}
-                                    error={urlImageV === ""&& strarturlImageV}
+                                    error={urlImageV === ""&& startUrlImageV}
                                 />
 
                             </FormControl>

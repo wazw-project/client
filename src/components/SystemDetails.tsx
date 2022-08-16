@@ -138,6 +138,7 @@ export default function SystemDetails() {
     }
     finally {   
       handleClose()
+      
     }
   }
   const handleClose = async () => {
@@ -145,6 +146,7 @@ export default function SystemDetails() {
 
     debugger
     setOpen(false);
+    getSystem();
   };
 
   return (

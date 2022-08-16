@@ -84,8 +84,11 @@ const Systems: React.FC = () => {
         console.log(dataSystem)
         try {
             const res = await axios.post(`http://localhost:3333/system/addSystem`, dataSystem);
-            console.log(res)
+            let tempList = await res.data;
+            // console.log(tempList[0]._id)
+         
             swal("your system added!!", "You clicked the button!", "success");
+            getSystems()
         } catch (error) { console.log(error); }
         finally { setOpen(false); }
     }
@@ -102,6 +105,7 @@ const Systems: React.FC = () => {
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
+        debugger
         getSystems();
     }, [])
 

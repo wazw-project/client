@@ -30,6 +30,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 
 export default function SystemDetails() {
+  const navigate = useNavigate();
   const inputTopic: any = useRef();
   const inputObjectName: any = useRef();
   const inputDescription: any = useRef();
@@ -44,7 +45,6 @@ export default function SystemDetails() {
   const [phoneV, setPhoneV] = useState<string>("12345678")
   const [urlNameV, setUrlNameV] = useState<string>("**")
   const [urlImageV, setUrlImageV] = useState<string>("**")
-
   const [system, setSystem] = useState<System>();
   const location = useLocation();
   const from: any = location.state;
@@ -59,6 +59,10 @@ export default function SystemDetails() {
       console.log(err)
     }
   }
+  useEffect(() => {
+    debugger;
+    getSystem();
+  }, [])
 
   async function deleteSystem() {
     swal({
@@ -93,9 +97,9 @@ export default function SystemDetails() {
 
   }
 
-  useEffect(() => {
-    getSystem();
-  }, [from.id]);
+  // useEffect(() => {
+  //   getSystem();
+  // }, [from.id]);
 
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -112,36 +116,35 @@ export default function SystemDetails() {
     console.log("open");
     setOpen(true);
   };
-const updateSystem=async()=>{
-  const systemToUpdate = {
+  const updateSystem = async () => {
+    const systemToUpdate = {
 
-    "topic": inputTopic.current?.value,
-    "objectName": inputObjectName.current?.value,
-    "managerUid": from.id,
-    "description": inputDescription.current?.value,
-    "email": inputEmail.current?.value,
-    "phone": inputPhone.current?.value,
-    "urlName": inputUrlName.current?.value,
-    "urlImage": inputUrlImage.current?.value
+      "topic": inputTopic.current?.value,
+      "objectName": inputObjectName.current?.value,
+      "managerUid": from.id,
+      "description": inputDescription.current?.value,
+      "email": inputEmail.current?.value,
+      "phone": inputPhone.current?.value,
+      "urlName": inputUrlName.current?.value,
+      "urlImage": inputUrlImage.current?.value
+    }
+    console.log(systemToUpdate);
+    try {
+      const res = await axios.put(` http://localhost:3333/system/${from.id}`, systemToUpdate)
+      console.log(res.data)
+      swal("your details update!", "You clicked the button!", "success");
+    } catch (err) {
+      return err
+    }
+    finally {   
+      handleClose()
+    }
   }
-  console.log(systemToUpdate);
-  try {
-    const res = await axios.put(` http://localhost:3333/system/${from.id}`, systemToUpdate)
-    console.log(res.data)
-    swal("your details update!", "You clicked the button!", "success");
-  } catch (err) {
-    return err
-  }
-  finally{
-    handleClose()
-  }
-}
   const handleClose = async () => {
-   
 
- 
-      setOpen(false);
-    
+
+    debugger
+    setOpen(false);
   };
 
   return (
@@ -181,15 +184,10 @@ const updateSystem=async()=>{
               <Button variant="contained" onClick={handleClickOpen} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
                 Edit
               </Button>
-
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
                 Delete
               </Button>
             </Container>
-
-
-
-
             <Dialog
               fullScreen
               open={open}
@@ -221,12 +219,12 @@ const updateSystem=async()=>{
                     id="outlined-basic"
                     label="UrlName"
                     variant="outlined"
-                     defaultValue={system?.urlName}
+                    defaultValue={system?.urlName}
                     inputRef={inputUrlName}
-                    helperText={urlNameV === "" ? "required!":""}
+                    helperText={urlNameV === "" ? "required!" : ""}
                     error={urlNameV === ""}
-                    // onChange={(e) => (setUrlNameV(e.target.value))}
-                    // onBlur={(e) => setUrlNameV(e.target.value)}
+                  // onChange={(e) => (setUrlNameV(e.target.value))}
+                  // onBlur={(e) => setUrlNameV(e.target.value)}
                   />
                 </ListItem>
                 {/* <Divider /> */}

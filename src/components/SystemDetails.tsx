@@ -83,6 +83,7 @@ export default function SystemDetails() {
             swal("Poof! Your system has been deleted!", {
               icon: "success",
             });
+            navigate("/systems", { state: { id: system?.managerUid} })
           } catch (err) {
             console.log(err)
             swal("Your system is safe!");

@@ -148,6 +148,7 @@ export default function SystemDetails() {
     debugger
     setOpen(false);
     getSystem();
+    navigate("/systems", { state: { id: system?.managerUid} })
   };
 
   return (

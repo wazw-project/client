@@ -9,16 +9,16 @@ import OurAppBar from './components/AppBar'
 function App() {
   return (
     <div className="app">
-      <OurAppBar/>
+          <OurAppBar />
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/systems" element={<Systems />} />
-          <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails/>}/>
-          <Route path="OurAppBar" element={<OurAppBar/>}/>
+          <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails />} />
+          <Route path="/OurAppBar" element={<OurAppBar />} />
         </Routes>
       </Router>
     </div>

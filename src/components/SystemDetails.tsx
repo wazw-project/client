@@ -112,31 +112,36 @@ export default function SystemDetails() {
     console.log("open");
     setOpen(true);
   };
+const updateSystem=async()=>{
+  const systemToUpdate = {
 
+    "topic": inputTopic.current?.value,
+    "objectName": inputObjectName.current?.value,
+    "managerUid": from.id,
+    "description": inputDescription.current?.value,
+    "email": inputEmail.current?.value,
+    "phone": inputPhone.current?.value,
+    "urlName": inputUrlName.current?.value,
+    "urlImage": inputUrlImage.current?.value
+  }
+  console.log(systemToUpdate);
+  try {
+    const res = await axios.put(` http://localhost:3333/system/${from.id}`, systemToUpdate)
+    console.log(res.data)
+    swal("your details update!", "You clicked the button!", "success");
+  } catch (err) {
+    return err
+  }
+  finally{
+    handleClose()
+  }
+}
   const handleClose = async () => {
-    const systemToUpdate = {
+   
 
-      "topic": inputTopic.current?.value,
-      "objectName": inputObjectName.current?.value,
-      "managerUid": from.id,
-      "description": inputDescription.current?.value,
-      "email": inputEmail.current?.value,
-      "phone": inputPhone.current?.value,
-      "urlName": inputUrlName.current?.value,
-      "urlImage": inputUrlImage.current?.value
-    }
-    console.log(systemToUpdate);
-    try {
-      const res = await axios.put(` http://localhost:3333/system/${from.id}`, systemToUpdate)
-      console.log(res.data)
-      swal("your details update!", "You clicked the button!", "success");
-    } catch (err) {
-      return err
-    }
-
-    finally {
+ 
       setOpen(false);
-    }
+    
   };
 
   return (
@@ -172,12 +177,12 @@ export default function SystemDetails() {
 
 
             <Container component="main" maxWidth="xs" sx={{ marginBottom: 2, marginRight: 55 }}>
-             
-              <Button variant="contained" onClick={handleClickOpen} sx={{marginRight:3}} endIcon={<SendIcon />}>
+
+              <Button variant="contained" onClick={handleClickOpen} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
                 Edit
               </Button>
 
-              <Button variant="outlined" startIcon={<DeleteIcon />}  onClick={deleteSystem}>
+              <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
                 Delete
               </Button>
             </Container>
@@ -204,24 +209,36 @@ export default function SystemDetails() {
                   <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                     details
                   </Typography>
-                  <Button autoFocus color="inherit" onClick={handleClose}>
+                  <Button autoFocus color="inherit" onClick={updateSystem}>
                     save
                   </Button>
                 </Toolbar>
               </AppBar>
 
-              <List sx={{marginLeft:"40%",marginTop:'3%'}}>
+              <List sx={{ marginLeft: "40%", marginTop: '3%' }}>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="UrlName" variant="outlined" defaultValue={system?.urlName} inputRef={inputUrlName} />
+                  <TextField
+                    id="outlined-basic"
+                    label="UrlName"
+                    variant="outlined"
+                     defaultValue={system?.urlName}
+                    inputRef={inputUrlName}
+                    helperText={urlNameV === "" ? "required!":""}
+                    error={urlNameV === ""}
+                    // onChange={(e) => (setUrlNameV(e.target.value))}
+                    // onBlur={(e) => setUrlNameV(e.target.value)}
+                  />
                 </ListItem>
                 {/* <Divider /> */}
                 <ListItem button>
                   <TextField
-                   id="outlined-basic"
+                    id="outlined-basic"
                     label="objectName"
-                     variant="outlined"
-                      defaultValue={system?.objectName}
-                       inputRef={inputObjectName} />
+                    variant="outlined"
+                    defaultValue={system?.objectName}
+                    inputRef={inputObjectName}
+
+                  />
                 </ListItem>
                 <ListItem button>
                   <TextField id="outlined-basic" label="description" variant="outlined" defaultValue={system?.description} inputRef={inputDescription} />

@@ -11,10 +11,10 @@ import MenuIcon from '@mui/icons-material/Menu';
  const OurAppBar=()=> {
   debugger
 
- // const navigate=useNavigate();
+  const navigate=useNavigate();
   
   const logOut = () => {
-   // navigate('/Dashboard')
+    navigate('/Dashboard')
 }
 
   return (

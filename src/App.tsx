@@ -9,9 +9,11 @@ import OurAppBar from './components/AppBar'
 function App() {
   return (
     <div className="app">
-          <OurAppBar />
+         
       <Router>
+      <OurAppBar />
         <Routes>
+      
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset" element={<Reset />} />

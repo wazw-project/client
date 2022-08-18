@@ -41,13 +41,13 @@ const Systems: React.FC = () => {
     const inputPhone = useRef<HTMLInputElement>();
     const inputUrlName = useRef<HTMLInputElement>();
     const inputUrlImage = useRef<HTMLInputElement>();
-    const [topicV, setTopicV] = useState<string>("@")
-    const [objectNameV, setObjectNameV] = useState<string>("@")
-    const [descriptionV, setDescriptionV] = useState<string>("@")
-    const [emailV, setEmailV] = useState<string>("*@gmail.com")
-    const [phoneV, setPhoneV] = useState<string>("12345678")
-    const [urlNameV, setUrlNameV] = useState<string>("*")
-    const [urlImageV, setUrlImageV] = useState<string>("*")
+    const [topicV, setTopicV] = useState<string>("")
+    const [objectNameV, setObjectNameV] = useState<string>("")
+    const [descriptionV, setDescriptionV] = useState<string>("")
+    const [emailV, setEmailV] = useState<string>("")
+    const [phoneV, setPhoneV] = useState<string>("")
+    const [urlNameV, setUrlNameV] = useState<string>("")
+    const [urlImageV, setUrlImageV] = useState<string>("")
     const [startTopic, setStartTopic] = useState<boolean>(false)
     const [startDescriptionV, setStartDescriptionV] = useState<boolean>(false)
     const [startObjectNameV, setStartObjectNameV] = useState<boolean>(false)
@@ -66,6 +66,7 @@ const Systems: React.FC = () => {
         return /\S+@\S+\.\S+/.test(email);
       }
     const addSystem = async () => {
+        debugger
         if(topicV===""||objectNameV===""||descriptionV===""||emailV===""||phoneV===""||urlNameV===""||urlImageV===""||!isValidEmail(emailV)){
             swal("your form is not validate!!", "You clicked the button!", "error");
         }

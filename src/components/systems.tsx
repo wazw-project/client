@@ -24,9 +24,12 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Dashboard from './Dashboard';
 import swal from 'sweetalert';
+import { observer } from 'mobx-react';
+import store from '../store';
+
 
 const Systems: React.FC = () => {
-    const [systems, setSystems] = useState<System[]>([]);
+    const [systems, setSystems] = useState<any>([]);
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [fullWidth] = React.useState(true);
@@ -47,7 +50,8 @@ const Systems: React.FC = () => {
         setOpen(false);
     };
     const addSystem= async()=>{
-        const dataSystem={
+        debugger
+        const dataSystem:System={
             "topic":inputTopic.current?.value,
             "objectName":inputObjectName.current?.value,
              "managerUid":managerUid,
@@ -57,25 +61,18 @@ const Systems: React.FC = () => {
             "urlName":inputUrlName.current?.value,
             "urlImage":inputUrlImage.current?.value
            }
-           console.log(dataSystem)
-        try {     
-            const res = await axios.post(`http://localhost:3333/system/addSystem`,dataSystem);
-            //let tempList = await res.data;
-            console.log(res)
+           try{
+            // store.addSystem(dataSystem);
+            console.log(store.systems);
             swal("your system added!!", "You clicked the button!", "success");
-           // setSystems(tempList);
-        } catch (error) { console.log(error); }
-        finally{setOpen(false);}
-        
+           }catch (error) { console.log(error); }
+           finally{setOpen(false);}      
     }
 
     async function getSystems() {
         try {
-            const managerId='62f4bec1c9f7408b6d78e779';
-            const res = await axios.get(`http://localhost:3333/system/${managerId}`);
-            let tempList = await res.data;
-            console.log(tempList[0]._id)
-            setSystems(tempList);
+            const res=await store.loadSystems();
+            setSystems(res);
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
@@ -204,7 +201,7 @@ const Systems: React.FC = () => {
         </div>
     )
 }
-export default Systems
+export default observer(Systems)
 
 
 

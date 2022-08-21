@@ -19,6 +19,7 @@ function Register() {
   const [user, loading, error] = useAuthState(auth);
   const [userFromDb,setUserFromDb]  = useState<any>();
   const navigate = useNavigate();
+  
   const register = async() => {
     if (!firstName) alert("Please enter firstName");
     const fullName = firstName+' '+lastName;

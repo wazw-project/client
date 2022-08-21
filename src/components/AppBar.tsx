@@ -19,6 +19,9 @@ import store from '../store';
 const login = () => {
   navigate('/Login')
 }
+const system = () => {
+  navigate('/systems')
+}
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -37,7 +40,11 @@ const login = () => {
             News
           </Typography>  
           {store.user&&
-           <Button color="inherit" onClick={() => logOut()}>log out</Button> }
+          <>
+           <Button color="inherit" onClick={() => logOut()}>log out</Button>
+           <Button color="inherit" onClick={() => system()}>system</Button>
+           </>
+            }
             {store.user===null&&
            <Button color="inherit" onClick={() => login()}>login</Button> }
         </Toolbar>

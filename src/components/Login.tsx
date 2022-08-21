@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { System } from '../utils/system';
 import swal from 'sweetalert';
-
+import store from '../store';
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -67,17 +67,18 @@ const Login: React.FC = () => {
   }
   const addUserToDb = async (uid: string) => {
     debugger;
-    const userToDb = {
+    const userToDb:any = {
       "fireBaseUid":uid,
       "firstName": "",
      "lastName": "",
        "phone":"",
       "email": ""
     }
+  
     try {
-      const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
-      let tempList = await res.data;
-      setUserFromDb(tempList);
+      debugger;
+     const res= await store.addUser(userToDb);        
+      setUserFromDb(res);
     } catch (error) { console.log(error); }
   }
 

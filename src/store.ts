@@ -14,9 +14,9 @@ const addSystem=async(system:System)=>{
     } catch (error) { console.log(error); }
 }
 
-const getSystems=async()=>{
+const getSystems=async(managerId:string)=>{
     try {
-        const managerId='62f4bec1c9f7408b6d78e779';
+       // const managerId='62f4bec1c9f7408b6d78e779';
         const res = await axios.get(`http://localhost:3333/system/${managerId}`);
         let tempList = await res.data;
         return tempList;
@@ -36,7 +36,7 @@ class Store{
     systems:System[]=[];
 
     async loadSystems(){
-        this.systems = await getSystems();
+        this.systems = await getSystems(this.user.managerId);
     }
 
     async addSystem(system:System){

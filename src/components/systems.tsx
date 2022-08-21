@@ -109,6 +109,7 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
+            debugger
             await store.loadSystems();
         } catch (error) { console.log(error); }
     }

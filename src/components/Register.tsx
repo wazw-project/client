@@ -14,6 +14,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import swal from 'sweetalert';
+import store from '../store';
+
 import {
   auth,
   registerWithEmailAndPassword,
@@ -34,6 +36,7 @@ function Register() {
   const [lastNameV,setLastNameV]=useState<string>("**");
   const [phoneV,setPhoneV]=useState<string>("********");
   const navigate = useNavigate();
+
   const register = async () => {
     if(firstNameV === "" || firstNameV.length < 2||lastNameV === "" || lastNameV.length < 2||phoneV === "" || phoneV.length < 8||emailV === "" || !isValidEmail(emailV)||PasswordV === "" || PasswordV.length <= 5)
     {
@@ -48,7 +51,8 @@ function Register() {
   };
 
   const addUserToDb = async (uid: string) => {
-    const userToDb = {
+    debugger;
+    const userToDb:any= {
       "fireBaseUid": uid,
       "firstName": firstName,
       "lastName": lastName,
@@ -56,15 +60,18 @@ function Register() {
       "email": email
     }
     try {
-      const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
-      let tempList = await res.data;
-      setUserFromDb(tempList);
+      debugger;
+     const res= await store.addUser(userToDb);     
+      //const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
+    
+      setUserFromDb(res);
     } catch (error) { console.log(error); }
   }
 
   useEffect(() => {
     if (loading) return;
     if (user) {
+      debugger;
       addUserToDb(user.uid);
       navigate("/dashboard");
     }

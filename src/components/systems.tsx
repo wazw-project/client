@@ -82,23 +82,14 @@ const Systems: React.FC = () => {
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
                 "objectName": inputObjectName.current?.value,
-                "managerUid": store.user._id,
-                // "managerUid": from.id,
-                // "managerUid": '62f4bec1c9f7408b6d78e779',
+                "managerUid": store.user._id,        
                 "description": inputDescription.current?.value,
                 "email": inputEmail.current?.value,
                 "phone": inputPhone.current?.value,
                 "urlName": inputUrlName.current?.value,
                 "urlImage": inputUrlImage.current?.value
 
-                // description: inputDescription.current?.value,
-                // email: inputEmail.current?.value,
-                // managerUid: "62f4bec1c9f7408b6d78e779",
-                // objectName: "aa",
-                // phone: "0583214675",
-                // topic: "computer",
-                // urlImage: "https://media2.giphy.com/media/3o7aCTfyhYawdOXcFW/giphy.gif?cid=790b7611c67b5ec95891de68a9c99303a22abee9884e69e5&rid=giphy.gif&ct=g",
-                // urlName: "myComputer",
+           
             }
             try {
                 await store.addSystem(dataSystem);

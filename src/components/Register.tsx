@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { User } from '../utils/user';
-import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
-import { Auth } from "@firebase/auth";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +13,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import swal from 'sweetalert';
 import store from '../store';
-import { observer } from 'mobx-react';
 
 import {
   auth,
@@ -30,7 +27,6 @@ function Register() {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const [userFromDb, setUserFromDb] = useState<any>();
   const [emailV, setEmailV] = useState<string>("*@gmail.com");
   const [PasswordV, setPasswordV] = useState<string>("******");
   const [firstNameV,setFirstNameV]=useState<string>("**");
@@ -60,8 +56,7 @@ function Register() {
       "email": email
     }
     try {
-      const res= await store.addUser(userToDb);         
-      setUserFromDb(res);
+        await store.addUser(userToDb);         
     } catch (error) { console.log(error); }
   }
 

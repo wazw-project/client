@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import store from '../store';
  const OurAppBar=()=> {
   debugger
 
@@ -15,6 +15,9 @@ import MenuIcon from '@mui/icons-material/Menu';
   
   const logOut = () => {
     navigate('/Dashboard')
+}
+const login = () => {
+  navigate('/Login')
 }
 
   return (
@@ -32,8 +35,11 @@ import MenuIcon from '@mui/icons-material/Menu';
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
-          </Typography>    
-           <Button color="inherit" onClick={() => logOut()}>log out</Button> 
+          </Typography>  
+          {store.user&&
+           <Button color="inherit" onClick={() => logOut()}>log out</Button> }
+            {store.user===null&&
+           <Button color="inherit" onClick={() => login()}>login</Button> }
         </Toolbar>
       </AppBar>
     </Box>

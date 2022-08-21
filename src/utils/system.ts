@@ -1,5 +1,5 @@
 export interface System{
-    _id: any,
+    _id?: any,
     topic: string,
     objectName: string,
     managerUid: string,

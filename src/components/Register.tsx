@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import swal from 'sweetalert';
 import store from '../store';
+import { observer } from 'mobx-react';
 
 import {
   auth,

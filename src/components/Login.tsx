@@ -16,6 +16,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { System } from '../utils/system';
+import { observer } from 'mobx-react';
 import swal from 'sweetalert';
 import store from '../store';
 const Login: React.FC = () => {
@@ -52,20 +53,23 @@ const Login: React.FC = () => {
   const loginFromDB = async (Uid: any) => {
     try {
       debugger;
-      let res = await axios.get(`http://localhost:3333/user/${Uid}`);
-      if(res.data===""){
+      let res= await store.getUser(Uid);  
+      //let res = await axios.get(`http://localhost:3333/user/${Uid}`);
+      if(res===""){
        await addUserToDb(Uid)
-        res = await axios.get(`http://localhost:3333/user/${Uid}`);       
+        res = await store.getUser(Uid);        
       }
-      let tempList = await res.data;
-      console.log(tempList)
-      setUserFromDb(tempList);
+      
+      console.log(res)
+      setUserFromDb(res);
       debugger
-      navigate("/systems", { state: { id: tempList._id } })
+         
+      navigate("/systems", { state: { id: res._id } })
 
     } catch (error) { console.log(error); }
   }
   const addUserToDb = async (uid: string) => {
+    debugger;
     debugger;
     const userToDb:any = {
       "fireBaseUid":uid,

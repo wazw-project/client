@@ -29,6 +29,14 @@ const addUser=async(userToDb:User)=>{
         return tempList;
       } catch (error) { console.log(error); }
 }
+const getUser=async(id:string)=>{
+    debugger
+    try{
+       const res = await axios.get(`http://localhost:3333/user/${id}`);   
+       let tempList = await res.data;
+       return tempList;
+    }catch(error) { console.log(error); }
+}
    
 
 class Store{
@@ -36,7 +44,8 @@ class Store{
     systems:System[]=[];
 
     async loadSystems(){
-        this.systems = await getSystems(this.user.managerId);
+        debugger;
+        this.systems = await getSystems(this.user._id);
     }
 
     async addSystem(system:System){
@@ -45,9 +54,21 @@ class Store{
         console.log(this.systems)
     }
     async addUser(user:User){
+        debugger
         await addUser(user);
+        debugger;
         this.user=user;
         console.log(this.user)
+    }
+    async getUser(id:string){
+        debugger;
+        debugger
+       const user= await getUser(id);
+        debugger;
+        this.user=user;
+        console.log(user)
+      return user
+      
     }
 
     constructor(){

@@ -70,7 +70,7 @@ const Systems: React.FC = () => {
         return /\S+@\S+\.\S+/.test(email);
     }
     const addSystem = async () => {
-        if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)) {
+        if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)||urlNameV.includes(" ")) {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else {
@@ -238,8 +238,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
                                     onBlur={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
-                                    helperText={urlNameV === "" ? "required!" : " "}
-                                    error={urlNameV === "" && startUrlNameV}
+                                    helperText={urlNameV === "" ? "required!" :urlNameV.includes(" ")?"url without space" :" "}
+                                    error={urlNameV === "" && startUrlNameV || urlNameV.includes(" ") }
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}

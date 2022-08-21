@@ -47,7 +47,6 @@ function Register() {
     if (!firstName) alert("Please enter firstName");
     const fullName = firstName + ' ' + lastName;
     await registerWithEmailAndPassword(fullName, email, password);
-    // await addUserToDb(res);
   }
   };
 
@@ -61,10 +60,7 @@ function Register() {
       "email": email
     }
     try {
-      debugger;
-     const res= await store.addUser(userToDb);     
-      //const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
-    
+      const res= await store.addUser(userToDb);         
       setUserFromDb(res);
     } catch (error) { console.log(error); }
   }
@@ -72,9 +68,8 @@ function Register() {
   useEffect(() => {
     if (loading) return;
     if (user) {
-      debugger;
       addUserToDb(user.uid);
-      navigate("/dashboard");
+      navigate("/systems");
     }
   }, [user, loading]);
   function isValidEmail(email: string) {

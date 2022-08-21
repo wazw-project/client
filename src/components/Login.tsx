@@ -59,7 +59,6 @@ const Login: React.FC = () => {
        await store.getUser(Uid);        
       }     
       navigate("/systems")
-
     } catch (error) { console.log(error); }
   }
   const addUserToDb = async (uid: string) => {

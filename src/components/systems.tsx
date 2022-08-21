@@ -22,6 +22,7 @@ import { observer } from 'mobx-react';
 import store from '../store';
 import { useForm } from 'react-hook-form';
 import { url } from 'inspector';
+import { ContentPasteOutlined } from '@mui/icons-material';
 
 const Systems: React.FC = () => {
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ const Systems: React.FC = () => {
     const location = useLocation();
     const from: any = location.state;
     const [systems, setSystems] = useState<System[]>([]);
+    const [ifd, setIfd] = useState<boolean>(false);
     const [open, setOpen] = React.useState(false);
     const [fullWidth] = React.useState(true);
     const [maxWidth] = React.useState<DialogProps['maxWidth']>('sm');
@@ -65,69 +67,65 @@ const Systems: React.FC = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    function isValidEmail(email:string) {
+    function isValidEmail(email: string) {
         return /\S+@\S+\.\S+/.test(email);
-      }
+    }
     const addSystem = async () => {
-        debugger
-        if(topicV===""||objectNameV===""||descriptionV===""||emailV===""||phoneV===""||urlNameV===""||urlImageV===""||!isValidEmail(emailV)){
+        if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)) {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
-        else{
-        debugger
-        const dataSystem = {
-            "topic": inputTopic.current?.value,
-            "objectName": inputObjectName.current?.value,
-            "managerUid": from.id,
-            "description": inputDescription.current?.value,
-            "email": inputEmail.current?.value,
-            "phone": inputPhone.current?.value,
-            "urlName": inputUrlName.current?.value,
-            "urlImage": inputUrlImage.current?.value
+        else {
+            console.log(from.id);
+            const dataSystem: any = {
+                "topic": inputTopic.current?.value,
+                "objectName": inputObjectName.current?.value,
+                // "managerUid": from.id,
+                "managerUid": '62f4bec1c9f7408b6d78e779',
+                "description": inputDescription.current?.value,
+                "email": inputEmail.current?.value,
+                "phone": inputPhone.current?.value,
+                "urlName": inputUrlName.current?.value,
+                "urlImage": inputUrlImage.current?.value
+                
+                // description: inputDescription.current?.value,
+                // email: inputEmail.current?.value,
+                // managerUid: "62f4bec1c9f7408b6d78e779",
+                // objectName: "aa",
+                // phone: "0583214675",
+                // topic: "computer",
+                // urlImage: "https://media2.giphy.com/media/3o7aCTfyhYawdOXcFW/giphy.gif?cid=790b7611c67b5ec95891de68a9c99303a22abee9884e69e5&rid=giphy.gif&ct=g",
+                // urlName: "myComputer",
+            }
+            try {
+                await store.addSystem(dataSystem);
+                console.log(store.systems)
+                swal("your system added!!", "You clicked the button!", "success");
+                setIfd(true);
+                getSystems();
+            } catch (error) { console.log(error); }
+            finally { setOpen(false); }
         }
-        console.log(dataSystem)
-        try {
-            const res = await axios.post(`http://localhost:3333/system/addSystem`, dataSystem);
-            let tempList = await res.data;
-            // console.log(tempList[0]._id)
-         
-            swal("your system added!!", "You clicked the button!", "success");
-            getSystems()
-        } catch (error) { console.log(error); }
-        finally { setOpen(false); }
-    }
     }
 
     async function getSystems() {
-        debugger
         try {
-            const res=await store.loadSystems();
-            setSystems(res);
-            debugger;
-            // const res = await axios.get(`http://localhost:3333/system/${from.id}`);
-            // let tempList = await res.data;
-            // // console.log(tempList[0]._id)
-            // setSystems(tempList);
+            await store.loadSystems();
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
-        debugger
         getSystems();
     }, [])
 
-    const logOut = () => {
-        navigate('/Dashboard')
-    }
     return (
         <div id="allBusiness" >
-            
+
             <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>All systems</Typography>
             <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
 
                 <Button variant="contained" onClick={handleClickOpen}>
                     add system
                 </Button>
-                {systems && systems.map((system: System) =>
+                {store.systems && store.systems.map((system: System) =>
                     <Card key={system._id}>
                         <CardMedia
                             component="img"
@@ -180,10 +178,10 @@ const Systems: React.FC = () => {
                                     id="outlined-textarea"
                                     label="Topic"
                                     multiline
-                                    onChange={(e) =>( setTopicV(e.target.value),setStartTopic(true))} 
-                                    onBlur={(e) => (setTopicV(e.target.value),setStartTopic(true))}                              
+                                    onChange={(e) => (setTopicV(e.target.value), setStartTopic(true))}
+                                    onBlur={(e) => (setTopicV(e.target.value), setStartTopic(true))}
                                     helperText={topicV === "" ? "required!" : " "}
-                                    error={topicV === ""&& startTopic}
+                                    error={topicV === "" && startTopic}
 
                                 />
 
@@ -193,10 +191,10 @@ const Systems: React.FC = () => {
                                     label="Description"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setDescriptionV(e.target.value),setStartDescriptionV(true))}
-                                    onBlur={(e) => (setDescriptionV(e.target.value),setStartDescriptionV(true))}   
+                                    onChange={(e) => (setDescriptionV(e.target.value), setStartDescriptionV(true))}
+                                    onBlur={(e) => (setDescriptionV(e.target.value), setStartDescriptionV(true))}
                                     helperText={descriptionV === "" ? "required!" : " "}
-                                    error={descriptionV === ""&& startDescriptionV}
+                                    error={descriptionV === "" && startDescriptionV}
                                 />
 
                                 <TextField
@@ -205,10 +203,10 @@ const Systems: React.FC = () => {
                                     label="object name"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setObjectNameV(e.target.value),setStartObjectNameV(true))}
-                                    onBlur={(e) => (setObjectNameV(e.target.value),setStartObjectNameV(true))}  
+                                    onChange={(e) => (setObjectNameV(e.target.value), setStartObjectNameV(true))}
+                                    onBlur={(e) => (setObjectNameV(e.target.value), setStartObjectNameV(true))}
                                     helperText={objectNameV === "" ? "required!" : " "}
-                                    error={objectNameV === ""&& startObjectNameV}
+                                    error={objectNameV === "" && startObjectNameV}
                                 />
                                 <TextField
                                     inputRef={inputEmail}
@@ -216,10 +214,10 @@ const Systems: React.FC = () => {
                                     label="Email"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setEmailV(e.target.value),setStartEmailV(true))}
-                                    onBlur={(e) => (setEmailV(e.target.value),setStartEmailV(true))}  
-                                    helperText={emailV === "" ? "required!" :isValidEmail(emailV)? "":"not valid email"}
-                                    error={(emailV === ""||!isValidEmail(emailV))&& startEmailV}
+                                    onChange={(e) => (setEmailV(e.target.value), setStartEmailV(true))}
+                                    onBlur={(e) => (setEmailV(e.target.value), setStartEmailV(true))}
+                                    helperText={emailV === "" ? "required!" : isValidEmail(emailV) ? "" : "not valid email"}
+                                    error={(emailV === "" || !isValidEmail(emailV)) && startEmailV}
                                 />
                                 <TextField
                                     inputRef={inputPhone}
@@ -227,10 +225,10 @@ const Systems: React.FC = () => {
                                     label="phone"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setPhoneV(e.target.value),setStartPhoneV(true))}
-                                    onBlur={(e) => (setPhoneV(e.target.value),setStartPhoneV(true))}  
-                                    helperText={phoneV === "" ? "required!" :phoneV.length<8? "At least 8 characters": " "}
-                                    error={(phoneV === ""||phoneV.length<8)&& startPhoneV}
+                                    onChange={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
+                                    onBlur={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
+                                    helperText={phoneV === "" ? "required!" : phoneV.length < 8 ? "At least 8 characters" : " "}
+                                    error={(phoneV === "" || phoneV.length < 8) && startPhoneV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -238,10 +236,10 @@ const Systems: React.FC = () => {
                                     label="name for navigate to your system"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlNameV(e.target.value),setStartUrlNameV(true))}
-                                    onBlur={(e) => (setUrlNameV(e.target.value),setStartUrlNameV(true))}  
+                                    onChange={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
+                                    onBlur={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
                                     helperText={urlNameV === "" ? "required!" : " "}
-                                    error={urlNameV === ""&& startUrlNameV}
+                                    error={urlNameV === "" && startUrlNameV}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -249,17 +247,17 @@ const Systems: React.FC = () => {
                                     label="url of your image"
                                     multiline
                                     sx={{ marginTop: 1 }}
-                                    onChange={(e) => (setUrlImageV(e.target.value),setStartUrlImageV(true))}
-                                    onBlur={(e) => (setUrlImageV(e.target.value),setStartUrlImageV(true))}  
+                                    onChange={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
+                                    onBlur={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
                                     helperText={urlImageV === "" ? "required!" : " "}
-                                    error={urlImageV === ""&& startUrlImageV}
+                                    error={urlImageV === "" && startUrlImageV}
                                 />
 
                             </FormControl>
                         </Box>
                     </DialogContent>
                     <DialogActions>
-                
+
                         <Button onClick={addSystem} type="submit">Add</Button>
                     </DialogActions>
                 </Dialog>

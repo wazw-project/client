@@ -3,6 +3,23 @@ import { System } from './utils/system';
 import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
 
+const addUser=async(userToDb:User)=>{
+    try {
+        const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
+        let tempList = await res.data;
+        return tempList;
+      } catch (error) { console.log(error); }
+}
+
+const getUser=async(id:string)=>{
+    debugger
+    try{
+       const res = await axios.get(`http://localhost:3333/user/${id}`);   
+       let tempList = await res.data;
+       return tempList;
+    }catch(error) { console.log(error); }
+}
+
 const addSystem = async (system: System) => {
     try {
         const res = await axios.post(`http://localhost:3333/system/addSystem`, system);
@@ -48,6 +65,7 @@ class Store {
     user: any = null;
     systems: System[] = [];
     // currentSystem
+    
     constructor() {
         makeAutoObservable(this);
     }
@@ -60,6 +78,23 @@ class Store {
         await addSystem(system);
         this.systems.push(system);
         console.log(this.systems)
+    }
+    async addUser(user:User){
+        debugger
+        await addUser(user);
+        debugger;
+        this.user=user;
+        console.log(this.user)
+    }
+    async getUser(id:string){
+        debugger;
+        debugger
+       const user= await getUser(id);
+        debugger;
+        this.user=user;
+        console.log(user)
+      return user
+      
     }
 
     async removeSystem(systemId: string) {
@@ -79,4 +114,5 @@ class Store {
 }
 
 const store = new Store();
-export default store;
+
+export default store ;

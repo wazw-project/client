@@ -16,8 +16,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { System } from '../utils/system';
+import { observer } from 'mobx-react';
 import swal from 'sweetalert';
-
+import store from '../store';
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -33,6 +34,7 @@ const Login: React.FC = () => {
     if (user) {
       debugger;
       console.log(user)
+      debugger
       loginFromDB(user.uid);
     };
   }, [user, loading]);
@@ -51,13 +53,36 @@ const Login: React.FC = () => {
   const loginFromDB = async (Uid: any) => {
     try {
       debugger;
-      const res = await axios.get(`http://localhost:3333/user/${Uid}`);
-      let tempList = await res.data;
-      console.log(tempList)
-      setUserFromDb(tempList);
+      let res= await store.getUser(Uid);  
+      //let res = await axios.get(`http://localhost:3333/user/${Uid}`);
+      if(res===""){
+       await addUserToDb(Uid)
+        res = await store.getUser(Uid);        
+      }
+      
+      console.log(res)
+      setUserFromDb(res);
       debugger
-      navigate("/systems", { state: { id: tempList._id } })
+         
+      navigate("/systems", { state: { id: res._id } })
 
+    } catch (error) { console.log(error); }
+  }
+  const addUserToDb = async (uid: string) => {
+    debugger;
+    debugger;
+    const userToDb:any = {
+      "fireBaseUid":uid,
+      "firstName": "",
+     "lastName": "",
+       "phone":"",
+      "email": ""
+    }
+  
+    try {
+      debugger;
+     const res= await store.addUser(userToDb);        
+      setUserFromDb(res);
     } catch (error) { console.log(error); }
   }
 
@@ -97,7 +122,6 @@ const Login: React.FC = () => {
             type="text"
             onChange={(e) => (setEmail(e.target.value), setEmailV(e.target.value))}
             onBlur={(e) => setEmailV(e.target.value)}
-
             helperText={emailV === "" ? "required!" : isValidEmail(emailV) ? "" : "not valid email"}
             error={(emailV === "" || !isValidEmail(emailV))}
           />

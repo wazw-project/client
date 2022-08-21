@@ -48,8 +48,9 @@ const Login: React.FC = () => {
     }
   }
   function isValidEmail(email: string) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
+    debugger
+    return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
+}
   const loginFromDB = async (Uid: any) => {
     try {
       debugger;

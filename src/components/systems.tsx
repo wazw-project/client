@@ -66,8 +66,12 @@ const Systems: React.FC = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    // function isValidEmail(email: string) {
+    //     return /\S+@\S+\.\S+/.test(email);
+    // }
     function isValidEmail(email: string) {
-        return /\S+@\S+\.\S+/.test(email);
+        debugger
+        return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
     }
     const addSystem = async () => {
         if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)||urlNameV.includes(" ")) {

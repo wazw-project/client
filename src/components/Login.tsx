@@ -53,19 +53,12 @@ const Login: React.FC = () => {
   const loginFromDB = async (Uid: any) => {
     try {
       debugger;
-      let res= await store.getUser(Uid);  
-      //let res = await axios.get(`http://localhost:3333/user/${Uid}`);
-      if(res===""){
+      await store.getUser(Uid);  
+      if(store.user._id===""){
        await addUserToDb(Uid)
-        res = await store.getUser(Uid);        
-      }
-      
-      console.log(res)
-      setUserFromDb(res);
-      debugger
-        
-      navigate("/systems", { state: { id: res._id } })
-
+       await store.getUser(Uid);        
+      }     
+      navigate("/systems")
     } catch (error) { console.log(error); }
   }
   const addUserToDb = async (uid: string) => {

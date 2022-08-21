@@ -33,7 +33,6 @@ const Systems: React.FC = () => {
     } = useForm<System>();
 
     const location = useLocation();
-    const from: any = location.state;
     const [systems, setSystems] = useState<System[]>([]);
     const [ifd, setIfd] = useState<boolean>(false);
     const [open, setOpen] = React.useState(false);
@@ -75,7 +74,7 @@ const Systems: React.FC = () => {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else {
-            console.log(from.id);
+            console.log(store.user._id);
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
                 "objectName": inputObjectName.current?.value,

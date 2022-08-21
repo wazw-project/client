@@ -28,8 +28,10 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
+import store from '../store';
+import { observer } from 'mobx-react';
 
-export default function SystemDetails() {
+const SystemDetails: React.FC=()=> {
   const navigate = useNavigate();
   const inputTopic: any = useRef();
   const inputObjectName: any = useRef();
@@ -49,6 +51,7 @@ export default function SystemDetails() {
   const location = useLocation();
   const from: any = location.state;
   const { nameURL } = useParams();
+
   async function getSystem() {
     try {
       console.log(from)
@@ -60,7 +63,6 @@ export default function SystemDetails() {
     }
   }
   useEffect(() => {
-    debugger;
     getSystem();
   }, [])
 
@@ -69,17 +71,12 @@ export default function SystemDetails() {
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover your service!",
       icon: "warning",
-      // buttons: true,
       dangerMode: true,
     })
-      .then((willDelete) => {
+      .then(async(willDelete) => {
         if (willDelete) {
           try {
-
-            console.log(from)
-            const res: any = axios.delete(` http://localhost:3333/system/${from.id}`)
-            console.log(res.data);
-            setSystem(res.data)
+            await store.removeSystem(system?._id);
             swal("Poof! Your system has been deleted!", {
               icon: "success",
             });
@@ -93,14 +90,7 @@ export default function SystemDetails() {
           swal("Your system file is safe!");
         }
       });
-
-
-
   }
-
-  // useEffect(() => {
-  //   getSystem();
-  // }, [from.id]);
 
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -117,9 +107,9 @@ export default function SystemDetails() {
     console.log("open");
     setOpen(true);
   };
+
   const updateSystem = async () => {
     const systemToUpdate = {
-
       "topic": inputTopic.current?.value,
       "objectName": inputObjectName.current?.value,
       "managerUid": from.id,
@@ -131,21 +121,16 @@ export default function SystemDetails() {
     }
     console.log(systemToUpdate);
     try {
-      const res = await axios.put(` http://localhost:3333/system/${from.id}`, systemToUpdate)
-      console.log(res.data)
+      await store.editSystem(from.id,systemToUpdate);
       swal("your details update!", "You clicked the button!", "success");
     } catch (err) {
       return err
     }
     finally {   
       handleClose()
-      
     }
   }
   const handleClose = async () => {
-
-
-    debugger
     setOpen(false);
     getSystem();
     navigate("/systems", { state: { id: system?.managerUid} })
@@ -266,3 +251,4 @@ export default function SystemDetails() {
   );
 }
 
+export default observer(SystemDetails);

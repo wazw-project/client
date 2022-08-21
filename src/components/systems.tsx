@@ -119,7 +119,6 @@ const Systems: React.FC = () => {
 
     return (
         <div id="allBusiness" >
-
             <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>All systems</Typography>
             <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
 

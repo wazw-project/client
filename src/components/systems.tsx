@@ -19,7 +19,8 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import swal from 'sweetalert';
 import { observer } from 'mobx-react';
-import store from '../store';
+import systemStore from '../store/systemStore';
+import userStore from '../store/userStore';
 import { useForm } from 'react-hook-form';
 import { url } from 'inspector';
 import { ContentPasteOutlined } from '@mui/icons-material';
@@ -86,11 +87,11 @@ const Systems: React.FC = () => {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else {
-            console.log(store.user._id);
+            console.log(userStore.user._id);
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
                 "objectName": inputObjectName.current?.value,
-                "managerUid": store.user._id,        
+                "managerUid": userStore.user._id,        
                 "description": inputDescription.current?.value,
                 "email": inputEmail.current?.value,
                 "phone": inputPhone.current?.value,
@@ -100,8 +101,8 @@ const Systems: React.FC = () => {
            
             }
             try {
-                await store.addSystem(dataSystem);
-                console.log(store.systems)
+                await systemStore.addSystem(dataSystem);
+                console.log(systemStore.systems)
                 swal("your system added!!", "You clicked the button!", "success");
                 setIfd(true);
                 getSystems();
@@ -113,7 +114,7 @@ const Systems: React.FC = () => {
     async function getSystems() {
         try {
             debugger
-            await store.loadSystems();
+            await systemStore.loadSystems();
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
@@ -128,7 +129,7 @@ const Systems: React.FC = () => {
                 <Button variant="contained" onClick={handleClickOpen}>
                     add system
                 </Button>
-                {store.systems && store.systems.map((system: System) =>
+                {systemStore.systems && systemStore.systems.map((system: System) =>
                     <Card key={system._id}>
                         <CardMedia
                             component="img"

@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import swal from 'sweetalert';
-import store from '../store';
+import userStore from '../store/userStore';
 
 import {
   auth,
@@ -56,7 +56,7 @@ function Register() {
       "email": email
     }
     try {
-        await store.addUser(userToDb);         
+        await userStore.addUser(userToDb);         
     } catch (error) { console.log(error); }
   }
 

@@ -28,7 +28,8 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import store from '../store';
+import userStore from '../store/userStore';
+import systenStore from '../store/systemStore'
 import { observer } from 'mobx-react';
 
 const SystemDetails: React.FC = () => {
@@ -54,7 +55,7 @@ const SystemDetails: React.FC = () => {
 
   async function getSystem() {
     try {
-      await store.getSystemById(form.id);
+      await systenStore.getSystemById(form.id);
     } catch (err) {
       console.log(err)
     }
@@ -73,7 +74,7 @@ const SystemDetails: React.FC = () => {
       .then(async (willDelete) => {
         if (willDelete) {
           try {
-            await store.removeSystem();
+            await systenStore.removeSystem();
             swal("Poof! Your system has been deleted!", {
               icon: "success",
             });
@@ -117,7 +118,7 @@ const SystemDetails: React.FC = () => {
       "urlImage": inputUrlImage.current?.value
     }
     try {
-      await store.editSystem(systemToUpdate);
+      await systenStore.editSystem(systemToUpdate);
       swal("your details update!", "You clicked the button!", "success");
     } catch (err) {
       console.log(err);
@@ -135,29 +136,29 @@ const SystemDetails: React.FC = () => {
   return (
     <div>
       <h1>{nameURL}</h1>
-      {store.currentSystem &&
+      {systenStore.currentSystem &&
         <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: -2 }}>
           <CardMedia
             component="img"
             height="330"
-            image={store.currentSystem?.urlImage}
+            image={systenStore.currentSystem?.urlImage}
             alt="ha ha ha"
           />
           <CardContent>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h3" component="div">
-              {store.currentSystem?.description}
+              {systenStore.currentSystem?.description}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {store.currentSystem?.objectName}
+              {systenStore.currentSystem?.objectName}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {store.currentSystem?.phone}
+              {systenStore.currentSystem?.phone}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {store.currentSystem?.topic}
+              {systenStore.currentSystem?.topic}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {store.currentSystem?.email}
+              {systenStore.currentSystem?.email}
             </Typography>
           </CardContent>
 
@@ -204,7 +205,7 @@ const SystemDetails: React.FC = () => {
                     id="outlined-basic"
                     label="UrlName"
                     variant="outlined"
-                    defaultValue={store.currentSystem?.urlName}
+                    defaultValue={systenStore.currentSystem?.urlName}
                     inputRef={inputUrlName}
                     helperText={urlNameV === "" ? "required!" : ""}
                     error={urlNameV === ""}
@@ -218,25 +219,25 @@ const SystemDetails: React.FC = () => {
                     id="outlined-basic"
                     label="objectName"
                     variant="outlined"
-                    defaultValue={store.currentSystem?.objectName}
+                    defaultValue={systenStore.currentSystem?.objectName}
                     inputRef={inputObjectName}
 
                   />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="description" variant="outlined" defaultValue={store.currentSystem?.description} inputRef={inputDescription} />
+                  <TextField id="outlined-basic" label="description" variant="outlined" defaultValue={systenStore.currentSystem?.description} inputRef={inputDescription} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="topic" variant="outlined" defaultValue={store.currentSystem?.topic} inputRef={inputTopic} />
+                  <TextField id="outlined-basic" label="topic" variant="outlined" defaultValue={systenStore.currentSystem?.topic} inputRef={inputTopic} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="email" variant="outlined" defaultValue={store.currentSystem?.email} inputRef={inputEmail} />
+                  <TextField id="outlined-basic" label="email" variant="outlined" defaultValue={systenStore.currentSystem?.email} inputRef={inputEmail} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={store.currentSystem?.phone} inputRef={inputPhone} />
+                  <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={systenStore.currentSystem?.phone} inputRef={inputPhone} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="image url" variant="outlined" defaultValue={store.currentSystem?.urlImage} inputRef={inputUrlImage} />
+                  <TextField id="outlined-basic" label="image url" variant="outlined" defaultValue={systenStore.currentSystem?.urlImage} inputRef={inputUrlImage} />
                 </ListItem>
 
               </List>

@@ -18,7 +18,7 @@ import Container from '@mui/material/Container';
 import { System } from '../utils/system';
 import { observer } from 'mobx-react';
 import swal from 'sweetalert';
-import store from '../store';
+import userStore from '../store/userStore';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -55,10 +55,10 @@ const Login: React.FC = () => {
   const loginFromDB = async (Uid: any) => {
     try {
       debugger;
-      await store.getUser(Uid);  
-      if(store.user._id===""){
+      await userStore.getUser(Uid);  
+      if(userStore.user._id===""){
        await addUserToDb(Uid)
-       await store.getUser(Uid);        
+       await userStore.getUser(Uid);        
       }     
       navigate("/systems")
     } catch (error) { console.log(error); }
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
   
     try {
       debugger;
-     const res= await store.addUser(userToDb);        
+     const res= await userStore.addUser(userToDb);        
       setUserFromDb(res);
     } catch (error) { console.log(error); }
   }

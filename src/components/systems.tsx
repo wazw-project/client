@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate} from 'react-router-dom';
 import { System } from '../utils/system';
-import { Alert, Card } from '@mui/material';
+import {  Card } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -22,8 +21,7 @@ import { observer } from 'mobx-react';
 import systemStore from '../store/systemStore';
 import userStore from '../store/userStore';
 import { useForm } from 'react-hook-form';
-import { url } from 'inspector';
-import { ContentPasteOutlined } from '@mui/icons-material';
+
 
 const Systems: React.FC = () => {
     const navigate = useNavigate();
@@ -33,9 +31,6 @@ const Systems: React.FC = () => {
         formState: { errors },
     } = useForm<System>();
 
-    const location = useLocation();
-    const [systems, setSystems] = useState<System[]>([]);
-    const [ifd, setIfd] = useState<boolean>(false);
     const [open, setOpen] = React.useState(false);
     const [fullWidth] = React.useState(true);
     const [maxWidth] = React.useState<DialogProps['maxWidth']>('sm');
@@ -67,9 +62,6 @@ const Systems: React.FC = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    // function isValidEmail(email: string) {
-    //     return /\S+@\S+\.\S+/.test(email);
-    // }
     function isValidEmail(email: string) {
         debugger
         return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
@@ -104,7 +96,6 @@ const Systems: React.FC = () => {
                 await systemStore.addSystem(dataSystem);
                 console.log(systemStore.systems)
                 swal("your system added!!", "You clicked the button!", "success");
-                setIfd(true);
                 getSystems();
             } catch (error) { console.log(error); }
             finally { setOpen(false); }

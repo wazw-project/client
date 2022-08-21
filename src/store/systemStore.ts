@@ -1,10 +1,7 @@
-import { User } from '../utils/user';
 import { System } from '../utils/system';
 import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
 import userStore from './userStore';
-
-
 
 const addSystem = async (system: System) => {
     try {

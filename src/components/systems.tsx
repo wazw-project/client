@@ -73,6 +73,10 @@ const Systems: React.FC = () => {
         debugger
         return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
     }
+    function isValidPhone(email: string) {
+        debugger
+        return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(email);
+    }
     const addSystem = async () => {
         if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)||urlNameV.includes(" ")) {
             swal("your form is not validate!!", "You clicked the button!", "error");
@@ -222,7 +226,7 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
                                     onBlur={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
-                                    helperText={phoneV === "" ? "required!" : phoneV.length < 8 ? "At least 8 characters" : " "}
+                                    helperText={phoneV === "" ? "required!" :isValidPhone(phoneV)?"":"not valid phone"}
                                     error={(phoneV === "" || phoneV.length < 8) && startPhoneV}
                                 />
                                 <TextField

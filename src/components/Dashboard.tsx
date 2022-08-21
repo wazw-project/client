@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
+import userStore from "../store/userStore";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -26,8 +27,10 @@ function Dashboard() {
     }
   };
   useEffect(() => {
+    debugger;
     if (loading) return;
     if (!user) return navigate("/");
+    userStore.user=null
     fetchUserName();
   }, [user, loading]);
   return (

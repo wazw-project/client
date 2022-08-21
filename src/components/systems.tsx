@@ -19,7 +19,8 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import swal from 'sweetalert';
 import { observer } from 'mobx-react';
-import store from '../store';
+import systemStore from '../store/systemStore';
+import userStore from '../store/userStore';
 import { useForm } from 'react-hook-form';
 import { url } from 'inspector';
 import { ContentPasteOutlined } from '@mui/icons-material';
@@ -66,39 +67,42 @@ const Systems: React.FC = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    // function isValidEmail(email: string) {
+    //     return /\S+@\S+\.\S+/.test(email);
+    // }
     function isValidEmail(email: string) {
-        return /\S+@\S+\.\S+/.test(email);
+        debugger
+        return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
+    }
+    function isValidPhone(email: string) {
+        debugger
+        return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(email);
+    }
+    function isValidUrl(email: string) {
+        debugger
+        return /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(email);
     }
     const addSystem = async () => {
-        if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)) {
+        if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)||urlNameV.includes(" ")) {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else {
-            console.log(store.user._id);
+            console.log(userStore.user._id);
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
                 "objectName": inputObjectName.current?.value,
-                "managerUid": store.user._id,
-                // "managerUid": from.id,
-                // "managerUid": '62f4bec1c9f7408b6d78e779',
+                "managerUid": userStore.user._id,        
                 "description": inputDescription.current?.value,
                 "email": inputEmail.current?.value,
                 "phone": inputPhone.current?.value,
                 "urlName": inputUrlName.current?.value,
                 "urlImage": inputUrlImage.current?.value
 
-                // description: inputDescription.current?.value,
-                // email: inputEmail.current?.value,
-                // managerUid: "62f4bec1c9f7408b6d78e779",
-                // objectName: "aa",
-                // phone: "0583214675",
-                // topic: "computer",
-                // urlImage: "https://media2.giphy.com/media/3o7aCTfyhYawdOXcFW/giphy.gif?cid=790b7611c67b5ec95891de68a9c99303a22abee9884e69e5&rid=giphy.gif&ct=g",
-                // urlName: "myComputer",
+           
             }
             try {
-                await store.addSystem(dataSystem);
-                console.log(store.systems)
+                await systemStore.addSystem(dataSystem);
+                console.log(systemStore.systems)
                 swal("your system added!!", "You clicked the button!", "success");
                 setIfd(true);
                 getSystems();
@@ -110,7 +114,7 @@ const Systems: React.FC = () => {
     async function getSystems() {
         try {
             debugger
-            await store.loadSystems();
+            await systemStore.loadSystems();
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
@@ -125,7 +129,7 @@ const Systems: React.FC = () => {
                 <Button variant="contained" onClick={handleClickOpen}>
                     add system
                 </Button>
-                {store.systems && store.systems.map((system: System) =>
+                {systemStore.systems && systemStore.systems.map((system: System) =>
                     <Card key={system._id}>
                         <CardMedia
                             component="img"
@@ -227,8 +231,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
                                     onBlur={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
-                                    helperText={phoneV === "" ? "required!" : phoneV.length < 8 ? "At least 8 characters" : " "}
-                                    error={(phoneV === "" || phoneV.length < 8) && startPhoneV}
+                                    helperText={phoneV === "" ? "required!" :isValidPhone(phoneV)?"":"not valid phone"}
+                                    error={(phoneV === "" ||!isValidPhone(phoneV) ) && startPhoneV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -238,8 +242,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
                                     onBlur={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
-                                    helperText={urlNameV === "" ? "required!" : " "}
-                                    error={urlNameV === "" && startUrlNameV}
+                                    helperText={urlNameV === "" ? "required!" :urlNameV.includes(" ")?"url without space" :" "}
+                                    error={(urlNameV === ""  || urlNameV.includes(" ") )&& startUrlNameV}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -249,8 +253,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
                                     onBlur={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
-                                    helperText={urlImageV === "" ? "required!" : " "}
-                                    error={urlImageV === "" && startUrlImageV}
+                                    helperText={urlImageV === "" ? "required!" : isValidUrl(urlImageV)?"":"not valid url"}
+                                    error={urlImageV === "" && startUrlImageV||!isValidUrl(urlImageV)}
                                 />
 
                             </FormControl>

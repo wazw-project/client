@@ -17,7 +17,8 @@ import Container from '@mui/material/Container';
 import { System } from '../utils/system';
 import { observer } from 'mobx-react';
 import swal from 'sweetalert';
-import store from '../store';
+import userStore from '../store/userStore';
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -36,10 +37,10 @@ const Login: React.FC = () => {
       user.getIdToken().then((value=>{
         console.log(value);
         debugger
-        store.token=value;
+        userStore.token=value;
         // store.setToken(value);
       }))
-      console.log(store.token);
+      console.log(userStore.token);
     };
   }, [user, loading]);
 
@@ -52,15 +53,17 @@ const Login: React.FC = () => {
     }
   }
   function isValidEmail(email: string) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
+    debugger
+    return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
+}
   const loginFromDB = async (Uid: any) => {
     try {
-      await store.getUser(Uid);
-      if (store.user._id === "") {
-        await addUserToDb(Uid)
-        await store.getUser(Uid);
-      }
+      debugger;
+      await userStore.getUser(Uid);  
+      if(userStore.user._id===""){
+       await addUserToDb(Uid)
+       await userStore.getUser(Uid);        
+      }     
       navigate("/systems")
     } catch (error) { console.log(error); }
   }
@@ -74,7 +77,8 @@ const Login: React.FC = () => {
     }
 
     try {
-      const res = await store.addUser(userToDb);
+      debugger;
+     const res= await userStore.addUser(userToDb);        
       setUserFromDb(res);
     } catch (error) { console.log(error); }
   }

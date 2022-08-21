@@ -8,18 +8,18 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import store from '../store/userStore';
- const OurAppBar=()=> {
-  debugger
+const OurAppBar = () => {
+  const navigate = useNavigate();
 
   const logOut = () => {
     navigate('/Dashboard')
-}
-const login = () => {
-  navigate('/Login')
-}
-const system = () => {
-  navigate('/systems')
-}
+  }
+  const login = () => {
+    navigate('/Login')
+  }
+  const system = () => {
+    navigate('/systems')
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -36,15 +36,15 @@ const system = () => {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
-          </Typography>  
-          {store.user&&
-          <>
-           <Button color="inherit" onClick={() => logOut()}>log out</Button>
-           <Button color="inherit" onClick={() => system()}>system</Button>
-           </>
-            }
-            {store.user===null&&
-           <Button color="inherit" onClick={() => login()}>login</Button> }
+          </Typography>
+          {store.user &&
+            <>
+              <Button color="inherit" onClick={() => logOut()}>log out</Button>
+              <Button color="inherit" onClick={() => system()}>system</Button>
+            </>
+          }
+          {store.user === null &&
+            <Button color="inherit" onClick={() => login()}>login</Button>}
         </Toolbar>
       </AppBar>
     </Box>

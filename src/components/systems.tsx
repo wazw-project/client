@@ -77,6 +77,10 @@ const Systems: React.FC = () => {
         debugger
         return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(email);
     }
+    function isValidUrl(email: string) {
+        debugger
+        return /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(email);
+    }
     const addSystem = async () => {
         if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)||urlNameV.includes(" ")) {
             swal("your form is not validate!!", "You clicked the button!", "error");
@@ -227,7 +231,7 @@ const Systems: React.FC = () => {
                                     onChange={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
                                     onBlur={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
                                     helperText={phoneV === "" ? "required!" :isValidPhone(phoneV)?"":"not valid phone"}
-                                    error={(phoneV === "" || phoneV.length < 8) && startPhoneV}
+                                    error={(phoneV === "" ||!isValidPhone(phoneV) ) && startPhoneV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -238,7 +242,7 @@ const Systems: React.FC = () => {
                                     onChange={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
                                     onBlur={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
                                     helperText={urlNameV === "" ? "required!" :urlNameV.includes(" ")?"url without space" :" "}
-                                    error={urlNameV === "" && startUrlNameV || urlNameV.includes(" ") }
+                                    error={(urlNameV === ""  || urlNameV.includes(" ") )&& startUrlNameV}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -248,8 +252,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
                                     onBlur={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
-                                    helperText={urlImageV === "" ? "required!" : " "}
-                                    error={urlImageV === "" && startUrlImageV}
+                                    helperText={urlImageV === "" ? "required!" : isValidUrl(urlImageV)?"":"not valid url"}
+                                    error={urlImageV === "" && startUrlImageV||!isValidUrl(urlImageV)}
                                 />
 
                             </FormControl>

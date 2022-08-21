@@ -34,6 +34,7 @@ const Login: React.FC = () => {
     if (user) {
       debugger;
       console.log(user)
+      debugger
       loginFromDB(user.uid);
     };
   }, [user, loading]);
@@ -52,13 +53,32 @@ const Login: React.FC = () => {
   const loginFromDB = async (Uid: any) => {
     try {
       debugger;
-      const res = await axios.get(`http://localhost:3333/user/${Uid}`);
+      let res = await axios.get(`http://localhost:3333/user/${Uid}`);
+      if(res.data===""){
+       await addUserToDb(Uid)
+        res = await axios.get(`http://localhost:3333/user/${Uid}`);       
+      }
       let tempList = await res.data;
       console.log(tempList)
       setUserFromDb(tempList);
       debugger
       navigate("/systems", { state: { id: tempList._id } })
 
+    } catch (error) { console.log(error); }
+  }
+  const addUserToDb = async (uid: string) => {
+    debugger;
+    const userToDb = {
+      "fireBaseUid":uid,
+      "firstName": "",
+     "lastName": "",
+       "phone":"",
+      "email": ""
+    }
+    try {
+      const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
+      let tempList = await res.data;
+      setUserFromDb(tempList);
     } catch (error) { console.log(error); }
   }
 
@@ -98,7 +118,6 @@ const Login: React.FC = () => {
             type="text"
             onChange={(e) => (setEmail(e.target.value), setEmailV(e.target.value))}
             onBlur={(e) => setEmailV(e.target.value)}
-
             helperText={emailV === "" ? "required!" : isValidEmail(emailV) ? "" : "not valid email"}
             error={(emailV === "" || !isValidEmail(emailV))}
           />

@@ -176,7 +176,7 @@ export default function SystemDetails() {
               {system?.topic}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {system?.urlName}
+              {system?.email}
             </Typography>
           </CardContent>
 

@@ -4,6 +4,7 @@ import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
 
 const addUser=async(userToDb:User)=>{
+    debugger
     try {
         const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
         let tempList = await res.data;
@@ -29,10 +30,9 @@ const addSystem = async (system: System) => {
     } catch (error) { console.log(error); }
 }
 
-const getSystems = async () => {
+const getSystems = async (id: string) => {
     try {
-        const managerId = '62f4bec1c9f7408b6d78e779';
-        const res = await axios.get(`http://localhost:3333/system/${managerId}`);
+        const res = await axios.get(`http://localhost:3333/system/${id}`);
         let tempList = await res.data;
         return tempList;
     } catch (error) { console.log(error); }
@@ -45,9 +45,11 @@ const removeSystem = async (systemId: string) => {
 }
 
 const editSystem = async (managerId: string, system: System) => {
+    debugger
     try {
         const res = await axios.put(` http://localhost:3333/system/${managerId}`, system)
-        console.log(res.data)
+        const data = await res.data;
+        console.log(data);
     } catch (error) { console.log(error); }
 }
 
@@ -64,14 +66,14 @@ const getSystemById = async (id: string) => {
 class Store {
     user: any = null;
     systems: System[] = [];
-    // currentSystem
-    
+    currentSystem: any = null;
+
     constructor() {
         makeAutoObservable(this);
     }
 
     async loadSystems() {
-        this.systems = await getSystems();
+        this.systems = await getSystems(this.user._id);
     }
 
     async addSystem(system: System) {
@@ -80,39 +82,30 @@ class Store {
         console.log(this.systems)
     }
     async addUser(user:User){
-        debugger
         await addUser(user);
-        debugger;
         this.user=user;
-        console.log(this.user)
     }
     async getUser(id:string){
-        debugger;
-        debugger
        const user= await getUser(id);
-        debugger;
-        this.user=user;
-        console.log(user)
+       this.user=user;
       return user
-      
     }
 
-    async removeSystem(systemId: string) {
-        await removeSystem(systemId);
-        this.systems = this.systems.filter(system => system._id !== systemId);
+    async removeSystem() {
+        await removeSystem(this.currentSystem._id);
+        this.currentSystem=null;
     }
 
-    async editSystem(managerId: string, system: System) {
-        await editSystem(managerId, system);
-        // this.systems=this.systems.filter(s=>s._id === system._id?s==system:s);
+    async editSystem(system: System) {
+        debugger
+        await editSystem(this.currentSystem._id, system);
+        this.currentSystem=system;
     }
 
-    async getSystemById(Id: string) {
-        const system = await getSystemById(Id);
-
+    async getSystemById(id: string) {
+        this.currentSystem = await getSystemById(id);
     }
 }
 
 const store = new Store();
-
-export default store ;
+export default store;

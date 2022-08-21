@@ -79,14 +79,15 @@ const Systems: React.FC = () => {
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
                 "objectName": inputObjectName.current?.value,
+                "managerUid": store.user._id,
                 // "managerUid": from.id,
-                "managerUid": '62f4bec1c9f7408b6d78e779',
+                // "managerUid": '62f4bec1c9f7408b6d78e779',
                 "description": inputDescription.current?.value,
                 "email": inputEmail.current?.value,
                 "phone": inputPhone.current?.value,
                 "urlName": inputUrlName.current?.value,
                 "urlImage": inputUrlImage.current?.value
-                
+
                 // description: inputDescription.current?.value,
                 // email: inputEmail.current?.value,
                 // managerUid: "62f4bec1c9f7408b6d78e779",

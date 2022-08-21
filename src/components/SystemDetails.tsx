@@ -31,7 +31,7 @@ import SendIcon from '@mui/icons-material/Send';
 import store from '../store';
 import { observer } from 'mobx-react';
 
-const SystemDetails: React.FC=()=> {
+const SystemDetails: React.FC = () => {
   const navigate = useNavigate();
   const inputTopic: any = useRef();
   const inputObjectName: any = useRef();
@@ -49,15 +49,12 @@ const SystemDetails: React.FC=()=> {
   const [urlImageV, setUrlImageV] = useState<string>("**")
   const [system, setSystem] = useState<System>();
   const location = useLocation();
-  const from: any = location.state;
+  const form: any = location.state;
   const { nameURL } = useParams();
 
   async function getSystem() {
     try {
-      console.log(from)
-      const res = await axios.get(` http://localhost:3333/system/systemById/${from.id}`)
-      console.log(res.data);
-      setSystem(res.data)
+      await store.getSystemById(form.id);
     } catch (err) {
       console.log(err)
     }
@@ -73,14 +70,14 @@ const SystemDetails: React.FC=()=> {
       icon: "warning",
       dangerMode: true,
     })
-      .then(async(willDelete) => {
+      .then(async (willDelete) => {
         if (willDelete) {
           try {
-            await store.removeSystem(system?._id);
+            await store.removeSystem();
             swal("Poof! Your system has been deleted!", {
               icon: "success",
             });
-            navigate("/systems", { state: { id: system?.managerUid} })
+            navigate("/systems", { state: { id: system?.managerUid } })
           } catch (err) {
             console.log(err)
             swal("Your system is safe!");
@@ -112,56 +109,55 @@ const SystemDetails: React.FC=()=> {
     const systemToUpdate = {
       "topic": inputTopic.current?.value,
       "objectName": inputObjectName.current?.value,
-      "managerUid": from.id,
+      "managerUid": form.id,
       "description": inputDescription.current?.value,
       "email": inputEmail.current?.value,
       "phone": inputPhone.current?.value,
       "urlName": inputUrlName.current?.value,
       "urlImage": inputUrlImage.current?.value
     }
-    console.log(systemToUpdate);
     try {
-      await store.editSystem(from.id,systemToUpdate);
+      await store.editSystem(systemToUpdate);
       swal("your details update!", "You clicked the button!", "success");
     } catch (err) {
-      return err
+      console.log(err);
     }
-    finally {   
+    finally {
       handleClose()
     }
   }
   const handleClose = async () => {
     setOpen(false);
     getSystem();
-    navigate("/systems", { state: { id: system?.managerUid} })
+    navigate("/systems", { state: { id: system?.managerUid } })
   };
 
   return (
     <div>
       <h1>{nameURL}</h1>
-      {system &&
+      {store.currentSystem &&
         <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: -2 }}>
           <CardMedia
             component="img"
             height="330"
-            image={system?.urlImage}
+            image={store.currentSystem?.urlImage}
             alt="ha ha ha"
           />
           <CardContent>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h3" component="div">
-              {system?.description}
+              {store.currentSystem?.description}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {system?.objectName}
+              {store.currentSystem?.objectName}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {system?.phone}
+              {store.currentSystem?.phone}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {system?.topic}
+              {store.currentSystem?.topic}
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {system?.email}
+              {store.currentSystem?.email}
             </Typography>
           </CardContent>
 
@@ -208,7 +204,7 @@ const SystemDetails: React.FC=()=> {
                     id="outlined-basic"
                     label="UrlName"
                     variant="outlined"
-                    defaultValue={system?.urlName}
+                    defaultValue={store.currentSystem?.urlName}
                     inputRef={inputUrlName}
                     helperText={urlNameV === "" ? "required!" : ""}
                     error={urlNameV === ""}
@@ -222,25 +218,25 @@ const SystemDetails: React.FC=()=> {
                     id="outlined-basic"
                     label="objectName"
                     variant="outlined"
-                    defaultValue={system?.objectName}
+                    defaultValue={store.currentSystem?.objectName}
                     inputRef={inputObjectName}
 
                   />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="description" variant="outlined" defaultValue={system?.description} inputRef={inputDescription} />
+                  <TextField id="outlined-basic" label="description" variant="outlined" defaultValue={store.currentSystem?.description} inputRef={inputDescription} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="topic" variant="outlined" defaultValue={system?.topic} inputRef={inputTopic} />
+                  <TextField id="outlined-basic" label="topic" variant="outlined" defaultValue={store.currentSystem?.topic} inputRef={inputTopic} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="email" variant="outlined" defaultValue={system?.email} inputRef={inputEmail} />
+                  <TextField id="outlined-basic" label="email" variant="outlined" defaultValue={store.currentSystem?.email} inputRef={inputEmail} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={system?.phone} inputRef={inputPhone} />
+                  <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={store.currentSystem?.phone} inputRef={inputPhone} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="image url" variant="outlined" defaultValue={system?.urlImage} inputRef={inputUrlImage} />
+                  <TextField id="outlined-basic" label="image url" variant="outlined" defaultValue={store.currentSystem?.urlImage} inputRef={inputUrlImage} />
                 </ListItem>
 
               </List>

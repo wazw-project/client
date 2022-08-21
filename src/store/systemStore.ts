@@ -15,9 +15,12 @@ const addSystem = async (system: System) => {
     } catch (error) { console.log(error); }
 }
 
-const getSystems = async (managerId:string) => {
+const getSystems = async (managerId:string,token:string) => {
     try {   
-        const res = await axios.get(`http://localhost:3333/system/${managerId}`);
+        const res = await axios.get(`http://localhost:3333/system/${managerId}`, 
+        {
+            headers: {"Authorization": token },
+        });
         let tempList = await res.data;
         return tempList;
     } catch (error) { console.log(error); }
@@ -53,13 +56,14 @@ class Store {
    
     systems: System[] = [];
     currentSystem: any = null;
+    token:string="";
 
     constructor() {
         makeAutoObservable(this);
     }
 
     async loadSystems() {
-        this.systems = await getSystems(userStore.user._id);
+        this.systems = await getSystems(userStore.user._id,this.token);
     }
 
     async addSystem(system: System) {

@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "../style/Login.css";
-import axios from "axios";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -28,15 +27,20 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [emailV, setEmailV] = useState<string>("*@gmail.com");
   const [PasswordV, setPasswordV] = useState<string>("******");
+
   useEffect(() => {
     if (loading) {
       return;
     }
     if (user) {
-      debugger;
-      console.log(user)
-      debugger
       loginFromDB(user.uid);
+      user.getIdToken().then((value=>{
+        console.log(value);
+        debugger
+        userStore.token=value;
+        // store.setToken(value);
+      }))
+      console.log(userStore.token);
     };
   }, [user, loading]);
 
@@ -64,16 +68,14 @@ const Login: React.FC = () => {
     } catch (error) { console.log(error); }
   }
   const addUserToDb = async (uid: string) => {
-    debugger;
-    debugger;
-    const userToDb:any = {
-      "fireBaseUid":uid,
+    const userToDb: any = {
+      "fireBaseUid": uid,
       "firstName": "",
-     "lastName": "",
-       "phone":"",
+      "lastName": "",
+      "phone": "",
       "email": ""
     }
-  
+
     try {
       debugger;
      const res= await userStore.addUser(userToDb);        

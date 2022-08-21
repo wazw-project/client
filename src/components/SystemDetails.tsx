@@ -23,8 +23,14 @@ import { TransitionProps } from '@mui/material/transitions';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import swal from 'sweetalert';
+import DialogActions from '@mui/material/DialogActions';
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function SystemDetails() {
+  const navigate = useNavigate();
   const inputTopic: any = useRef();
   const inputObjectName: any = useRef();
   const inputDescription: any = useRef();
@@ -32,7 +38,13 @@ export default function SystemDetails() {
   const inputPhone: any = useRef();
   const inputUrlName: any = useRef();
   const inputUrlImage: any = useRef();
-
+  const [topicV, setTopicV] = useState<string>("**")
+  const [objectNameV, setObjectNameV] = useState<string>("**")
+  const [descriptionV, setDescriptionV] = useState<string>("**")
+  const [emailV, setEmailV] = useState<string>("*@gmail.com")
+  const [phoneV, setPhoneV] = useState<string>("12345678")
+  const [urlNameV, setUrlNameV] = useState<string>("**")
+  const [urlImageV, setUrlImageV] = useState<string>("**")
   const [system, setSystem] = useState<System>();
   const location = useLocation();
   const from: any = location.state;
@@ -47,43 +59,48 @@ export default function SystemDetails() {
       console.log(err)
     }
   }
+  useEffect(() => {
+    debugger;
+    getSystem();
+  }, [])
 
   async function deleteSystem() {
     swal({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      text: "Once deleted, you will not be able to recover your service!",
       icon: "warning",
-    //  buttons:true,
+      // buttons: true,
       dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete) {
-        try {
+      .then((willDelete) => {
+        if (willDelete) {
+          try {
 
-          console.log(from)
-          const res:any = axios.delete(` http://localhost:3333/system/${from.id}`)
-          console.log(res.data);
-          setSystem(res.data)
-          swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-          });
-        } catch (err) {
-          console.log(err)
-          swal("Your imaginary file is safe!");
+            console.log(from)
+            const res: any = axios.delete(` http://localhost:3333/system/${from.id}`)
+            console.log(res.data);
+            setSystem(res.data)
+            swal("Poof! Your system has been deleted!", {
+              icon: "success",
+            });
+            navigate("/systems", { state: { id: system?.managerUid} })
+          } catch (err) {
+            console.log(err)
+            swal("Your system is safe!");
+          }
+
+        } else {
+          swal("Your system file is safe!");
         }
-      
-      } else {
-        swal("Your imaginary file is safe!");
-      }
-    });
+      });
 
 
-   
+
   }
 
-  useEffect(() => {
-    getSystem();
-  }, [from.id]);
+  // useEffect(() => {
+  //   getSystem();
+  // }, [from.id]);
 
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -100,12 +117,12 @@ export default function SystemDetails() {
     console.log("open");
     setOpen(true);
   };
-
-  const handleClose = async () => {
+  const updateSystem = async () => {
     const systemToUpdate = {
+
       "topic": inputTopic.current?.value,
       "objectName": inputObjectName.current?.value,
-      "managerUid": "62f263ea1729335c6aff4480",
+      "managerUid": from.id,
       "description": inputDescription.current?.value,
       "email": inputEmail.current?.value,
       "phone": inputPhone.current?.value,
@@ -120,20 +137,28 @@ export default function SystemDetails() {
     } catch (err) {
       return err
     }
-
-    finally {
-      setOpen(false);
+    finally {   
+      handleClose()
+      
     }
+  }
+  const handleClose = async () => {
+
+
+    debugger
+    setOpen(false);
+    getSystem();
+    navigate("/systems", { state: { id: system?.managerUid} })
   };
 
   return (
     <div>
-      <h1>{ nameURL }</h1>
+      <h1>{nameURL}</h1>
       {system &&
-        <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: 2 }}>
+        <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: -2 }}>
           <CardMedia
             component="img"
-            height="480"
+            height="330"
             image={system?.urlImage}
             alt="ha ha ha"
           />
@@ -154,14 +179,19 @@ export default function SystemDetails() {
               {system?.urlName}
             </Typography>
           </CardContent>
-          <div style={{ marginRight: 'left' }}></div>
+
           <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-              edit
-            </Button>
-            <Button variant="outlined" onClick={deleteSystem}>
-              delete
-            </Button>
+
+
+            <Container component="main" maxWidth="xs" sx={{ marginBottom: 2, marginRight: 55 }}>
+
+              <Button variant="contained" onClick={handleClickOpen} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
+                Edit
+              </Button>
+              <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
+                Delete
+              </Button>
+            </Container>
             <Dialog
               fullScreen
               open={open}
@@ -181,18 +211,36 @@ export default function SystemDetails() {
                   <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                     details
                   </Typography>
-                  <Button autoFocus color="inherit" onClick={handleClose}>
+                  <Button autoFocus color="inherit" onClick={updateSystem}>
                     save
                   </Button>
                 </Toolbar>
               </AppBar>
-              <List>
+
+              <List sx={{ marginLeft: "40%", marginTop: '3%' }}>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="UrlName" variant="outlined" defaultValue={system?.urlName} inputRef={inputUrlName} />
+                  <TextField
+                    id="outlined-basic"
+                    label="UrlName"
+                    variant="outlined"
+                    defaultValue={system?.urlName}
+                    inputRef={inputUrlName}
+                    helperText={urlNameV === "" ? "required!" : ""}
+                    error={urlNameV === ""}
+                  // onChange={(e) => (setUrlNameV(e.target.value))}
+                  // onBlur={(e) => setUrlNameV(e.target.value)}
+                  />
                 </ListItem>
                 {/* <Divider /> */}
                 <ListItem button>
-                  <TextField id="outlined-basic" label="objectName" variant="outlined" defaultValue={system?.objectName} inputRef={inputObjectName} />
+                  <TextField
+                    id="outlined-basic"
+                    label="objectName"
+                    variant="outlined"
+                    defaultValue={system?.objectName}
+                    inputRef={inputObjectName}
+
+                  />
                 </ListItem>
                 <ListItem button>
                   <TextField id="outlined-basic" label="description" variant="outlined" defaultValue={system?.description} inputRef={inputDescription} />
@@ -207,14 +255,9 @@ export default function SystemDetails() {
                   <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={system?.phone} inputRef={inputPhone} />
                 </ListItem>
                 <ListItem button>
-                  <TextField id="outlined-basic" label="phone" variant="outlined" defaultValue={system?.urlImage} inputRef={inputUrlImage} />
+                  <TextField id="outlined-basic" label="image url" variant="outlined" defaultValue={system?.urlImage} inputRef={inputUrlImage} />
                 </ListItem>
-                {/* <ListItem button>
-                  <ListItemText
-                    primary="Default notification ringtone"
-                    secondary="Tethys"
-                  />
-                </ListItem> */}
+
               </List>
             </Dialog>
           </div>

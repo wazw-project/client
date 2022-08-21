@@ -1,5 +1,6 @@
 import { Console } from "console";
 import { initializeApp } from "firebase/app";
+import swal from 'sweetalert';
 import {
   GoogleAuthProvider,
   getAuth,
@@ -13,11 +14,10 @@ import {
   getFirestore,
   query,
   getDocs,
-  collection,
   where,
+  collection,
   addDoc,
 } from "firebase/firestore";
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD17Zwt5oe22-TyWEWfgBG7bFvH2MXjCug",
   authDomain: "waze-project-b8a94.firebaseapp.com",
@@ -55,7 +55,7 @@ const logInWithEmailAndPassword = async (email:string, password:string) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err:any) {
     console.error(err);
-    alert(err.message);
+    swal("Fails login!!", err.message, "error");
   }
 };
 const registerWithEmailAndPassword = async (name:string, email:string, password:string) => {
@@ -79,7 +79,8 @@ const sendPasswordReset = async (email:string) => {
     alert("Password reset link sent!");
   } catch (err:any) {
     console.error(err);
-    alert(err.message);
+    
+    swal("oops!!", err.message, "error");
   }
 };
 const logout = () => {

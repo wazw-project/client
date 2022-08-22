@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@googlemaps/react-wrapper": "^1.1.35",
     "@hookform/error-message": "^2.0.0",
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.8.4",
@@ -17,6 +18,7 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/yup": "^0.29.14",
+    "autosuggest-highlight": "^3.3.4",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "dom": "^0.0.3",
@@ -28,6 +30,7 @@
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.2",
     "mobx-react-lite": "^3.4.0",
+    "parse": "^3.4.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
@@ -67,6 +70,8 @@
     ]
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.12"
+    "@types/autosuggest-highlight": "^3.2.0",
+    "@types/enzyme": "^3.10.12",
+    "@types/googlemaps": "^3.43.3"
   }
 }

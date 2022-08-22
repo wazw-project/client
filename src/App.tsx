@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import Systems from "./components/systems";
 import SystemDetails from "./components/SystemDetails";
 import OurAppBar from './components/AppBar'
+import MapOfLocationsOfBusinessesToTheSystem from "./components/MapOfLocationsOfBusinessesToTheSystem";
 function App() {
   return (
     <div className="app">
@@ -21,6 +22,7 @@ function App() {
           <Route path="/systems" element={<Systems />} />
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails />} />
           <Route path="/OurAppBar" element={<OurAppBar />} />
+          <Route path="/mapOfLocationsOfBusinessesToTheSystem" element={<MapOfLocationsOfBusinessesToTheSystem/>}/>
         </Routes>
       </Router>
     </div>

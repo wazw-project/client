@@ -12,6 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import markerStore from '../store/markerStore';
 import DeleteIcon from '@mui/icons-material/Delete';
+import swal from 'sweetalert';
 
 const Marker = (props: any) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -38,9 +39,26 @@ const Marker = (props: any) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [markersName, setMarkerName] = useState<string>("")
   const delteMarker=()=>{
-    debugger
-    markerStore.removeMarkers(markersName)
-    markerStore.currentMarker=null;
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      // buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        debugger
+        markerStore.removeMarkers(markersName)
+        markerStore.currentMarker=null;
+        swal("Poof! Your marker deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your marker is safe!");
+      }
+    });
+    
   }
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

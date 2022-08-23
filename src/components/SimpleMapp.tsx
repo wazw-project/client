@@ -33,7 +33,8 @@ const SimpleMap: React.FC = (props: any) => {
       disableDefaultUI: true,
       mapTypeControl: true,
       streetViewControl: true,
-      styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
+      styles: [{  height: '90%', featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
+      
     };
   };
   const [open, setOpen] = React.useState(false);
@@ -68,11 +69,12 @@ const SimpleMap: React.FC = (props: any) => {
   const [zoom, setZoom] = useState(11);
   return (
     <>
-      <Box sx={{ flexGrow: 1, height: "100%" }}>
-        <Grid container spacing={2} sx={{ height: "100%" }}>
-          <Grid item xs={6} md={8}  >
-            <GoogleMapReact
-          style={mapStyles}
+      <Box sx={{ flexGrow: 1,
+    }} >
+        <Grid container spacing={1} >
+          <Grid   item md={8}  >
+            <GoogleMapReact  
+                  
               bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
               defaultCenter={center}
               defaultZoom={zoom}

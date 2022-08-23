@@ -13,6 +13,7 @@ import { useTheme } from '@mui/material/styles';
 import markerStore from '../store/markerStore';
 import DeleteIcon from '@mui/icons-material/Delete';
 import swal from 'sweetalert';
+import SendIcon from '@mui/icons-material/Send';
 
 const Marker = (props: any) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -32,16 +33,15 @@ const Marker = (props: any) => {
     markerStore.SetcurrentMarker(e.target.title)
     console.log(markerStore.currentMarker.name)
     handleClickOpen()
-    // alert(e.target.title)
   }
  
   const { color, name, id } = props;
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [markersName, setMarkerName] = useState<string>("")
-  const delteMarker=()=>{
+  const deleteMarker=()=>{
     swal({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      text: "Once deleted, you will not be able to recover this marker!",
       icon: "warning",
       // buttons: true,
       dangerMode: true,
@@ -54,11 +54,16 @@ const Marker = (props: any) => {
         swal("Poof! Your marker deleted!", {
           icon: "success",
         });
+        handleCloseDialog()
       } else {
         swal("Your marker is safe!");
+        handleCloseDialog()
       }
     });
     
+  }
+  const updateMarker=()=>{
+    //add update marker function
   }
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -74,7 +79,7 @@ const Marker = (props: any) => {
         className="pin bounce"
         style={{ backgroundColor: color, cursor: 'pointer' }}
         title={name}
-        onMouseMove={nameOfLocation}
+        onMouseLeave={nameOfLocation}
         onClick={detailsOfLocation}
       />
       <div className="pulse" />
@@ -114,15 +119,18 @@ const Marker = (props: any) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button variant="outlined" onClick={delteMarker} startIcon={<DeleteIcon />}>
+            <Button variant="outlined" onClick={deleteMarker} startIcon={<DeleteIcon />}>
               Delete
             </Button>
+            <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
+                Edit
+              </Button>
             {/* <Button autoFocus onClick={handleCloseDialog}>
               Disagree
-            </Button>
+            </Button>*/}
             <Button onClick={handleCloseDialog} autoFocus>
-              Agree
-            </Button> */}
+              close
+            </Button> 
 
           </DialogActions>
         </Dialog>

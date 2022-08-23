@@ -82,7 +82,7 @@ const SimpleMap: React.FC = (props: any) => {
 
             >
          
-              {markerStore.marker.map(m=>( 
+              {markerStore.markers.map(m=>( 
                 <Marker
                   lat={m.lat}
                   lng={m.lng}

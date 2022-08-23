@@ -1,13 +1,17 @@
-import React from 'react';
-import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+
+import React, { useState } from 'react';
+import GoogleMapReact from 'google-map-react';
+import Marker from './Marker';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
+import markerStore from '../store/markerStore';
+
 const mapStyles = {
-  width: '60%',
+  width: '20%',
   height: '90%'
 };
 interface Film {
@@ -21,32 +25,20 @@ function sleep(delay = 0) {
   });
 }
 
-const MapOfLocationsOfBusinessesToTheSystem: React.FC = (props: any) => {
-  const [state, setState] = React.useState<any>({
-    showingInfoWindow: false,  // Hides or shows the InfoWindow
-    activeMarker: {},          // Shows the active marker upon click
-    selectedPlace: {}          // Shows the InfoWindow to the selected place upon a marker
-  })
 
-  const onMarkerClick = (props: any, marker: any, e: any) =>
-    setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
 
-  const onClose = (props: any) => {
-    if (state.showingInfoWindow) {
-      setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
-    }
+const SimpleMap: React.FC = (props: any) => {
+  const getMapOptions = (maps: any) => {
+    return {
+      disableDefaultUI: true,
+      mapTypeControl: true,
+      streetViewControl: true,
+      styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
+    };
   };
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<readonly Film[]>([]);
   const loading = open && options.length === 0;
-
   React.useEffect(() => {
     let active = true;
 
@@ -72,26 +64,32 @@ const MapOfLocationsOfBusinessesToTheSystem: React.FC = (props: any) => {
       setOptions([]);
     }
   }, [open]);
-  const center={lat:32,lng:-35};
+  const [center, setCenter] = useState({ lat: 11.0168, lng: 76.9558 });
+  const [zoom, setZoom] = useState(11);
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={6} md={8}>
-            <Map
-              google={props.google}
-              zoom={14}
-              style={mapStyles}
-              initialCenter={
-                {
-                  lat: -1.2884,
-                  lng: 36.8233
-                }
-              }
-            />
-            
-           
+      <Box sx={{ flexGrow: 1, height: "100%" }}>
+        <Grid container spacing={2} sx={{ height: "100%" }}>
+          <Grid item xs={6} md={8}  >
+            <GoogleMapReact
+          style={mapStyles}
+              bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
+              defaultCenter={center}
+              defaultZoom={zoom}
+              options={getMapOptions}
 
+            >
+         
+              {markerStore.marker.map(m=>( 
+                <Marker
+                  lat={m.lat}
+                  lng={m.lng}
+                  name={m.name}
+                  color={m.color}
+                />
+              ))}
+
+            </GoogleMapReact>
           </Grid>
           <Grid item xs={6} md={4}>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h4" component="div">
@@ -135,6 +133,9 @@ const MapOfLocationsOfBusinessesToTheSystem: React.FC = (props: any) => {
     </>
   );
 }
+
+export default SimpleMap;
+
 const topFilms = [
   { title: 'The Shawshank Redemption', year: 1994 },
   { title: 'The Godfather', year: 1972 },
@@ -186,70 +187,3 @@ const topFilms = [
 ];
 
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw'
-})(MapOfLocationsOfBusinessesToTheSystem);
-
-
-// import { useState, useEffect, useRef } from 'react';
-// import { Wrapper, Status } from "@googlemaps/react-wrapper";
-
-// interface MapProps extends google.maps.MapOptions {
-//   style: { [key: string]: string };
-//   onClick?: (e: google.maps.MapMouseEvent) => void;
-//   onIdle?: (map: google.maps.Map) => void;
-//   children?: any
-// }
-// const render = (status: Status) => {
-//   return <h1>{status}</h1>;
-// };
-// <Wrapper apiKey={"AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw"} render={render}>
-//   {/* <MapOfLocationsOfBusinessesToTheSystem/> */}
-// </Wrapper>
-
-// const MapOfLocationsOfBusinessesToTheSystem: React.FC<MapProps> = ({ onClick, onIdle, children, style, ...options }) => {
-
-//   const ref = useRef<HTMLDivElement>(null);
-//   const [map, setMap] = useState<google.maps.Map>();
-//   useEffect(() => {
-//     if (map) {
-//       map.setOptions(options);
-//     }
-//   }, [map, options]);
-
-//   useEffect(() => {
-//     if (map) {
-//       ["click", "idle"].forEach((eventName) =>
-//         google.maps.event.clearListeners(map, eventName)
-//       );
-
-//       if (onClick) {
-//         map.addListener("click", onClick);
-//       }
-
-//       if (onIdle) {
-//         map.addListener("idle", () => onIdle(map));
-//       }
-//     }
-//   }, [map, onClick, onIdle]);
-
-
-
-
-
-//   useEffect(() => {
-//     if (ref.current && !map) {
-//       setMap(new window.google.maps.Map(ref.current, {}));
-//     }
-//   }, [ref, map]);
-//   return (<>
-//     <div ref={ref} style={style} />
-//     {React.Children.map(children, (child) => {
-//       if (React.isValidElement(child)) {
-//         // set the map prop on the child component
-//         return React.cloneElement(child, { map });
-//       }
-//     })}
-//   </>);
-// };
-// export default MapOfLocationsOfBusinessesToTheSystem

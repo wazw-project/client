@@ -58,6 +58,7 @@ const logInWithEmailAndPassword = async (email:string, password:string) => {
     swal("Fails login!!", err.message, "error");
   }
 };
+
 const registerWithEmailAndPassword = async (name:string, email:string, password:string) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -73,6 +74,7 @@ const registerWithEmailAndPassword = async (name:string, email:string, password:
     alert(err.message);
   }
 };
+
 const sendPasswordReset = async (email:string) => {
   try {
     await sendPasswordResetEmail(auth, email);

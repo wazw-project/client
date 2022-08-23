@@ -6,9 +6,13 @@ import userStore from './userStore';
 
 
 
-const addSystem = async (system: System) => {
+const addSystem = async (system: System,token:string) => {
     try {
-        const res = await axios.post(`http://localhost:3333/system/addSystem`, system);
+        const res = await axios.post(`http://localhost:3333/system/addSystem`,
+        {
+            headers: {"Authorization": token },
+            body:system
+        });
         const data = await res.data;
         console.log(data);
         return data;
@@ -26,24 +30,34 @@ const getSystems = async (managerId:string,token:string) => {
     } catch (error) { console.log(error); }
 }
 
-const removeSystem = async (systemId: string) => {
+const removeSystem = async (systemId: string,token:string) => {
     try {
-        await axios.delete(` http://localhost:3333/system/${systemId}`)
+        await axios.delete(` http://localhost:3333/system/${systemId}`,
+        {
+            headers: {"Authorization": token },
+        });
     } catch (error) { console.log(error); }
 }
 
-const editSystem = async (managerId: string, system: System) => {
+const editSystem = async (managerId: string, system: System,token:string) => {
     debugger
     try {
-        const res = await axios.put(` http://localhost:3333/system/${managerId}`, system)
+        const res = await axios.put(` http://localhost:3333/system/${managerId}`,
+        {
+            headers: {"Authorization": token },
+            body:system
+        }); 
         const data = await res.data;
         console.log(data);
     } catch (error) { console.log(error); }
 }
 
-const getSystemById = async (id: string) => {
+const getSystemById = async (id: string,token:string) => {
     try {
-        const res = await axios.get(` http://localhost:3333/system/systemById/${id}`)
+        const res = await axios.get(` http://localhost:3333/system/systemById/${id}`,
+        {
+            headers: {"Authorization": token },
+        });
         const data = await res.data;
         return data;
     } catch (err) {
@@ -53,7 +67,6 @@ const getSystemById = async (id: string) => {
 
 
 class Store {
-   
     systems: System[] = [];
     currentSystem: any = null;
     token:string="";
@@ -67,25 +80,25 @@ class Store {
     }
 
     async addSystem(system: System) {
-        await addSystem(system);
+        await addSystem(system,this.token);
         this.systems.push(system);
         console.log(this.systems)
     }
    
 
     async removeSystem() {
-        await removeSystem(this.currentSystem._id);
+        await removeSystem(this.currentSystem._id,this.token);
         this.currentSystem=null;
     }
 
     async editSystem(system: System) {
         debugger
-        await editSystem(this.currentSystem._id, system);
+        await editSystem(this.currentSystem._id, system,this.token);
         this.currentSystem=system;
     }
 
     async getSystemById(id: string) {
-        this.currentSystem = await getSystemById(id);
+        this.currentSystem = await getSystemById(id,this.token);
     }
 }
 

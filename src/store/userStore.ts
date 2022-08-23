@@ -13,7 +13,6 @@ const addUser=async(userToDb:User)=>{
 
 
 const getUser=async(id:string)=>{
-    debugger
     try{
        const res = await axios.get(`http://localhost:3333/user/${id}`);   
        let tempList = await res.data;

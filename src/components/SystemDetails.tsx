@@ -3,32 +3,24 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { System } from '../utils/system';
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import swal from 'sweetalert';
-import DialogActions from '@mui/material/DialogActions';
-import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import userStore from '../store/userStore';
 import systenStore from '../store/systemStore'
 import { observer } from 'mobx-react';
 
@@ -172,6 +164,9 @@ const SystemDetails: React.FC = () => {
               </Button>
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
                 Delete
+              </Button>
+              <Button variant="outlined"onClick={()=>{navigate("/simpleMap")}}>
+                see all business location
               </Button>
             </Container>
             <Dialog

@@ -6,12 +6,18 @@ import Dashboard from "./components/Dashboard";
 import Systems from "./components/systems";
 import SystemDetails from "./components/SystemDetails";
 import OurAppBar from './components/AppBar'
+import SimpleMap from "./components/SimpleMapp";
+
+
+
+
 function App() {
   return (
     <div className="app">
          
       <Router>
       <OurAppBar />
+     
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -21,6 +27,7 @@ function App() {
           <Route path="/systems" element={<Systems />} />
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails />} />
           <Route path="/OurAppBar" element={<OurAppBar />} />
+          <Route path="/simpleMap" element={<SimpleMap/>} />    
         </Routes>
       </Router>
     </div>

@@ -1,4 +1,3 @@
-import { User } from '../utils/user';
 import { System } from '../utils/system';
 import { makeAutoObservable } from 'mobx';
 import axios from 'axios';

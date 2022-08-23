@@ -3,30 +3,38 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.8",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@googlemaps/react-wrapper": "^1.1.35",
     "@hookform/error-message": "^2.0.0",
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.10.0",
+    "@react-google-maps/api": "^2.12.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/google-map-react": "^2.1.7",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.47",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/yup": "^0.29.14",
+    "autosuggest-highlight": "^3.3.4",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "dom": "^0.0.3",
     "enzyme": "^3.11.0",
     "firebase": "^9.9.2",
     "formik": "^2.2.9",
+    "google-map-react": "^2.2.0",
+    "google-maps-react": "^2.0.6",
     "history": "^5.3.0",
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.2",
     "mobx-react-lite": "^3.4.0",
+    "parse": "^3.4.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
@@ -66,6 +74,8 @@
     ]
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.12"
+    "@types/autosuggest-highlight": "^3.2.0",
+    "@types/enzyme": "^3.10.12",
+    "@types/googlemaps": "^3.43.3"
   }
 }

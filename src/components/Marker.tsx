@@ -79,7 +79,7 @@ const Marker = (props: any) => {
         className="pin bounce"
         style={{ backgroundColor: color, cursor: 'pointer' }}
         title={name}
-        onMouseLeave={nameOfLocation}
+        onMouseOut={nameOfLocation}
         onClick={detailsOfLocation}
       />
       <div className="pulse" />

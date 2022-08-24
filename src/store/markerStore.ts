@@ -36,13 +36,16 @@ class Store {
         console.log(this.markers)
     }
     async SetcurrentMarker(name: string) {
-     this.currentMarker=this.markers.find((m)=>(m.name===name))     
+        this.currentMarker = this.markers.find((m) => (m.name === name))
     }
-    async SearchMarker(name:  string | undefined) {
+    async SearchMarker(name: string | undefined) {
         debugger
-        this.currentMarker=this.markers.find((m)=>(m.name===name))  
-        console.log(this.currentMarker.name)   
-     }
+        if (name !== "") {
+            this.currentMarker = this.markers.find((m) => (m.name === name))
+            console.log(this.currentMarker.name)
+        }
+
+    }
 
 }
 const markerStore = new Store();

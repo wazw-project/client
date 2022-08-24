@@ -10,20 +10,20 @@ class Store {
         makeAutoObservable(this);
 
         this.markers.push({
-            lat: 11.0168,
-            lng: 76.9558,
+            lat: 31.0461,
+            lng: 34.8516,
             name: "Tamar-o",
             color: "red"
         })
         this.markers.push({
-            lat: 11.968,
-            lng: 76.7558,
+            lat: 31.0461,
+            lng: 35.8516,
             name: "Tamar-k",
             color: "red"
         })
         this.markers.push({
-            lat: 11.568,
-            lng: 76.4558,
+            lat: 31.0461,
+            lng: 36.8516,
             name: "Naama",
             color: "red"
         })

@@ -8,12 +8,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import markerStore from '../store/markerStore';
-import DeleteIcon from '@mui/icons-material/Delete';
-import swal from 'sweetalert';
-import SendIcon from '@mui/icons-material/Send';
+
 
 const Marker = (props: any) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -36,33 +32,7 @@ const Marker = (props: any) => {
   const { color, name, id } = props;
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [markersName, setMarkerName] = useState<string>("")
-  const deleteMarker=()=>{
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this marker!",
-      icon: "warning",
-      // buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        debugger
-        markerStore.removeMarkers(markersName)
-        markerStore.currentMarker=null;
-        swal("Poof! Your marker deleted!", {
-          icon: "success",
-        });
-        handleCloseDialog()
-      } else {
-        swal("Your marker is safe!");
-        handleCloseDialog()
-      }
-    });
-    
-  }
-  const updateMarker=()=>{
-    //add update marker function
-  }
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -117,12 +87,7 @@ const Marker = (props: any) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button variant="outlined" onClick={deleteMarker} startIcon={<DeleteIcon />}>
-              Delete
-            </Button>
-            <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
-                Edit
-              </Button>
+       
             <Button onClick={handleCloseDialog} autoFocus>
               close
             </Button> 

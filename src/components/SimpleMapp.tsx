@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import Grid from '@mui/material/Grid';
@@ -19,6 +19,10 @@ import Directions from "@mui/icons-material/Directions";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import DeleteIcon from '@mui/icons-material/Delete';
+import swal from 'sweetalert';
+import SendIcon from '@mui/icons-material/Send';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -38,27 +42,60 @@ const SimpleMap: React.FC = (props: any) => {
   };
   const [center, setCenter] = useState({ lat: 31.0461, lng: 34.8516, });
   const [zoom, setZoom] = useState(8);
-  const searchMarker= async ()=>{
+  const [cardOfSolution, setCardOfSolution] = useState<boolean>(false)
+  const searchMarker = async () => {
+
     debugger
-   
-    markerStore.currentMarker=null
-    const nameMarker= inputNameMarker.current?.value;
+
+    markerStore.currentMarker = null
+    const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
     debugger
-    if(markerStore.currentMarker!=null){    
+    if (markerStore.currentMarker != null) {
       debugger
-      setCenter({lat:markerStore.currentMarker.lat,lng:markerStore.currentMarker.lng})
+      setCenter({ lat: markerStore.currentMarker.lat, lng: markerStore.currentMarker.lng })
       setZoom(13)
+      setCardOfSolution(true)
     }
-    
+
   }
-  const handleSelect= async ()=>{
-  
+  const deleteMarker = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this marker!",
+      icon: "warning",
+      // buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          setCardOfSolution(false)
+          debugger
+          markerStore.removeMarkers(markerStore.currentMarker.name)
+          // markerStore.currentMarker = null;
+          swal("Poof! Your marker deleted!", {
+            icon: "success",
+          });
+          setZoom(8)
+          setCenter({ lat: 31.0461, lng: 34.8516, })
+         
+        } else {
+          swal("Your marker is safe!");
+          
+        }
+      });
+  }
+  const updateMarker = () => {
+    //add update marker function
+  }
+  const handleSelect = async () => {
+
     debugger
-    const nameMarker= inputNameMarker.current?.value;
+    const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
-      setCenter({lat:markerStore.currentMarker.lat,lng:markerStore.currentMarker.lng})
-      setZoom(13)
+    setCenter({ lat: markerStore.currentMarker.lat, lng: markerStore.currentMarker.lng })
+    setZoom(13)
+    setCardOfSolution(true)
   }
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<readonly MarkerUtil[]>([]);
@@ -85,7 +122,7 @@ const SimpleMap: React.FC = (props: any) => {
       setOptions([]);
     }
   }, [open]);
- 
+
   return (
 
     <Grid container spacing={2} height={592}>
@@ -109,7 +146,7 @@ const SimpleMap: React.FC = (props: any) => {
       <Grid item xs={6} md={4}>
         <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h4" component="div">
           here you can search  location business of your system
-        </Typography>   
+        </Typography>
         <Paper
           component="form"
           sx={{
@@ -121,9 +158,9 @@ const SimpleMap: React.FC = (props: any) => {
         >
           <IconButton sx={{ p: "10px" }} aria-label="menu">
             <Menu />
-          </IconButton>         
-          <Autocomplete 
-           
+          </IconButton>
+          <Autocomplete
+
             id="asynchronous-demo"
             sx={{ width: 300 }}
             open={open}
@@ -139,7 +176,7 @@ const SimpleMap: React.FC = (props: any) => {
             onSelect={handleSelect}
             options={options}
             loading={loading}
-            
+
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -174,29 +211,40 @@ const SimpleMap: React.FC = (props: any) => {
             Add Location
           </Button>
         </Paper>
+        {cardOfSolution &&
 
+          <Card sx={{ maxWidth: 450, marginTop: "5%" }}>
+            <CardMedia
+              component="img"
+              height="200"
+              image="https://images.macrumors.com/t/Mzdy96yMLLhSy2dj7m3VXwkazns=/400x0/article-new/2021/04/Google-maps-feaure.jpg?lossy"
+              alt="green iguana"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                marker name: {markerStore.currentMarker.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                marker name: {markerStore.currentMarker.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                marker name: {markerStore.currentMarker.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                marker name: {markerStore.currentMarker.name}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button variant="outlined" onClick={deleteMarker} startIcon={<DeleteIcon />}>
+                Delete
+              </Button>
+              <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
+                Edit
+              </Button>
+            </CardActions>
+          </Card>
+        }
 
-        <Card sx={{ minWidth: 275,marginTop:'10%' }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="div">
-          hthjtjw
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
 
       </Grid>
 

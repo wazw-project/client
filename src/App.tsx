@@ -7,6 +7,7 @@ import Systems from "./components/systems";
 import SystemDetails from "./components/SystemDetails";
 import OurAppBar from './components/AppBar'
 import SimpleMap from "./components/SimpleMapp";
+import AddMarker from "./components/AddMarker";
 
 
 
@@ -27,7 +28,8 @@ function App() {
           <Route path="/systems" element={<Systems />} />
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails />} />
           <Route path="/OurAppBar" element={<OurAppBar />} />
-          <Route path="/simpleMap" element={<SimpleMap/>} />    
+          <Route path="/simpleMap" element={<SimpleMap/>} />  
+          <Route path="/AddMarker" element={<AddMarker/>} />  
         </Routes>
       </Router>
     </div>

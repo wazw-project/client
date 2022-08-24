@@ -49,6 +49,14 @@ const SimpleMap: React.FC = (props: any) => {
     }
     
   }
+  const handleSelect= async ()=>{
+  
+    debugger
+    const nameMarker= inputNameMarker.current?.value;
+    await markerStore.SearchMarker(nameMarker)
+      setCenter({lat:markerStore.currentMarker.lat,lng:markerStore.currentMarker.lng})
+      setZoom(13)
+  }
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
@@ -111,7 +119,8 @@ const SimpleMap: React.FC = (props: any) => {
           <IconButton sx={{ p: "10px" }} aria-label="menu">
             <Menu />
           </IconButton>         
-          <Autocomplete
+          <Autocomplete 
+           
             id="asynchronous-demo"
             sx={{ width: 300 }}
             open={open}
@@ -124,8 +133,10 @@ const SimpleMap: React.FC = (props: any) => {
             }}
             isOptionEqualToValue={(option, value) => option.name === value.name}
             getOptionLabel={(option) => option.name}
+            onSelect={handleSelect}
             options={options}
             loading={loading}
+            
             renderInput={(params) => (
               <TextField
                 {...params}

@@ -123,19 +123,12 @@ const Marker = (props: any) => {
             <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
                 Edit
               </Button>
-            {/* <Button autoFocus onClick={handleCloseDialog}>
-              Disagree
-            </Button>*/}
             <Button onClick={handleCloseDialog} autoFocus>
               close
             </Button> 
-
           </DialogActions>
         </Dialog>
-
       }
-
-
     </div>
   );
 };

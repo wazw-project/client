@@ -8,16 +8,12 @@ import SystemDetails from "./components/SystemDetails";
 import OurAppBar from './components/AppBar'
 import SimpleMap from "./components/SimpleMapp";
 
-
-
-
 function App() {
   return (
     <div className="app">
          
       <Router>
       <OurAppBar />
-     
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />

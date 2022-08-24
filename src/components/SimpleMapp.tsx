@@ -218,8 +218,8 @@ const SimpleMap: React.FC = (props: any) => {
           >
             <Directions />
           </IconButton>
-          <Button variant="outlined" onClick={handleClickOpen}>
-        Open responsive dialog
+          <Button variant="contained" onClick={handleClickOpen}>
+       add Marker
       </Button>
       <Dialog
         fullScreen={fullScreen}

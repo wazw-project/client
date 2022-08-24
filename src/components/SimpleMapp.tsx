@@ -22,6 +22,13 @@ import CardMedia from '@mui/material/CardMedia';
 import DeleteIcon from '@mui/icons-material/Delete';
 import swal from 'sweetalert';
 import SendIcon from '@mui/icons-material/Send';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -86,8 +93,6 @@ const SimpleMap: React.FC = (props: any) => {
     //add update marker function
   }
   const handleSelect = async () => {
-
-    debugger
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
     setCenter({ lat: markerStore.currentMarker.lat, lng: markerStore.currentMarker.lng })
@@ -95,8 +100,19 @@ const SimpleMap: React.FC = (props: any) => {
     setCardOfSolution(true)
   }
   const [open, setOpen] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
   const [options, setOptions] = React.useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
 
   useEffect(() => {
     let active = true;
@@ -202,11 +218,34 @@ const SimpleMap: React.FC = (props: any) => {
           >
             <Directions />
           </IconButton>
-          <Button
-            variant="contained"
-          >
-            Add Location
+          <Button variant="outlined" onClick={handleClickOpen}>
+        Open responsive dialog
+      </Button>
+      <Dialog
+        fullScreen={fullScreen}
+        open={openDialog}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Disagree
           </Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+
         </Paper>
         {cardOfSolution &&
 

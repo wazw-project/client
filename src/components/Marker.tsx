@@ -20,7 +20,6 @@ const Marker = (props: any) => {
   const handleClickOpen = () => {
     setOpenDialog(true);
   };
-
   const handleCloseDialog = () => {
     setOpenDialog(false);
 
@@ -34,7 +33,6 @@ const Marker = (props: any) => {
     console.log(markerStore.currentMarker.name)
     handleClickOpen()
   }
- 
   const { color, name, id } = props;
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [markersName, setMarkerName] = useState<string>("")

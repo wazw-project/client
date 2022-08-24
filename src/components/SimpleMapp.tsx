@@ -10,11 +10,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import markerStore from '../store/markerStore';
 import { height } from '@mui/system';
-
-const mapStyles = {
-  width: '20%',
-  height: '90%'
-};
 interface Film {
   title: string;
   year: number;

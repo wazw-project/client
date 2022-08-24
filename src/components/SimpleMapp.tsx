@@ -30,8 +30,8 @@ function sleep(delay = 0) {
   });
 }
 const SimpleMap: React.FC = (props: any) => {
-  const inputNameMarker = useRef<HTMLInputElement>();
-  const getMapOptions = (maps: any) => {
+   const inputNameMarker = useRef<HTMLInputElement>();
+   const getMapOptions = (maps: any) => {
     return {
       disableDefaultUI: true,
       mapTypeControl: true,
@@ -44,8 +44,6 @@ const SimpleMap: React.FC = (props: any) => {
   const [zoom, setZoom] = useState(8);
   const [cardOfSolution, setCardOfSolution] = useState<boolean>(false)
   const searchMarker = async () => {
-
-    debugger
 
     markerStore.currentMarker = null
     const nameMarker = inputNameMarker.current?.value;
@@ -244,7 +242,6 @@ const SimpleMap: React.FC = (props: any) => {
             </CardActions>
           </Card>
         }
-
 
       </Grid>
 

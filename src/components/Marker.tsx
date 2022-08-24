@@ -66,6 +66,7 @@ const Marker = (props: any) => {
 
 
       {markerStore.currentMarker &&
+ 
         <Dialog
           // fullScreen={fullScreen}
           open={openDialog}

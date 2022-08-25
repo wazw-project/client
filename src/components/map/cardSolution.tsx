@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Typography from '@mui/material/Typography';
-import markerStore from '../store/markerStore';
-import { Marker as MarkerUtil } from '../utils/marker';
+import markerStore from '../../store/markerStore';
+import { Marker as MarkerUtil } from '../../utils/marker';
 import { Button } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import MapStore from '../store/mapStore';
+import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import swal from 'sweetalert';
 const CardSolution: React.FC = () => {

@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
-import markerStore from '../store/markerStore';
-import { Marker as MarkerUtil } from '../utils/marker';
+import markerStore from '../../store/markerStore';
+import { Marker as MarkerUtil } from '../../utils/marker';
 import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
@@ -19,9 +19,24 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import MapStore from '../store/mapStore';
+import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
-import AddMarker from './AddMarker';
+import AutoComplete from './AutoComplite';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import SaveIcon from '@mui/icons-material/Save';
+import userStore from '../../store/userStore';
+import systemStore from '../../store/systemStore';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -36,6 +51,12 @@ const serrchAndAddMarker: React.FC = (props: any) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [openDialog, setOpenDialog] = useState(false);
+  const inputName = useRef<HTMLInputElement>();
+  const inputDescription = useRef<HTMLInputElement>();
+  const inputPhone = useRef<HTMLInputElement>();
+  const inputEmail = useRef<HTMLInputElement>();
+  const inputNotes = useRef<HTMLInputElement>();
+
   const handleSelect = async () => {
     debugger;
     const nameMarker = inputNameMarker.current?.value;
@@ -84,6 +105,26 @@ const serrchAndAddMarker: React.FC = (props: any) => {
       setOptions([]);
     }
   }, [open]);
+
+  const saveMarker = () => {
+    debugger
+    const newMarker = {
+      manager_id: userStore.user,
+      system_id: systemStore.currentSystem,
+      location: {
+        lat: markerStore.markerToAdd.location.lat,
+        lng: markerStore.markerToAdd.location.lng,
+        name: inputName.current?.value,
+        color: "red"
+      },
+      description: inputDescription.current?.value,
+      name: inputName.current?.value,
+      notes: inputNotes.current?.value,
+      phone: inputPhone.current?.value,
+      email: inputEmail.current?.value
+    }
+    markerStore.addMarker(newMarker);
+  }
 
   return (
     <Paper
@@ -158,11 +199,41 @@ const serrchAndAddMarker: React.FC = (props: any) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <AddMarker/>
+            <React.Fragment>
+              <Grid item xs={4}>
+                <TextField inputRef={inputName} id="filled-basic" label="name" variant="filled" />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField inputRef={inputDescription} id="filled-basic" label="description" variant="filled" />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField inputRef={inputPhone} id="filled-basic" label="phone" variant="filled" />
+              </Grid>
+              <Grid item xs={4}>
+                <TextField inputRef={inputEmail} id="filled-basic" label="email" variant="filled" />
+              </Grid>
+              <Grid item xs={4}>
+                <TextareaAutosize
+                  // inputRef={inputNotes}
+                  aria-label="minimum height"
+                  minRows={3}
+                  placeholder="notes"
+                  style={{ width: 200 }}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <AutoComplete />
+              </Grid>
+            </React.Fragment>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        
+          <Button onClick={saveMarker} autoFocus>
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="save">
+              <SaveIcon />
+            </IconButton>
+            save
+          </Button>
           <Button onClick={handleClose} autoFocus>
             Close
           </Button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate} from 'react-router-dom';
-import { System } from '../utils/system';
+import { System } from '../../utils/system';
 import {  Card } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -18,8 +18,8 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import swal from 'sweetalert';
 import { observer } from 'mobx-react';
-import systemStore from '../store/systemStore';
-import userStore from '../store/userStore';
+import systemStore from '../../store/systemStore';
+import userStore from '../../store/userStore';
 import { useForm } from 'react-hook-form';
 
 

@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Marker as MarkerUtil } from '../utils/marker';
+import { Marker as MarkerUtil } from '../../utils/marker';
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -19,18 +19,14 @@ import Menu from "@mui/icons-material/Menu";
 import Search from "@mui/icons-material/Search";
 import Directions from "@mui/icons-material/Directions";
 import { Button } from "@mui/material";
+import markerStore from '../../store/markerStore';
 
-
-interface Film {
-    title: string;
-    year: number;
-}
 function sleep(delay = 0) {
     return new Promise((resolve) => {
         setTimeout(resolve, delay);
     });
 }
-const AddMarker: React.FC = () => {
+const AutoComplete: React.FC = () => {
     const {
         ready,
         value,
@@ -57,19 +53,19 @@ const AddMarker: React.FC = () => {
     const handleSelect =
         (description: any) =>
             () => {
-                // When user selects a place, we can replace the keyword without request data from API
-                // by setting the second parameter to "false"
                 setValue(description, false);
                 clearSuggestions();
-
-                // Get latitude and longitude via utility functions
                 getGeocode({ address: description })
                     .then((results) => getLatLng(results[0]))
                     .then(({ lat, lng }) => {
-                        console.log("📍 Coordinates: ", { lat, lng });
+                        console.log("Coordinates: ", { lat, lng });
+                        debugger
+                        console.log('save in mobix');
+                        markerStore.markerToAdd.location.lat=lat;
+                        markerStore.markerToAdd.location.lng=lng;
                     })
                     .catch((error) => {
-                        console.log("😱 Error: ", error);
+                        console.log("Error: ", error);
                     });
             };
 
@@ -151,4 +147,4 @@ const AddMarker: React.FC = () => {
     );
 }
 
-export default AddMarker;
+export default AutoComplete;

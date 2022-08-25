@@ -3,12 +3,12 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import markerStore from '../store/markerStore';
-import { Marker as MarkerUtil } from '../utils/marker';
+import markerStore from '../../store/markerStore';
+import { Marker as MarkerUtil } from '../../utils/marker';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import SeachAndAddMarker from './seachAndAddMarker'
-import MapStore from '../store/mapStore';
+import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
@@ -31,7 +31,6 @@ const SimpleMap: React.FC = (props: any) => {
       mapTypeControl: true,
       streetViewControl: true,
       styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
-
     };
   };
 
@@ -70,10 +69,10 @@ const SimpleMap: React.FC = (props: any) => {
         >
           {markerStore.markers.map(m => (
             <Marker
-              lat={m.lat}
-              lng={m.lng}
-              name={m.name}
-              color={m.color}
+              lat={m.location.lat}
+              lng={m.location.lng}
+              name={m.location.name}
+              color={m.location.color}
             />
           ))}
         </GoogleMapReact>

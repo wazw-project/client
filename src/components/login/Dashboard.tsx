@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import "../style/Dashboard.css";
-import { auth, db, logout } from "../firebase";
+import "../../style/Dashboard.css";
+import { auth, db, logout } from "../../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import userStore from "../store/userStore";
+import userStore from "../../store/userStore";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);

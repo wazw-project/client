@@ -6,28 +6,49 @@ class Store {
 
     markers: Marker[] = [];
     currentMarker: any = null;
+    markerToAdd:any=null;
     constructor() {
         makeAutoObservable(this);
 
         this.markers.push({
-            lat: 31.0461,
-            lng: 34.8516,
-            name: "Tamar-o",
-            color: "red"
+            manager_id: 'dfsdv',
+            system_id: "fsdv",
+            location: {
+                lat: 31.0461,
+                lng: 34.8516,
+                name: "Tamar-o",
+                color: "red"
+            },
+            description: "gjmhb",
+            name: "bj",
+            notes: "njnkjn",
         })
         this.markers.push({
-            lat: 31.0461,
-            lng: 35.8516,
-            name: "Tamar-k",
-            color: "red"
+            manager_id: 'dfsdv',
+            system_id: "fsdv",
+            location: {
+                lat: 31.0461,
+                lng: 35.8516,
+                name: "Tamar-k",
+                color: "red"
+            },
+            description: "gjmhb",
+            name: "bj",
+            notes: "njnkjn",
         })
         this.markers.push({
-            lat: 31.0461,
-            lng: 36.8516,
-            name: "Naama",
-            color: "red"
+            manager_id: 'dfsdv',
+            system_id: "fsdv",
+            location: {
+                lat: 31.0461,
+                lng: 36.8516,
+                name: "Naama",
+                color: "red"
+            },
+            description: "gjmhb",
+            name: "bj",
+            notes: "njnkjn",
         })
-
     }
     async removeMarkers(name: string) {
         debugger
@@ -44,7 +65,11 @@ class Store {
             this.currentMarker = this.markers.find((m) => (m.name === name))
             console.log(this.currentMarker.name)
         }
+    }
 
+    addMarker(marker: any){
+        this.markers.push(marker);
+        //request function
     }
 
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Marker.css';
+import '../../style/Marker.css';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import markerStore from '../store/markerStore';
+import markerStore from '../../store/markerStore';
 
 
 const Marker = (props: any) => {

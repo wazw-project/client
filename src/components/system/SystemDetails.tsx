@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { System } from '../utils/system';
+import { System } from '../../utils/system';
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import ListItem from '@mui/material/ListItem';
@@ -21,7 +21,7 @@ import swal from 'sweetalert';
 import Container from '@mui/material/Container';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import systenStore from '../store/systemStore'
+import systenStore from '../../store/systemStore'
 import { observer } from 'mobx-react';
 
 const SystemDetails: React.FC = () => {

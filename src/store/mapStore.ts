@@ -19,7 +19,6 @@ class Store {
     }
     async setZoom(zoom: number) {
         this.currentMap.zoom = zoom
-
     }
     async setCardOfSolution(b: boolean) {
         this.currentCard = b

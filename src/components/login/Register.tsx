@@ -11,14 +11,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import swal from 'sweetalert';
-import userStore from '../store/userStore';
+import userStore from '../../store/userStore';
 
 import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
-} from "../firebase";
-import "../style/Register.css";
+} from "../../firebase";
+import "../../style/Register.css";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

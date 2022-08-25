@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Reset from "./components/Reset";
-import Dashboard from "./components/Dashboard";
-import Systems from "./components/systems";
-import SystemDetails from "./components/SystemDetails";
+import Login from "./components/login/Login";
+import Register from "./components/login/Register";
+import Reset from "./components/login/Reset";
+import Dashboard from "./components/login/Dashboard";
+import Systems from "./components/system/systems";
+import SystemDetails from "./components/system/SystemDetails";
 import OurAppBar from './components/AppBar'
-import SimpleMap from "./components/SimpleMapp";
-import AddMarker from "./components/AddMarker";
+import SimpleMap from "./components/map/SimpleMapp";
+import AddMarker from "./components/map/AutoComplite";
 
 function App() {
   return (

@@ -71,7 +71,7 @@ const serrchAndAddMarker: React.FC = (props: any) => {
       await sleep(1e3); // For demo purposes.
 
       if (active) {
-        setOptions([...markers]);
+        setOptions([...markerStore.markers]);
       }
     })();
     return () => {
@@ -174,4 +174,3 @@ const serrchAndAddMarker: React.FC = (props: any) => {
   )
 }
 export default observer(serrchAndAddMarker)
-const markers = markerStore.markers

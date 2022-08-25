@@ -20,6 +20,7 @@ import Search from "@mui/icons-material/Search";
 import Directions from "@mui/icons-material/Directions";
 import { Button } from "@mui/material";
 
+
 interface Film {
     title: string;
     year: number;
@@ -113,6 +114,7 @@ const AddMarker: React.FC = () => {
     }, [open]);
 
     return (
+        <>
         <Paper
             component="form"
             sx={{
@@ -122,38 +124,30 @@ const AddMarker: React.FC = () => {
                 width: 500,
             }}
         >
-            <IconButton sx={{ p: "10px" }} aria-label="menu">
-                <Menu />
-            </IconButton>
+
             {/* <div ref={ref}> */}
-                <input
-                    value={value}
-                    onChange={handleInput}
-                    disabled={!ready}
-                    placeholder="Where are you going?"
-                />
-                {/* We can use the "status" to decide whether we should display the dropdown or not */}
-                {status === "OK" && <ul>{renderSuggestions()}</ul>}
+            <InputBase
+                sx={{ ml: 1, flex: 1 }}
+                placeholder="Search Google Maps"
+                inputProps={{ 'aria-label': 'search google maps' }}
+                value={value}
+                onChange={handleInput}
+                disabled={!ready}
+                
+            />
+          
+            {/* We can use the "status" to decide whether we should display the dropdown or not */}
+          
             {/* </div> */}
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
                 <Search />
             </IconButton>
-            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-            <IconButton
-                color="primary"
-                sx={{ p: "10px" }}
-                aria-label="directions"
-            >
-                <Directions />
-            </IconButton>
-            <Button
-                variant="contained"
-            // id="leftTopButton"
-            // onClick={() => navigate("/addLocation")}
-            >
-                Add Location🎯
-            </Button>
+
+
+
         </Paper>
+          {status === "OK" && <ul>{renderSuggestions()}</ul>}
+          </>
     );
 }
 

@@ -21,6 +21,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import MapStore from '../store/mapStore';
 import { observer } from 'mobx-react';
+import AddMarker from './AddMarker';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -157,18 +158,10 @@ const serrchAndAddMarker: React.FC = (props: any) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            <AddMarker/>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Disagree
-          </Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
+     
       </Dialog>
     </Paper>
   )

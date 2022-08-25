@@ -77,9 +77,9 @@ const AutoComplete: React.FC = () => {
             } = suggestion;
 
             return (
-                <li key={place_id} onClick={handleSelect(suggestion)}>
+                <div key={place_id} onClick={handleSelect(suggestion)}>
                     <strong>{main_text}</strong> <small>{secondary_text}</small>
-                </li>
+                </div>
             );
         });
 
@@ -142,7 +142,7 @@ const AutoComplete: React.FC = () => {
 
 
         </Paper>
-          {status === "OK" && <ul>{renderSuggestions()}</ul>}
+          {status === "OK" && <div>{renderSuggestions()}</div>}
           </>
     );
 }

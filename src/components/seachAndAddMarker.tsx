@@ -161,7 +161,12 @@ const serrchAndAddMarker: React.FC = (props: any) => {
             <AddMarker/>
           </DialogContentText>
         </DialogContent>
-     
+        <DialogActions>
+        
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
       </Dialog>
     </Paper>
   )

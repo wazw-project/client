@@ -1,6 +1,5 @@
 export interface User{
-    _id?: any,
-    role?: string,
+    _id?: any, 
     firebaseUid:string,
     firstName: string,
     lastName: string,

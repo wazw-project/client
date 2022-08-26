@@ -19,7 +19,15 @@ const getAllMarkerForSystem = async (system_id: string) => {
     }
     catch(error) { console.log(error); }
 }
-
+const deleteMarker = async (marker_id: string) => {
+    try {
+        debugger
+        const res = await axios.delete(`http://localhost:3333/marker/${marker_id}`);
+        let tempList = await res.data;
+        return tempList;
+    }
+    catch(error) { console.log(error); }
+}
 
 class Store {
 
@@ -81,10 +89,12 @@ class Store {
       this.markers= await getAllMarkerForSystem(id)
       console.log(this.markers)
    }
-    async removeMarkers(name: string) {
+    async removeMarkers(id: string) {
         debugger
         console.log(this.markers)
-        this.markers = this.markers.filter((markers) => (markers.name !== name))
+        debugger
+        await deleteMarker(id)
+        this.markers = this.markers.filter((m)=>(m._id!==id))
         console.log(this.markers)
     }
     async SetcurrentMarker(name: string) {

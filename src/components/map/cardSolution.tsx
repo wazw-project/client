@@ -26,7 +26,7 @@ const CardSolution: React.FC = () => {
             if (willDelete) {
               MapStore.setCardOfSolution(false)
               debugger
-              markerStore.removeMarkers(markerStore.currentMarker.name)
+              markerStore.removeMarkers(markerStore.currentMarker._id)
               // markerStore.currentMarker = null;
               swal("Poof! Your marker deleted!", {
                 icon: "success",

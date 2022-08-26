@@ -1,5 +1,6 @@
 
 export interface Marker {
+    _id?:string,
     manager_id?: string;
     system_id: string;
     location: {

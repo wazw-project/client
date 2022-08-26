@@ -59,8 +59,8 @@ const AutoComplete: React.FC = () => {
                     .then((results) => getLatLng(results[0]))
                     .then(({ lat, lng }) => {
                         console.log("Coordinates: ", { lat, lng });
-                        markerStore.markerToAdd.location.lat=lat;
-                        markerStore.markerToAdd.location.lng=lng;
+                        markerStore.markerToAdd.location.lat = lat;
+                        markerStore.markerToAdd.location.lng = lng;
                     })
                     .catch((error) => {
                         console.log("Error: ", error);
@@ -107,41 +107,42 @@ const AutoComplete: React.FC = () => {
         }
     }, [open]);
 
+
     return (
         <>
-        <Paper
-            component="form"
-            sx={{
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                width: 500,
-            }}
-        >
+            <Paper
+                component="form"
+                sx={{
+                    p: "2px 4px",
+                    display: "flex",
+                    alignItems: "center",
+                    width: 500,
+                }}
+            >
 
-            {/* <div ref={ref}> */}
-            <InputBase
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search Google Maps"
-                inputProps={{ 'aria-label': 'search google maps' }}
-                value={value}
-                onChange={handleInput}
-                disabled={!ready}
-                
-            />
-          
-            {/* We can use the "status" to decide whether we should display the dropdown or not */}
-          
-            {/* </div> */}
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-                <Search />
-            </IconButton>
+                {/* <div ref={ref}> */}
+                <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Search Google Maps"
+                    inputProps={{ 'aria-label': 'search google maps' }}
+                    value={value}
+                    onChange={handleInput}
+                    disabled={!ready}
+
+                />
+
+                {/* We can use the "status" to decide whether we should display the dropdown or not */}
+
+                {/* </div> */}
+                <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+                    <Search />
+                </IconButton>
 
 
 
-        </Paper>
-          {status === "OK" && <div>{renderSuggestions()}</div>}
-          </>
+            </Paper>
+            {status === "OK" && <div>{renderSuggestions()}</div>}
+        </>
     );
 }
 

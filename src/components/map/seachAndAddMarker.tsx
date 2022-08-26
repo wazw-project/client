@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import markerStore from '../../store/markerStore';
-import { Marker, Marker as MarkerUtil } from '../../utils/marker';
+import { Marker as MarkerUtil } from '../../utils/marker';
 import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
@@ -29,6 +29,8 @@ import Grid from '@mui/material/Grid';
 import SaveIcon from '@mui/icons-material/Save';
 import userStore from '../../store/userStore';
 import systemStore from '../../store/systemStore';
+import GoogleMapReact from 'google-map-react';
+import Marker from './Marker';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -79,6 +81,7 @@ const serrchAndAddMarker: React.FC = (props: any) => {
   }
   const handleClickOpen = () => {
     setOpenDialog(true);
+    getLocation();
   };
 
   const handleClose = () => {
@@ -124,6 +127,36 @@ const serrchAndAddMarker: React.FC = (props: any) => {
     }
     markerStore.addMarker(newMarker);
   }
+
+
+  const [lat, setLat] = useState<number>(0);
+  const [lng, setLng] = useState<number>(0);
+  const [status, setStatus] = useState<string>("");
+
+  const getLocation = () => {
+    debugger
+    if (!navigator.geolocation) {
+      setStatus('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus("");
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+      }, () => {
+        setStatus('Unable to retrieve your location');
+      });
+    }
+  }
+
+  const getMapOptions = (maps: any) => {
+    return {
+      disableDefaultUI: true,
+      mapTypeControl: true,
+      streetViewControl: true,
+      styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
+    };
+  };
 
   return (
     <Paper
@@ -219,6 +252,32 @@ const serrchAndAddMarker: React.FC = (props: any) => {
                   placeholder="notes"
                   style={{ width: 200 }}
                 />
+              </Grid>
+              <Grid item xs={4}>
+                <div className="App">
+                  <button onClick={getLocation}>Get Location</button>
+                  <h1>Coordinates</h1>
+                  <p>{status}</p>
+                  {lat && <p>Latitude: {lat}</p>}
+                  {lng && <p>Longitude: {lng}</p>}
+                </div>
+              </Grid>
+              <Grid container spacing={2} height={592}>
+                <Grid item xs={6} md={8}>
+                  <GoogleMapReact
+                    bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
+                    center={{ lat: lat&&lat, lng: lng&&lng }}
+                    zoom={20}
+                    options={getMapOptions}
+                  >
+                    <Marker
+                      lat={lat && lat}
+                      lng={lng && lng}
+                      name={'aa'}
+                      color={'red'}
+                    />
+                  </GoogleMapReact>
+                </Grid>
               </Grid>
               <Grid item xs={4}>
                 <AutoComplete />

@@ -12,13 +12,32 @@ import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
-
+import systemStore from '../../store/systemStore';
 function sleep(delay = 0) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
 }
+
+
+
 const SimpleMap: React.FC = (props: any) => {
+  async function getMarker() {
+    try {
+        debugger
+       
+        console.log(systemStore.currentSystem._id)
+       
+        await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
+    } catch (error) { console.log(error); }
+}
+useEffect(() => {
+  getMarker();
+  console.log(markerStore.markers)
+}, [])
+
+
+
 
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
@@ -67,12 +86,12 @@ const SimpleMap: React.FC = (props: any) => {
           zoom={MapStore.currentMap.zoom}
           options={getMapOptions}
         >
-          {markerStore.markers.map(m => (
+          {markers&&markerStore.markers.map(m => (
             <Marker
               lat={m.location.lat}
               lng={m.location.lng}
-              name={m.location.name}
-              color={m.location.color}
+              name={m.name}
+              color={"red"}
             />
           ))}
         </GoogleMapReact>

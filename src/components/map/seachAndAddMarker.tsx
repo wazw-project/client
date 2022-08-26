@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import markerStore from '../../store/markerStore';
-import { Marker as MarkerUtil } from '../../utils/marker';
+import { Marker, Marker as MarkerUtil } from '../../utils/marker';
 import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
@@ -107,21 +107,20 @@ const serrchAndAddMarker: React.FC = (props: any) => {
   }, [open]);
 
   const saveMarker = () => {
-    debugger
-    const newMarker = {
-      manager_id: userStore.user,
-      system_id: systemStore.currentSystem,
-      location: {
-        lat: markerStore.markerToAdd.location.lat,
-        lng: markerStore.markerToAdd.location.lng,
-        name: inputName.current?.value,
-        color: "red"
+    const newMarker: any = {
+      "manager_id": userStore.user._id,
+      "system_id": systemStore.currentSystem._id,
+      "location": {
+        "lat": markerStore.markerToAdd.location.lat,
+        "lng": markerStore.markerToAdd.location.lng,
+        "name": inputName.current?.value,
+        "color": "red"
       },
-      description: inputDescription.current?.value,
-      name: inputName.current?.value,
-      notes: inputNotes.current?.value,
-      phone: inputPhone.current?.value,
-      email: inputEmail.current?.value
+      "description": inputDescription.current?.value,
+      "name": inputName.current?.value,
+      "notes": inputNotes.current?.value,
+      "phone": inputPhone.current?.value,
+      "email": inputEmail.current?.value
     }
     markerStore.addMarker(newMarker);
   }

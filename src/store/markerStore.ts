@@ -6,7 +6,19 @@ class Store {
 
     markers: Marker[] = [];
     currentMarker: any = null;
-    markerToAdd:any=null;
+    markerToAdd:Marker={
+        manager_id: '',
+        system_id: "",
+        location: {
+            lat: 0,
+            lng: 0,
+            name: "",
+            color: "red"
+        },
+        description: "",
+        name: "",
+        notes: "",
+    };
     constructor() {
         makeAutoObservable(this);
 
@@ -67,7 +79,7 @@ class Store {
         }
     }
 
-    addMarker(marker: any){
+    addMarker(marker: Marker){
         this.markers.push(marker);
         //request function
     }

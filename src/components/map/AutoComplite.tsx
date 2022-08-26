@@ -55,12 +55,10 @@ const AutoComplete: React.FC = () => {
             () => {
                 setValue(description, false);
                 clearSuggestions();
-                getGeocode({ address: description })
+                getGeocode({ address: description.description })
                     .then((results) => getLatLng(results[0]))
                     .then(({ lat, lng }) => {
                         console.log("Coordinates: ", { lat, lng });
-                        debugger
-                        console.log('save in mobix');
                         markerStore.markerToAdd.location.lat=lat;
                         markerStore.markerToAdd.location.lng=lng;
                     })

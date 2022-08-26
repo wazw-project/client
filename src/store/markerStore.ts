@@ -28,8 +28,9 @@ class Store {
     markerToAdd: Marker = {
         manager_id: '',
         system_id: "",
-        lat: 0,
-        lng: 0,
+        location:{lat: 0,
+            lng: 0},
+        
         description: "",
         name: "",
         notes: "",

@@ -9,7 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import markerStore from '../../store/markerStore';
-
+import { observer } from 'mobx-react';
 
 const Marker = (props: any) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -99,4 +99,4 @@ const Marker = (props: any) => {
   );
 };
 
-export default Marker;
+export default observer(Marker);

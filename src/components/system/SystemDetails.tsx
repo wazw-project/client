@@ -151,6 +151,7 @@ const SystemDetails: React.FC = () => {
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
               {systenStore.currentSystem?.email}
+             
             </Typography>
           </CardContent>
 

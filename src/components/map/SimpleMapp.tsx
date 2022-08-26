@@ -12,7 +12,7 @@ import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
-
+import systemStore from '../../store/systemStore';
 function sleep(delay = 0) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
@@ -25,7 +25,10 @@ const SimpleMap: React.FC = (props: any) => {
   async function getMarker() {
     try {
         debugger
-        await markerStore.getAllMarkerForSystem("62fe50a71bc1d0bc40bfb49e");
+       
+        console.log(systemStore.currentSystem._id)
+       
+        await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
     } catch (error) { console.log(error); }
 }
 useEffect(() => {
@@ -85,8 +88,8 @@ useEffect(() => {
         >
           {markers&&markerStore.markers.map(m => (
             <Marker
-              lat={m.lat}
-              lng={m.lng}
+              lat={m.location.lat}
+              lng={m.location.lng}
               name={m.name}
               color={"red"}
             />

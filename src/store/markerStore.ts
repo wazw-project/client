@@ -32,7 +32,7 @@ class Store {
                 color: "red"
             },
             description: "gjmhb",
-            name: "bj",
+            name: "Tamar-o",
             notes: "njnkjn",
         })
         this.markers.push({
@@ -45,7 +45,7 @@ class Store {
                 color: "red"
             },
             description: "gjmhb",
-            name: "bj",
+            name: "Tamar-k",
             notes: "njnkjn",
         })
         this.markers.push({
@@ -58,7 +58,7 @@ class Store {
                 color: "red"
             },
             description: "gjmhb",
-            name: "bj",
+            name: "Naama",
             notes: "njnkjn",
         })
     }

@@ -59,8 +59,8 @@ const AutoComplete: React.FC = () => {
                     .then((results) => getLatLng(results[0]))
                     .then(({ lat, lng }) => {
                         console.log("Coordinates: ", { lat, lng });
-                        markerStore.markerToAdd.location.lat=lat;
-                        markerStore.markerToAdd.location.lng=lng;
+                        markerStore.markerToAdd.lat=lat;
+                        markerStore.markerToAdd.lng=lng;
                     })
                     .catch((error) => {
                         console.log("Error: ", error);

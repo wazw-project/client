@@ -110,12 +110,8 @@ const serrchAndAddMarker: React.FC = (props: any) => {
     const newMarker: any = {
       "manager_id": userStore.user._id,
       "system_id": systemStore.currentSystem._id,
-      "location": {
-        "lat": markerStore.markerToAdd.location.lat,
-        "lng": markerStore.markerToAdd.location.lng,
-        "name": inputName.current?.value,
-        "color": "red"
-      },
+        "lat": markerStore.markerToAdd.lat,
+        "lng": markerStore.markerToAdd.lng,
       "description": inputDescription.current?.value,
       "name": inputName.current?.value,
       "notes": inputNotes.current?.value,

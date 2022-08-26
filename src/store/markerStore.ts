@@ -3,13 +3,13 @@ import axios from 'axios';
 import { Marker } from '../utils/marker';
 import { get } from 'react-hook-form';
 
-// const addMarker = async (marker: Marker) => {
-//     try {
-//         const res = await axios.post(`http://localhost:3333/marker/addUser`, marker);
-//         let tempList = await res.data;
-//         return tempList;
-//     } catch (error) { console.log(error); }
-// }
+const addMarker = async (marker: Marker) => {
+    try {
+        const res = await axios.post(`http://localhost:3333/marker/addMarker`, marker);
+        let tempList = await res.data;
+        return tempList;
+    } catch (error) { console.log(error); }
+}
 const getAllMarkerForSystem = async (system_id: string) => {
     try {
         debugger
@@ -98,8 +98,11 @@ class Store {
         }
     }
 
-    addMarker(marker: Marker) {
-        this.markers.push(marker);
+    async addMarker(marker: Marker) {
+        debugger;
+        const markerAdded= await addMarker(marker)
+        this.markers.push(markerAdded);
+        this.currentMarker=null
         //request function
     }
 

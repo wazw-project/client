@@ -57,13 +57,13 @@ return(
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              lat:   {markerStore.currentMarker.lat}
+              lat:   {markerStore.currentMarker.location.lat}
             </DialogContentText>
             <DialogContentText>
-              lng:  {markerStore.currentMarker.lng}
+              lng:  {markerStore.currentMarker.location.lng}
             </DialogContentText>
             <DialogContentText>
-              color:  {markerStore.currentMarker.color}
+              color:  {"red"}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

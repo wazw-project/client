@@ -31,6 +31,7 @@ import userStore from '../../store/userStore';
 import systemStore from '../../store/systemStore';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
+import swal from 'sweetalert';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -63,7 +64,7 @@ const serrchAndAddMarker: React.FC = (props: any) => {
     debugger;
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
-    MapStore.setCenter(markerStore.currentMarker.lat, markerStore.currentMarker.lng)
+    MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
     MapStore.setZoom(13)
     MapStore.setCardOfSolution(true)
   }
@@ -74,7 +75,7 @@ const serrchAndAddMarker: React.FC = (props: any) => {
     debugger
     if (markerStore.currentMarker != null) {
       debugger
-      MapStore.setCenter(markerStore.currentMarker.lat, markerStore.currentMarker.lng)
+      MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
       MapStore.setZoom(13)
       MapStore.setCardOfSolution(true)
     }
@@ -110,11 +111,14 @@ const serrchAndAddMarker: React.FC = (props: any) => {
   }, [open]);
 
   const saveMarker = () => {
+    debugger;
     const newMarker: any = {
-      "manager_id": userStore.user._id,
+      "manager_id": systemStore.currentSystem.managerUid,
       "system_id": systemStore.currentSystem._id,
-        "lat": markerStore.markerToAdd.location.lat,
-        "lng": markerStore.markerToAdd.location.lng,
+      "location": {
+        "lat": 32.0463,
+        "lng": 35.8516
+      },
       "description": inputDescription.current?.value,
       "name": inputName.current?.value,
       "notes": inputNotes.current?.value,
@@ -122,6 +126,8 @@ const serrchAndAddMarker: React.FC = (props: any) => {
       "email": inputEmail.current?.value
     }
     markerStore.addMarker(newMarker);
+    swal("saved!", "your location added!", "success");
+    handleClose()
   }
 
 
@@ -262,7 +268,7 @@ const serrchAndAddMarker: React.FC = (props: any) => {
                 <Grid item xs={6} md={8}>
                   <GoogleMapReact
                     bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-                    center={{ lat: lat&&lat, lng: lng&&lng }}
+                    center={{ lat: lat && lat, lng: lng && lng }}
                     zoom={20}
                     options={getMapOptions}
                   >

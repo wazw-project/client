@@ -11,8 +11,8 @@ import AutoComplete from './AutoComplite';
 import swal from 'sweetalert';
 import systemStore from '../../store/systemStore';
 import MapStore from '../../store/mapStore';
-
 import markerStore from '../../store/markerStore';
+
 
 const EditMarker = () => {
     const [open, setOpen] = React.useState(false);
@@ -46,6 +46,7 @@ const EditMarker = () => {
        try{
        await markerStore.UpdateMarker(markerStore.currentMarker._id, newMarker);
        MapStore.setCardOfSolution(false)
+       MapStore.setZoom(8)
         swal("saved!", "your location added!", "success");
        } 
        catch(error){
@@ -71,19 +72,20 @@ const EditMarker = () => {
                 </DialogTitle>
                 <DialogContent>
                     <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputName} label="name" variant="standard" />
+                        <TextField inputRef={inputName} label="name" variant="standard" defaultValue={markerStore.currentMarker.name} />
                     </Grid>
                     <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputDescription} label="description" variant="standard" />
+                        <TextField inputRef={inputDescription} label="description" variant="standard" defaultValue={markerStore.currentMarker.description}/>
                     </Grid>
                     <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputPhone} label="phone" variant="standard" />
+                        <TextField inputRef={inputPhone} label="phone" variant="standard" defaultValue={markerStore.currentMarker.phone}/>
                     </Grid>
                     <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputEmail} label="email" variant="standard" />
+                        <TextField inputRef={inputEmail} label="email" variant="standard" defaultValue={markerStore.currentMarker.email} />
                     </Grid>
                     <Grid item sx={{ marginTop: "4%" }}>
                         <TextField
+                        value={markerStore.currentMarker.notes}
                             inputRef={inputNotes}
                             id="standard-textarea"
                             label="notes"
@@ -93,6 +95,7 @@ const EditMarker = () => {
                             variant="standard"
                         />
                     </Grid>
+  
                     <Grid item sx={{ marginTop: "4%" }}>
                         <AutoComplete />
                     </Grid>

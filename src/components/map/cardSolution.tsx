@@ -57,23 +57,23 @@ const CardSolution: React.FC = () => {
       <CardContent>
         {markerStore.currentMarker.name&&
         <Typography gutterBottom variant="h5" component="div">
-          marker name: {markerStore.currentMarker.name}
+        {markerStore.currentMarker.name}
         </Typography>}
         {markerStore.currentMarker.description &&
           <Typography gutterBottom variant="h5" component="div">
-            marker description: {markerStore.currentMarker.description}
+            {markerStore.currentMarker.description}
           </Typography>}
           {markerStore.currentMarker.notes&&
         <Typography variant="body2" color="text.secondary">
-          marker notes: {markerStore.currentMarker.notes}
+   {markerStore.currentMarker.notes}
         </Typography>}
         {markerStore.currentMarker.phone&&
         <Typography variant="body2" color="text.secondary">
-          marker phone: {markerStore.currentMarker.phone}
+         {markerStore.currentMarker.phone}
         </Typography>}
         {markerStore.currentMarker.email&&
         <Typography variant="body2" color="text.secondary">
-          marker email: {markerStore.currentMarker.email}
+        {markerStore.currentMarker.email}
         </Typography>}
       </CardContent>
       <CardActions>

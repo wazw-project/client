@@ -7,7 +7,7 @@ import markerStore from '../../store/markerStore';
 import { Marker as MarkerUtil } from '../../utils/marker';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import SeachAndAddMarker from './seachAndAddMarker'
+import SearchAndAddMarker from './seachAndAddMarker'
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import CardSolution from './cardSolution';
@@ -98,7 +98,7 @@ useEffect(() => {
       </Grid>
       <Grid item xs={6} md={4}>
        <TitleMapLocation/>   
-        <SeachAndAddMarker/>
+        <SearchAndAddMarker/>
         {MapStore.currentCard && <CardSolution/>}        
       </Grid>
     </Grid>

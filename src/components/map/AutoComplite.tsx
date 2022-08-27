@@ -47,13 +47,18 @@ const AutoComplete: React.FC = () => {
 
     const handleInput = (e: any) => {
         // Update the keyword of the input element
+        debugger;
         setValue(e.target.value);
+        console.log(e.target.value)
     };
 
     const handleSelect =
         (description: any) =>
             () => {
-                setValue(description, false);
+                if(!description.structured_formatting.secondary_text){
+                    description.structured_formatting.secondary_text=""
+                }
+                setValue((description.structured_formatting.main_text+" "+ description.structured_formatting.secondary_text)  , false);
                 clearSuggestions();
                 getGeocode({ address: description.description })
                     .then((results) => getLatLng(results[0]))
@@ -137,9 +142,6 @@ const AutoComplete: React.FC = () => {
                 <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
                     <Search />
                 </IconButton>
-
-
-
             </Paper>
             {status === "OK" && <div>{renderSuggestions()}</div>}
         </>

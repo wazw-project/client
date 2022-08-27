@@ -46,7 +46,7 @@ function sleep(delay = 0) {
     setTimeout(resolve, delay);
   });
 }
-const serrchAndAddMarker: React.FC = (props: any) => {
+const SearchAndAddMarker: React.FC = (props: any) => {
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
@@ -248,7 +248,7 @@ const serrchAndAddMarker: React.FC = (props: any) => {
               </Grid>
               <Grid item xs={4}>
                 <TextareaAutosize
-                  // inputRef={inputNotes}
+                 // inputRef={inputNotes}
                   aria-label="minimum height"
                   minRows={3}
                   placeholder="notes"
@@ -302,4 +302,4 @@ const serrchAndAddMarker: React.FC = (props: any) => {
     </Paper>
   )
 }
-export default observer(serrchAndAddMarker)
+export default observer(SearchAndAddMarker)

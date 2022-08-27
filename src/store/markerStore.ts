@@ -43,7 +43,7 @@ class Store {
         name: "",
         notes: "",
         email: "string",
-        phone: "5476876"
+        phone: ""
     };
     constructor() {
         makeAutoObservable(this);

@@ -97,6 +97,7 @@ class Store {
     }
 
     async getSystemById(id: string) {
+        debugger
         this.currentSystem = await getSystemById(id,this.token);
     }
 }

@@ -47,7 +47,7 @@ const AutoComplete: React.FC = () => {
 
     const handleInput = (e: any) => {
         // Update the keyword of the input element
-        debugger;
+   
         setValue(e.target.value);
         console.log(e.target.value)
     };
@@ -55,6 +55,7 @@ const AutoComplete: React.FC = () => {
     const handleSelect =
         (description: any) =>
             () => {
+                debugger
                 if(!description.structured_formatting.secondary_text){
                     description.structured_formatting.secondary_text=""
                 }

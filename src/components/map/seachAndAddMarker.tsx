@@ -116,8 +116,8 @@ const SearchAndAddMarker: React.FC = (props: any) => {
       "manager_id": systemStore.currentSystem.managerUid,
       "system_id": systemStore.currentSystem._id,
       "location": {
-        "lat": 32.0463,
-        "lng": 35.8516
+        "lat": markerStore.markerToAdd.location.lat,
+        "lng": markerStore.markerToAdd.location.lng
       },
       "description": inputDescription.current?.value,
       "name": inputName.current?.value,

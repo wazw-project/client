@@ -2,10 +2,18 @@ import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
 import { Marker } from '../utils/marker';
 import { get } from 'react-hook-form';
-
+import systemStore from './systemStore';
 const addMarker = async (marker: Marker) => {
     try {
         const res = await axios.post(`http://localhost:3333/marker/addMarker`, marker);
+        let tempList = await res.data;
+        return tempList;
+    } catch (error) { console.log(error); }
+}
+const UpdateMarker = async (id:string,marker: Marker) => {
+    try {
+        debugger
+        const res = await axios.put(`http://localhost:3333/marker/${id}`, marker);
         let tempList = await res.data;
         return tempList;
     } catch (error) { console.log(error); }
@@ -19,7 +27,7 @@ const getAllMarkerForSystem = async (system_id: string) => {
     }
     catch(error) { console.log(error); }
 }
-const deleteMarker = async (marker_id: string) => {
+const deleteMarker = async (marker_id: string|undefined) => {
     try {
         debugger
         const res = await axios.delete(`http://localhost:3333/marker/${marker_id}`);
@@ -113,6 +121,14 @@ class Store {
         const markerAdded= await addMarker(marker)
         this.markers.push(markerAdded);
         this.currentMarker=null
+        //request function
+    }
+    async UpdateMarker(id:string,marker: any) {
+        debugger;
+       await UpdateMarker(id,marker)
+
+       this.markers= await getAllMarkerForSystem(systemStore.currentSystem._id)
+      this.currentMarker=null
         //request function
     }
 

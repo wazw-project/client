@@ -12,6 +12,8 @@ import SendIcon from '@mui/icons-material/Send';
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import swal from 'sweetalert';
+import EditMarker from './editMarker'
+
 const CardSolution: React.FC = () => {
 
   const deleteMarker = () => {
@@ -78,9 +80,12 @@ const CardSolution: React.FC = () => {
         <Button variant="outlined" onClick={deleteMarker} startIcon={<DeleteIcon />}>
           Delete
         </Button>
-        <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
+        <div style={{marginLeft:'5%'}}>
+        <EditMarker/>
+        </div>
+        {/* <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
           Edit
-        </Button>
+        </Button> */}
       </CardActions>
     </Card>
   }

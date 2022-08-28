@@ -48,7 +48,7 @@ const SearchSystemOfAll: React.FC = () => {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button variant="contained" >see the system</Button>
+                            <Button variant="contained" >see the places of this system</Button>
                             {/* onClick={() => navigate(`/systemDetails/hello/${system.urlName}/${system._id}`, { state: { id: system._id } })} */}
                         </CardActions>
                     </Card>)}

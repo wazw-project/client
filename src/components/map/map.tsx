@@ -21,7 +21,7 @@ function sleep(delay = 0) {
 
 
 
-const SimpleMap: React.FC = (props: any) => {
+const Map: React.FC = (props: any) => {
   async function getMarker() {
     try { 
         await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);

@@ -6,7 +6,7 @@ import Dashboard from "./components/login/Dashboard";
 import Systems from "./components/system/systems";
 import SystemDetails from "./components/system/SystemDetails";
 import OurAppBar from './components/AppBar'
-import SimpleMap from "./components/map/SimpleMapp";
+import Map from "./components/map/map";
 import AddMarker from "./components/map/AutoComplite";
 import SearchSystemOfAll from "./components/searchSystemOfAll";
 function App() {
@@ -23,7 +23,7 @@ function App() {
           <Route path="/systems" element={<Systems />} />
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails />} />
           <Route path="/OurAppBar" element={<OurAppBar />} />
-          <Route path="/simpleMap" element={<SimpleMap/>} />  
+          <Route path="/simpleMap" element={<Map/>} />  
           <Route path="/AddMarker" element={<AddMarker/>} />  
         </Routes>
       </Router>

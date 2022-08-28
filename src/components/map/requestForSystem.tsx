@@ -123,6 +123,8 @@ const RequestForSystem = () => {
                     <PersonPinIcon />
                 </ListItemIcon>
                 <ListItemText primary="request add location" />
+                {requestStore.request.length>0&&
+                <ListItemText sx={{color:"red"}} primary={requestStore.request.length} />}
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>

@@ -41,11 +41,11 @@ const removeSystem = async (systemId: string,token:string) => {
 
 const editSystem = async (managerId: string, system: System,token:string) => {
     try {
-        const res = await axios.put(` http://localhost:3333/system/${managerId}`,
-        {
-            headers: {"Authorization": token },
-            body:system
-        }); 
+        const res = await axios.put(` http://localhost:3333/system/${managerId}`,system)
+        // {
+        //     headers: {"Authorization": token },
+        //     body:system
+        // }); 
         const data = await res.data;
         console.log(data);
     } catch (error) { console.log(error); }

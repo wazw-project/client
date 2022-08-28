@@ -8,11 +8,11 @@ import userStore from './userStore';
 const addSystem = async (system: System,token:string) => {
     debugger;
     try {
-        const res = await axios.post(`http://localhost:3333/system/addSystem`,
-        {
-            headers: {"Authorization": token },
-            body:system
-        });
+        const res = await axios.post(`http://localhost:3333/system/addSystem`,system);
+        // {
+        //     headers: {"Authorization": token },
+        //     body:
+        // });
         const data = await res.data;
         console.log(data);
         return data;

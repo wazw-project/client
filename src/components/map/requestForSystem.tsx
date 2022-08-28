@@ -107,6 +107,10 @@ const RequestForSystem = () => {
     handleClose()
         
     }
+    const dontConfirm=()=>{
+        await requestStore.removeRequest(requestStore.currentRequest._id)
+        handleClose()
+    }
     return (<>
         <List
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -215,7 +219,7 @@ const RequestForSystem = () => {
                 </DialogContent>}
             <DialogActions>
                 <Button startIcon={<ThumbUpOffAltRoundedIcon/>} onClick={confirm}>confirm</Button>
-                <Button startIcon={<ThumbDownRoundedIcon/>} onClick={handleClose} autoFocus>
+                <Button startIcon={<ThumbDownRoundedIcon/>} onClick={dontConfirm} autoFocus>
                 don't confirm
                 </Button>
             </DialogActions>

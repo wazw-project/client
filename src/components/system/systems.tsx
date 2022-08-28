@@ -250,7 +250,6 @@ const Systems: React.FC = () => {
                         </Box>
                     </DialogContent>
                     <DialogActions>
-
                         <Button onClick={addSystem} type="submit">Add</Button>
                     </DialogActions>
                 </Dialog>

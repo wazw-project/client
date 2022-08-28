@@ -8,15 +8,14 @@ import SystemDetails from "./components/system/SystemDetails";
 import OurAppBar from './components/AppBar'
 import SimpleMap from "./components/map/SimpleMapp";
 import AddMarker from "./components/map/AutoComplite";
-
+import SearchSystemOfAll from "./components/searchSystemOfAll";
 function App() {
   return (
     <div className="app">
-         
       <Router>
       <OurAppBar />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<SearchSystemOfAll />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/reset" element={<Reset />} />

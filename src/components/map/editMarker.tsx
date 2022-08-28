@@ -29,7 +29,6 @@ const EditMarker = () => {
         setOpen(false);
     };
     const saveDetails=async()=>{
-        debugger;
         const newMarker: any = {
         
             "location": {

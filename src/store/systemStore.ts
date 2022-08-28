@@ -39,7 +39,6 @@ const removeSystem = async (systemId: string,token:string) => {
 }
 
 const editSystem = async (managerId: string, system: System,token:string) => {
-    debugger
     try {
         const res = await axios.put(` http://localhost:3333/system/${managerId}`,
         {
@@ -91,13 +90,11 @@ class Store {
     }
 
     async editSystem(system: System) {
-        debugger
         await editSystem(this.currentSystem._id, system,this.token);
         this.currentSystem=system;
     }
 
     async getSystemById(id: string) {
-        debugger
         this.currentSystem = await getSystemById(id,this.token);
     }
 }

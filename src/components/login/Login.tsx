@@ -33,8 +33,7 @@ const Login: React.FC = () => {
     if (user) {
       loginFromDB(user.uid);
       user.getIdToken().then((value=>{
-        console.log(value);
-        debugger
+        console.log(value);   
         userStore.token=value;
         // store.setToken(value);
       }))
@@ -51,12 +50,11 @@ const Login: React.FC = () => {
     }
   }
   function isValidEmail(email: string) {
-    debugger
+    
     return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
 }
   const loginFromDB = async (Uid: any) => {
     try {
-      debugger;
       await userStore.getUser(Uid);  
       if(userStore.user._id===""){
        await addUserToDb(Uid)
@@ -75,7 +73,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      debugger;
+      
      const res= await userStore.addUser(userToDb);        
       setUserFromDb(res);
     } catch (error) { console.log(error); }

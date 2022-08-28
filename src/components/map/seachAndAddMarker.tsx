@@ -61,7 +61,6 @@ const SearchAndAddMarker: React.FC = (props: any) => {
   const inputNotes = useRef<HTMLInputElement>();
 
   const handleSelect = async () => {
-    debugger;
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
     MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
@@ -72,9 +71,8 @@ const SearchAndAddMarker: React.FC = (props: any) => {
     markerStore.currentMarker = null
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
-    debugger
     if (markerStore.currentMarker != null) {
-      debugger
+
       MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
       MapStore.setZoom(13)
       MapStore.setCardOfSolution(true)
@@ -111,7 +109,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
   }, [open]);
 
   const saveMarker = () => {
-    debugger;
+    debugger
     const newMarker: any = {
       "manager_id": systemStore.currentSystem.managerUid,
       "system_id": systemStore.currentSystem._id,
@@ -136,7 +134,6 @@ const SearchAndAddMarker: React.FC = (props: any) => {
   const [status, setStatus] = useState<string>("");
 
   const getLocation = () => {
-    debugger
     if (!navigator.geolocation) {
       setStatus('Geolocation is not supported by your browser');
     } else {

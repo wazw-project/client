@@ -63,15 +63,12 @@ const Systems: React.FC = () => {
         setOpen(false);
     };
     function isValidEmail(email: string) {
-        debugger
         return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
     }
     function isValidPhone(email: string) {
-        debugger
         return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(email);
     }
     function isValidUrl(email: string) {
-        debugger
         return /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(email);
     }
     const addSystem = async () => {
@@ -104,7 +101,7 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
-            debugger
+
             await systemStore.loadSystems();
         } catch (error) { console.log(error); }
     }

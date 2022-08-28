@@ -12,7 +12,6 @@ const addMarker = async (marker: Marker) => {
 }
 const UpdateMarker = async (id:string,marker: Marker) => {
     try {
-        debugger
         const res = await axios.put(`http://localhost:3333/marker/${id}`, marker);
         let tempList = await res.data;
         return tempList;
@@ -20,7 +19,6 @@ const UpdateMarker = async (id:string,marker: Marker) => {
 }
 const getAllMarkerForSystem = async (system_id: string) => {
     try {
-        debugger
         const res = await axios.get(`http://localhost:3333/marker/getBySystemId/${system_id}`);
         let tempList = await res.data;
         return tempList;
@@ -29,7 +27,6 @@ const getAllMarkerForSystem = async (system_id: string) => {
 }
 const deleteMarker = async (marker_id: string|undefined) => {
     try {
-        debugger
         const res = await axios.delete(`http://localhost:3333/marker/${marker_id}`);
         let tempList = await res.data;
         return tempList;
@@ -93,14 +90,11 @@ class Store {
         // })
     }
    async getAllMarkerForSystem(id:string) {
-       debugger;
       this.markers= await getAllMarkerForSystem(id)
       console.log(this.markers)
    }
     async removeMarkers(id: string) {
-        debugger
         console.log(this.markers)
-        debugger
         await deleteMarker(id)
         this.markers = this.markers.filter((m)=>(m._id!==id))
         console.log(this.markers)
@@ -109,7 +103,6 @@ class Store {
         this.currentMarker = this.markers.find((m) => (m.name === name))
     }
     async SearchMarker(name: string | undefined) {
-        debugger
         if (name !== "") {
             this.currentMarker = this.markers.find((m) => (m.name === name))
             console.log(this.currentMarker.name)
@@ -117,14 +110,12 @@ class Store {
     }
 
     async addMarker(marker: Marker) {
-        debugger;
         const markerAdded= await addMarker(marker)
         this.markers.push(markerAdded);
         this.currentMarker=null
         //request function
     }
     async UpdateMarker(id:string,marker: any) {
-        debugger;
        await UpdateMarker(id,marker)
 
        this.markers= await getAllMarkerForSystem(systemStore.currentSystem._id)

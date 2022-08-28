@@ -46,7 +46,6 @@ function Register() {
   };
 
   const addUserToDb = async (uid: string) => {
-    debugger;
     const userToDb:any= {
       "fireBaseUid": uid,
       "firstName": firstName,
@@ -67,7 +66,6 @@ function Register() {
     }
   }, [user, loading]);
   function isValidEmail(email: string) {
-    debugger
     return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
 }
   return (

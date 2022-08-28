@@ -28,6 +28,8 @@ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import Geocode from 'react-geocode'
 import ThumbUpOffAltRoundedIcon from '@mui/icons-material/ThumbUpOffAltRounded';
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
+import markerStore from '../../store/markerStore';
+import MapStore from '../../store/mapStore';
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
@@ -81,6 +83,30 @@ const RequestForSystem = () => {
       
         
     }, [])
+    const confirm=()=>{
+
+
+        debugger
+    const newMarker: any = {
+      "manager_id": systemStore.currentSystem.managerUid,
+      "system_id": systemStore.currentSystem._id,
+      "location": {
+        "lat":requestStore.currentRequest.location.lat,
+        "lng":requestStore.currentRequest.location.lng
+      },
+      "description": requestStore.currentRequest.display_name,
+      "name": requestStore.currentRequest.firstName+" "+requestStore.currentRequest.lastName ,
+      "notes":requestStore.currentRequest.notes,
+      "phone": requestStore.currentRequest.phone,
+      "email":  requestStore.currentRequest.email}
+     MapStore.setCardOfSolution(false);
+     markerStore.addMarker(newMarker);
+     MapStore.setZoom(15);
+     MapStore.setCenter(markerStore.markerToAdd.location.lat,markerStore.markerToAdd.location.lng);
+    //swal("saved!", "your location added!", "success");
+    handleClose()
+        
+    }
     return (<>
         <List
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -188,7 +214,7 @@ const RequestForSystem = () => {
                         </Grid>  
                 </DialogContent>}
             <DialogActions>
-                <Button startIcon={<ThumbUpOffAltRoundedIcon/>} onClick={handleClose}>confirm</Button>
+                <Button startIcon={<ThumbUpOffAltRoundedIcon/>} onClick={confirm}>confirm</Button>
                 <Button startIcon={<ThumbDownRoundedIcon/>} onClick={handleClose} autoFocus>
                 don't confirm
                 </Button>

@@ -112,7 +112,7 @@ class Store {
     async addMarker(marker: Marker) {
         const markerAdded= await addMarker(marker)
         this.markers.push(markerAdded);
-        this.currentMarker=null
+        // this.currentMarker=null
         //request function
     }
     async UpdateMarker(id:string,marker: any) {

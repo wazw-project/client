@@ -6,6 +6,7 @@ import userStore from './userStore';
 
 
 const addSystem = async (system: System,token:string) => {
+    debugger;
     try {
         const res = await axios.post(`http://localhost:3333/system/addSystem`,
         {
@@ -78,6 +79,7 @@ class Store {
     }
 
     async addSystem(system: System) {
+        debugger;
         await addSystem(system,this.token);
         this.systems.push(system);
         console.log(this.systems)

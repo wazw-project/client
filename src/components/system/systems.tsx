@@ -72,6 +72,7 @@ const Systems: React.FC = () => {
         return /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(email);
     }
     const addSystem = async () => {
+        debugger
         if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)||urlNameV.includes(" ")) {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }

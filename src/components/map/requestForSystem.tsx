@@ -107,7 +107,7 @@ const RequestForSystem = () => {
     handleClose()
         
     }
-    const dontConfirm=()=>{
+    const dontConfirm=async()=>{
         await requestStore.removeRequest(requestStore.currentRequest._id)
         handleClose()
     }

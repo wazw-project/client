@@ -101,7 +101,7 @@ const RequestForSystem = () => {
      MapStore.setCardOfSolution(false);
      markerStore.addMarker(newMarker);
      MapStore.setZoom(13);
-     MapStore.setCenter(markerStore.markerToAdd.location.lat,markerStore.markerToAdd.location.lng);
+     MapStore.setCenter(requestStore.currentRequest.location.lat,requestStore.currentRequest.location.lng);
     //swal("saved!", "your location added!", "success");
    await requestStore.removeRequest(requestStore.currentRequest._id)
    requestStore.currentRequest=null

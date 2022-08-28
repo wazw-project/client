@@ -104,6 +104,7 @@ const RequestForSystem = () => {
      MapStore.setCenter(markerStore.markerToAdd.location.lat,markerStore.markerToAdd.location.lng);
     //swal("saved!", "your location added!", "success");
    await requestStore.removeRequest(requestStore.currentRequest._id)
+   requestStore.currentRequest=null
     handleClose()
         
     }

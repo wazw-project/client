@@ -87,11 +87,10 @@ const Systems: React.FC = () => {
                 "phone": inputPhone.current?.value,
                 "urlName": inputUrlName.current?.value,
                 "urlImage": inputUrlImage.current?.value
-
-           
             }
             try {
                 await systemStore.addSystem(dataSystem);
+                await 
                 console.log(systemStore.systems)
                 swal("your system added!!", "You clicked the button!", "success");
                 getSystems();

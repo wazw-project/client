@@ -79,7 +79,14 @@ const SearchSystemOfAll: React.FC = () => {
                     </Stack>
                 </Grid>
                 <Grid item xs={3}>
-                    <AutoComplitSystem />
+                    <Grid item xs={6} md={8}>
+                        <AutoComplitSystem />
+                    </Grid>
+                    <Grid item xs={8} md={6}>
+                        <Button variant="contained" onClick={() => navigate("/login")}>
+                            add system
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
 

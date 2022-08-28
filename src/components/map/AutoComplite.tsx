@@ -20,6 +20,7 @@ import Search from "@mui/icons-material/Search";
 import Directions from "@mui/icons-material/Directions";
 import { Button } from "@mui/material";
 import markerStore from '../../store/markerStore';
+import { observer } from 'mobx-react';
 
 function sleep(delay = 0) {
     return new Promise((resolve) => {
@@ -149,4 +150,4 @@ const AutoComplete: React.FC = () => {
     );
 }
 
-export default AutoComplete;
+export default observer(AutoComplete);

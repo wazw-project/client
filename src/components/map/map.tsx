@@ -101,6 +101,6 @@ useEffect(() => {
   );
 }
 
-export default observer(SimpleMap);
+export default observer(Map);
 
 const markers = markerStore.markers

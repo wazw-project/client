@@ -10,8 +10,10 @@ import { System } from '../utils/system';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 
 const SearchSystemOfAll: React.FC = () => {
+    const navigate = useNavigate();
 
     async function getAllSystems() {
         debugger
@@ -27,6 +29,7 @@ const SearchSystemOfAll: React.FC = () => {
 
     return (
         <div id="allBusiness" >
+            {/* <AutoComplitSystem/> */}
             <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
                 {systemStore.allSystems && systemStore.allSystems.map((system: System) =>
                     <Card>
@@ -48,8 +51,11 @@ const SearchSystemOfAll: React.FC = () => {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button variant="contained" >see the places of this system</Button>
-                            {/* onClick={() => navigate(`/systemDetails/hello/${system.urlName}/${system._id}`, { state: { id: system._id } })} */}
+                            <Button variant="contained" onClick={() => {
+                                systemStore.currentSystem = system;
+                                navigate(`/Map`)
+                            }}
+                            >see the places of this system</Button>
                         </CardActions>
                     </Card>)}
             </Stack>

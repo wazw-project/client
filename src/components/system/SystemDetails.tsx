@@ -166,7 +166,7 @@ const SystemDetails: React.FC = () => {
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
                 Delete
               </Button>
-              <Button variant="outlined"onClick={()=>{navigate("/simpleMap")}}>
+              <Button variant="outlined" onClick={()=>{navigate("/Map")}}>
                 see all business location
               </Button>
             </Container>

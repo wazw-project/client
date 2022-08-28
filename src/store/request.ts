@@ -2,6 +2,7 @@
 import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
 import {RequestToMarker} from '../utils/request'
+import systemStore from './systemStore';
 
 
 const addRequest = async (request:RequestToMarker) => {
@@ -17,6 +18,15 @@ const getRequestForSystem = async (id:string) => {
     try {
         debugger;
         const res = await axios.get(`http://localhost:3333/request/getBySystemId/${id}`);
+        let tempList = await res.data;
+        console.log(tempList)
+        return tempList;
+    } catch (error) { console.log(error); }
+}
+const removeRequest = async (id:string) => {
+    try {
+        debugger;
+        const res = await axios.delete(`http://localhost:3333/request/${id}`);
         let tempList = await res.data;
         console.log(tempList)
         return tempList;
@@ -48,6 +58,11 @@ class Store {
    }
    async getRequestById(id: string) {
     this.currentRequest= await getRequestById(id)      
+}
+async removeRequest(id: string) {
+    debugger;
+    this.currentRequest= await removeRequest(id)  
+    getRequestForSystem(systemStore.currentSystem._id)
 }
 }
 

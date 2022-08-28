@@ -30,6 +30,7 @@ import ThumbUpOffAltRoundedIcon from '@mui/icons-material/ThumbUpOffAltRounded';
 import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
 import markerStore from '../../store/markerStore';
 import MapStore from '../../store/mapStore';
+import { observer } from 'mobx-react-lite';
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
@@ -83,10 +84,8 @@ const RequestForSystem = () => {
       
         
     }, [])
-    const confirm=()=>{
-
-
-        debugger
+    const confirm=async()=>{
+   debugger
     const newMarker: any = {
       "manager_id": systemStore.currentSystem.managerUid,
       "system_id": systemStore.currentSystem._id,
@@ -101,9 +100,10 @@ const RequestForSystem = () => {
       "email":  requestStore.currentRequest.email}
      MapStore.setCardOfSolution(false);
      markerStore.addMarker(newMarker);
-     MapStore.setZoom(15);
+     MapStore.setZoom(13);
      MapStore.setCenter(markerStore.markerToAdd.location.lat,markerStore.markerToAdd.location.lng);
     //swal("saved!", "your location added!", "success");
+   await requestStore.removeRequest(requestStore.currentRequest._id)
     handleClose()
         
     }
@@ -224,7 +224,7 @@ const RequestForSystem = () => {
 
     </>)
 }
-export default RequestForSystem
+export default observer(RequestForSystem)
 
 function key(key: any): React.MouseEventHandler<HTMLAnchorElement> | undefined {
     throw new Error('Function not implemented.');

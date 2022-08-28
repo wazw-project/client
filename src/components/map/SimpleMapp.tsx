@@ -13,6 +13,8 @@ import { observer } from 'mobx-react';
 import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
 import systemStore from '../../store/systemStore';
+import RequestToMarker from './RequestToMarker';
+
 function sleep(delay = 0) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
@@ -94,6 +96,7 @@ useEffect(() => {
       </Grid>
       <Grid item xs={6} md={4}>
        <TitleMapLocation/>   
+     <RequestToMarker/>
         <SearchAndAddMarker/>
         {MapStore.currentCard && <CardSolution/>}        
       </Grid>

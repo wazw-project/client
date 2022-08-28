@@ -44,7 +44,7 @@ const OurAppBar = () => {
             </>
           }
           {store.user === null &&
-            <Button color="inherit" onClick={() => login()}>login</Button>}
+            <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
         </Toolbar>
       </AppBar>
     </Box>

@@ -116,6 +116,12 @@ class Store {
     async getSystemById(id: string) {
         this.currentSystem = await getSystemById(id,this.token);
     }
+
+    async SearchSystem(objectName: string | undefined) {
+        if (objectName !== "") {
+            this.currentSystem = this.allSystems.find((m) => (m.objectName === objectName))
+        }
+    }
 }
 
 const systemStore = new Store();

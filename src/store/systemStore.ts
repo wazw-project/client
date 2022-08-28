@@ -19,12 +19,12 @@ const addSystem = async (system: System,token:string) => {
     } catch (error) { console.log(error); }
 }
 
-const getSystems = async (managerId:string,token:string) => {
+const getSystems = async (managerId:string) => {
     try {   
-        const res = await axios.get(`http://localhost:3333/system/${managerId}`, 
-        {
-            headers: {"Authorization": token },
-        });
+        const res = await axios.get(`http://localhost:3333/system/${managerId}`) 
+        // {
+        //     headers: {"Authorization": token },
+        // });
         let tempList = await res.data;
         return tempList;
     } catch (error) { console.log(error); }
@@ -86,7 +86,7 @@ class Store {
     }
 
     async loadSystems() {
-        this.systems = await getSystems(userStore.user._id,this.token);
+        this.systems = await getSystems(userStore.user._id);
     }
 
     async getAllSystems() {
@@ -115,6 +115,12 @@ class Store {
 
     async getSystemById(id: string) {
         this.currentSystem = await getSystemById(id,this.token);
+    }
+
+    async SearchSystem(objectName: string | undefined) {
+        if (objectName !== "") {
+            this.currentSystem = this.allSystems.find((m) => (m.objectName === objectName))
+        }
     }
 }
 

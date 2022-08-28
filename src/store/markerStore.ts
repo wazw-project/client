@@ -10,7 +10,7 @@ const addMarker = async (marker: Marker) => {
         return tempList;
     } catch (error) { console.log(error); }
 }
-const UpdateMarker = async (id:string,marker: Marker) => {
+const UpdateMarker = async (id: string, marker: Marker) => {
     try {
         const res = await axios.put(`http://localhost:3333/marker/${id}`, marker);
         let tempList = await res.data;
@@ -23,17 +23,25 @@ const getAllMarkerForSystem = async (system_id: string) => {
         let tempList = await res.data;
         return tempList;
     }
-    catch(error) { console.log(error); }
+    catch (error) { console.log(error); }
 }
-const deleteMarker = async (marker_id: string|undefined) => {
+const deleteMarker = async (marker_id: string | undefined) => {
     try {
         const res = await axios.delete(`http://localhost:3333/marker/${marker_id}`);
         let tempList = await res.data;
         return tempList;
     }
-    catch(error) { console.log(error); }
+    catch (error) { console.log(error); }
 }
 
+const getMarkersBySystemId=async(systemId: string)=>{
+    try {
+        const res = await axios.delete(`http://localhost:3333/marker/getBySystemId/${systemId}`);
+        let tempList = await res.data;
+        return tempList;
+    }
+    catch (error) { console.log(error); }
+}
 class Store {
 
     markers: Marker[] = [];
@@ -41,9 +49,11 @@ class Store {
     markerToAdd: Marker = {
         manager_id: '',
         system_id: "",
-        location:{lat: 0,
-            lng: 0},
-        
+        location: {
+            lat: 0,
+            lng: 0
+        },
+
         description: "",
         name: "",
         notes: "",
@@ -89,14 +99,14 @@ class Store {
         //     phone: "5476876"
         // })
     }
-   async getAllMarkerForSystem(id:string) {
-      this.markers= await getAllMarkerForSystem(id)
-      console.log(this.markers)
-   }
+    async getAllMarkerForSystem(id: string) {
+        this.markers = await getAllMarkerForSystem(id)
+        console.log(this.markers)
+    }
     async removeMarkers(id: string) {
         console.log(this.markers)
         await deleteMarker(id)
-        this.markers = this.markers.filter((m)=>(m._id!==id))
+        this.markers = this.markers.filter((m) => (m._id !== id))
         console.log(this.markers)
     }
     async SetcurrentMarker(name: string) {
@@ -110,18 +120,22 @@ class Store {
     }
 
     async addMarker(marker: Marker) {
-        const markerAdded= await addMarker(marker)
+        const markerAdded = await addMarker(marker)
         this.markers.push(markerAdded);
         this.currentMarker = markerAdded;
         // this.currentMarker=null
         //request function
     }
-    async UpdateMarker(id:string,marker: any) {
-       await UpdateMarker(id,marker)
+    async UpdateMarker(id: string, marker: any) {
+        await UpdateMarker(id, marker)
 
-       this.markers= await getAllMarkerForSystem(systemStore.currentSystem._id)
-      this.currentMarker=null
+        this.markers = await getAllMarkerForSystem(systemStore.currentSystem._id)
+        this.currentMarker = null
         //request function
+    }
+
+    async getMarkersBySystemId(systemId: string) {
+        this.markers = await getMarkersBySystemId(systemId)
     }
 
 }

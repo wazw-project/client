@@ -9,6 +9,8 @@ import OurAppBar from './components/AppBar'
 import Map from "./components/map/map";
 import AddMarker from "./components/map/AutoComplite";
 import SearchSystemOfAll from "./components/searchSystemOfAll";
+import AutoComplitSystem from "./components/system/autoComplitSystem";
+
 function App() {
   return (
     <div className="app">
@@ -24,7 +26,8 @@ function App() {
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails />} />
           <Route path="/OurAppBar" element={<OurAppBar />} />
           <Route path="/Map" element={<Map/>} />  
-          <Route path="/AddMarker" element={<AddMarker/>} />  
+          <Route path="/AddMarker" element={<AddMarker/>} /> 
+          <Route path="/autoComplitSystem" element={<AutoComplitSystem />} /> 
         </Routes>
       </Router>
     </div>

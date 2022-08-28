@@ -23,7 +23,7 @@ function App() {
           <Route path="/systems" element={<Systems />} />
           <Route path="/systemDetails/hello/:name/:uid" element={<SystemDetails />} />
           <Route path="/OurAppBar" element={<OurAppBar />} />
-          <Route path="/simpleMap" element={<Map/>} />  
+          <Route path="/Map" element={<Map/>} />  
           <Route path="/AddMarker" element={<AddMarker/>} />  
         </Routes>
       </Router>

@@ -33,6 +33,7 @@ const getRequestById = async (id:string) => {
 }
 class Store {
     currentRequest: any = null;
+    currentRequestAddressesName: string = "";
     request: RequestToMarker[] = [];
     constructor() {
         makeAutoObservable(this);

@@ -54,7 +54,8 @@ class Store {
          this.currentRequest = RequestAdded;
     }
     async getRequestForSystem(id: string) {
-        this.request= await getRequestForSystem(id)    
+        this.request= await getRequestForSystem(id)  
+        return this.request  
    }
    async getRequestById(id: string) {
     this.currentRequest= await getRequestById(id)      
@@ -62,7 +63,9 @@ class Store {
 async removeRequest(id: string) {
     debugger;
     this.currentRequest= await removeRequest(id)  
-    getRequestForSystem(systemStore.currentSystem._id)
+    this.request = this.request.filter((r) => (r._id !== id))
+    this.currentRequest=null
+  //getRequestForSystem(this.currentRequest.system_id)
 }
 }
 

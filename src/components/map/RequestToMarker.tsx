@@ -87,9 +87,8 @@ const Request = () => {
         }
         try {
             await requestStore.addRequest(newRequest)
-            // await markerStore.UpdateMarker(markerStore.currentMarker._id, newMarker);
-            // MapStore.setCardOfSolution(false)
-            // MapStore.setZoom(8)
+            requestStore.currentRequest=newRequest
+         
             swal("saved!", "your request send!", "success");
         }
         catch (error) {

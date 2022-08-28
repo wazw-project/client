@@ -97,9 +97,9 @@ class Store {
 
     async addSystem(system: System) {
         debugger;
-        await addSystem(system,this.token);
+        const systemFromDB=await addSystem(system,this.token);
         this.systems.push(system);
-        console.log(this.systems)
+        return systemFromDB;
     }
    
 

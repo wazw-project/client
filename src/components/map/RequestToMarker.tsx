@@ -22,13 +22,13 @@ const Request = () => {
     const inputPhone = useRef<HTMLInputElement>();
     const inputEmail = useRef<HTMLInputElement>();
     const inputDisplay_name = useRef<HTMLInputElement>();
-
+    const inputNotes = useRef<HTMLInputElement>();
 
     //  "location":{"lat": 31.0461,
     //          "lng": 35.8516}
 
 
-    const inputNotes = useRef<HTMLInputElement>();
+   
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -48,6 +48,7 @@ const Request = () => {
             "email": inputEmail.current?.value,
             "system_id": systemStore.currentSystem._id,
             "display_name": inputDisplay_name.current?.value,
+            "notes":inputNotes.current?.value,
             "location": {
                 "lat": markerStore.markerToAdd.location.lat,
                 "lng": markerStore.markerToAdd.location.lng

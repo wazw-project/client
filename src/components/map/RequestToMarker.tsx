@@ -29,6 +29,7 @@ const Request = () => {
     const [lat, setLat] = useState<number>(0);
     const [lng, setLng] = useState<number>(0);
     const [status, setStatus] = useState<string>("");
+    const inputNotes = useRef<HTMLInputElement>();
 
     const getLocation = () => {
         if (!navigator.geolocation) {
@@ -54,7 +55,7 @@ const Request = () => {
         };
     };
 
-    const inputNotes = useRef<HTMLInputElement>();
+   
     const handleClickOpen = () => {
         debugger
         setOpen(true);
@@ -78,6 +79,7 @@ const Request = () => {
             "email": inputEmail.current?.value,
             "system_id": systemStore.currentSystem._id,
             "display_name": inputDisplay_name.current?.value,
+            "notes":inputNotes.current?.value,
             "location": {
                 "lat": lat,
                 "lng": lng

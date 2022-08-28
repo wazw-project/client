@@ -30,6 +30,16 @@ const getSystems = async (managerId:string,token:string) => {
     } catch (error) { console.log(error); }
 }
 
+const getAllSystems = async () => {
+    debugger
+    try {   
+        const res = await axios.get(`http://localhost:3333/system`) 
+        let tempList = await res.data;
+        console.log(tempList);
+        return tempList;
+    } catch (error) { console.log(error); }
+}
+
 const removeSystem = async (systemId: string,token:string) => {
     try {
         await axios.delete(` http://localhost:3333/system/${systemId}`,
@@ -69,6 +79,7 @@ class Store {
     systems: System[] = [];
     currentSystem: any = null;
     token:string="";
+    allSystems:System[] = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -76,6 +87,12 @@ class Store {
 
     async loadSystems() {
         this.systems = await getSystems(userStore.user._id,this.token);
+    }
+
+    async getAllSystems() {
+        console.log(this.allSystems);
+        this.allSystems = await getAllSystems();
+        console.log(this.allSystems);
     }
 
     async addSystem(system: System) {

@@ -25,14 +25,35 @@ import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import AirplayRoundedIcon from '@mui/icons-material/AirplayRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import Geocode from 'react-geocode'
+import ThumbUpOffAltRoundedIcon from '@mui/icons-material/ThumbUpOffAltRounded';
 
 const RequestForSystem = () => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
+    const [address,setAddress]=useState("")
     const handleClick = () => {
         setOpen(!open);
     };
 
-
+    const getLocationNameByLatLng = () => {
+        if(requestStore.currentRequest){
+        debugger
+        Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+        Geocode.enableDebug();
+        debugger
+        Geocode.fromLatLng(requestStore.currentRequest.location.lat.toString(),requestStore.currentRequest.location.lng.toString()).then(
+            (response: any) => {
+                const address = response.results[0].formatted_address;
+               
+                console.log(address);
+                setAddress(address)
+                return address
+            },
+            (error: any) => {
+                console.error(error);
+            }
+        );}
+    }
     async function getAllRequest() {
         debugger
         try {
@@ -47,6 +68,7 @@ const RequestForSystem = () => {
         }
         await requestStore.getRequestById(id)
         setOpenDialog(true);
+        getLocationNameByLatLng()
     };
 
     const handleClose = () => {
@@ -55,6 +77,8 @@ const RequestForSystem = () => {
     useEffect(() => {
         debugger
         getAllRequest();
+      
+        
     }, [])
     return (<>
         <List
@@ -156,15 +180,14 @@ const RequestForSystem = () => {
                             <LocationOnRoundedIcon/>
                         </Grid>
                         <Grid item >
-                            <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.notes }
-                              
+                            <Typography variant="h6" gutterBottom component="div">                        
+                                 {address}
                             </Typography>
                         </Grid>
                         </Grid>  
                 </DialogContent>}
             <DialogActions>
-                <Button onClick={handleClose}>Disagree</Button>
+                <Button startIcon={<ThumbUpOffAltRoundedIcon/>} onClick={handleClose}>confirm</Button>
                 <Button onClick={handleClose} autoFocus>
                     Agree
                 </Button>

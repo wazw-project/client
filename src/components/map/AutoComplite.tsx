@@ -56,7 +56,6 @@ const AutoComplete: React.FC = () => {
     const handleSelect =
         (description: any) =>
             () => {
-                debugger
                 if(!description.structured_formatting.secondary_text){
                     description.structured_formatting.secondary_text=""
                 }

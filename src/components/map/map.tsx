@@ -14,6 +14,7 @@ import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
 import systemStore from '../../store/systemStore';
 import RequestToMarker from './RequestToMarker';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -31,7 +32,6 @@ const Map: React.FC = (props: any) => {
 }
 useEffect(() => {
   getMarker();
-  console.log(markerStore.markers)
 }, [])
 
 
@@ -73,6 +73,20 @@ useEffect(() => {
       setOptions([]);
     }
   }, [open]);
+
+  const location = useLocation();
+  const form: any = location.state;
+
+//   async function getMarkersBySystemId() {
+//     try {
+//         await markerStore.getMarkersBySystemId(form.id);
+//     } catch (err) {
+//         console.log(err)
+//     }
+// }
+// useEffect(() => {
+//   getMarkersBySystemId();
+// }, [])
 
   return (
 

@@ -54,6 +54,7 @@ const Login: React.FC = () => {
     return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
 }
   const loginFromDB = async (Uid: any) => {
+    debugger
     try {
       await userStore.getUser(Uid);  
       if(userStore.user._id===""){

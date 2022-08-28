@@ -27,6 +27,7 @@ import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import Geocode from 'react-geocode'
 import ThumbUpOffAltRoundedIcon from '@mui/icons-material/ThumbUpOffAltRounded';
+import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
@@ -188,8 +189,8 @@ const RequestForSystem = () => {
                 </DialogContent>}
             <DialogActions>
                 <Button startIcon={<ThumbUpOffAltRoundedIcon/>} onClick={handleClose}>confirm</Button>
-                <Button onClick={handleClose} autoFocus>
-                    Agree
+                <Button startIcon={<ThumbDownRoundedIcon/>} onClick={handleClose} autoFocus>
+                don't confirm
                 </Button>
             </DialogActions>
         </Dialog>

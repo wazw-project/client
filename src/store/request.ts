@@ -13,7 +13,24 @@ const addRequest = async (request:RequestToMarker) => {
         return tempList;
     } catch (error) { console.log(error); }
 }
-
+const getRequestForSystem = async (id:string) => {
+    try {
+        debugger;
+        const res = await axios.get(`http://localhost:3333/request/getBySystemId/${id}`);
+        let tempList = await res.data;
+        console.log(tempList)
+        return tempList;
+    } catch (error) { console.log(error); }
+}
+const getRequestById = async (id:string) => {
+   try {
+        debugger;
+        const res = await axios.get(`http://localhost:3333/request/${id}`);
+        let tempList = await res.data;
+        console.log(tempList)
+        return tempList;
+    } catch (error) { console.log(error); } 
+}
 class Store {
     currentRequest: any = null;
     request: RequestToMarker[] = [];
@@ -24,9 +41,13 @@ class Store {
          const RequestAdded= await addRequest(request)
          this.request.push(RequestAdded);
          this.currentRequest = RequestAdded;
-        // // this.currentMarker=null
-        // //request function
     }
+    async getRequestForSystem(id: string) {
+        this.request= await getRequestForSystem(id)    
+   }
+   async getRequestById(id: string) {
+    this.currentRequest= await getRequestById(id)      
+}
 }
 
 const requestStore = new Store();

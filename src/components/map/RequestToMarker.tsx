@@ -37,6 +37,7 @@ const Request = () => {
         setOpen(false);
     };
     const sendRequest = async () => {
+        
         const newRequest: any = {
 
          
@@ -45,7 +46,7 @@ const Request = () => {
             "lastName": inputLastName.current?.value,
             "phone": inputPhone.current?.value,
             "email": inputEmail.current?.value,
-            "system_id": systemStore.currentSystem.system_id,
+            "system_id": systemStore.currentSystem._id,
             "display_name": inputDisplay_name.current?.value,
             "location": {
                 "lat": markerStore.markerToAdd.location.lat,

@@ -14,6 +14,7 @@ import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
 import systemStore from '../../store/systemStore';
 import RequestToMarker from './RequestToMarker';
+import RequestForSystem from './requestForSystem';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -96,7 +97,9 @@ useEffect(() => {
       </Grid>
       <Grid item xs={6} md={4}>
        <TitleMapLocation/>   
+       
      <RequestToMarker/>
+     <RequestForSystem/>
         <SearchAndAddMarker/>
         {MapStore.currentCard && <CardSolution/>}        
       </Grid>

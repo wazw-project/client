@@ -123,7 +123,10 @@ const SearchAndAddMarker: React.FC = (props: any) => {
       "phone": inputPhone.current?.value,
       "email": inputEmail.current?.value
     }
+    MapStore.setCardOfSolution(false);
     markerStore.addMarker(newMarker);
+    MapStore.setZoom(15);
+    MapStore.setCenter(markerStore.markerToAdd.location.lat,markerStore.markerToAdd.location.lng);
     swal("saved!", "your location added!", "success");
     handleClose()
   }

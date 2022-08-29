@@ -22,6 +22,7 @@ import { Role } from '../../utils/manager';
 import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
+import TitleMapLocationUser from './titleMapLocationUser';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -167,11 +168,15 @@ const Map: React.FC = (props: any) => {
         </GoogleMapReact>
       </Grid>
       <Grid item xs={6} md={4}>
-        <TitleMapLocation />
+        
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
-          <UserAutoCompliteInMap />}
+        <>
+        <TitleMapLocationUser/>
+          <UserAutoCompliteInMap />
+          </>}
         {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
           <>
+          <TitleMapLocation />
             <SearchAndAddMarker />
             {MapStore.currentCard && <CardSolution />}
             <RequestForSystem />

@@ -85,7 +85,7 @@ const AutoComplete: React.FC = () => {
                 </div>
             );
         });
-    const [f ,setF]=useState<string>("")
+
     const [open, setOpen] = React.useState(false);
     const [options, setOptions] = React.useState<readonly MarkerUtil[]>([]);
     const loading = open && options.length === 0;

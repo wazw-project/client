@@ -27,7 +27,7 @@ const SearchSystemOfAll: React.FC = () => {
 
     useEffect(() => {
         debugger
-        requestStore.currentRequestAddressesName=""
+  
         getAllSystems();
     }, [])
 

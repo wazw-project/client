@@ -77,46 +77,33 @@ const Map: React.FC = (props: any) => {
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      setStatus('Geolocation is not supported by your browser');
+        setStatus('Geolocation is not supported by your browser');
     } else {
-      debugger
-      setStatus('Locating...');
-      navigator.geolocation.getCurrentPosition((position) => {
-        setStatus("");
-        debugger
-       
-        MapStore.yourLocation.center.lat=position.coords.latitude
-        MapStore.yourLocation.center.lng=position.coords.longitude
-        setLat(position.coords.latitude)
-        setLng(position.coords.longitude)
-      
-        
-      }, () => {
-        setStatus('Unable to retrieve your location');
-      });
+        setStatus('Locating...');
+        navigator.geolocation.getCurrentPosition((position) => {
+            setStatus("");
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+        }, () => {
+            setStatus('Unable to retrieve your location');
+        });
     }
-  }
-  const getLocationNameByLatLng = () => {
-    if (requestStore.currentRequest) {
-        debugger
-        Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
-        Geocode.enableDebug();
-        debugger
-        Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
-            (response: any) => {
-              debugger
-                const address = response.results[0].formatted_address;
-                debugger
-                console.log(address);
-                debugger
-                requestStore.currentRequestAddressesName = address;
-              
-            },
-            (error: any) => {
-                console.error(error);
-            }
-        );
-    }
+}
+
+const getLocationNameByLatLng = () => {
+  debugger
+  Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+  Geocode.enableDebug();
+  Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
+      (response: any) => {
+          const address = response.results[0].formatted_address;
+          requestStore.currentRequestAddressesName = address;
+          console.log(address);
+      },
+      (error: any) => {
+          console.error(error);
+      }
+  );
 }
 
 

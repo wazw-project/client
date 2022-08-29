@@ -216,15 +216,15 @@ const Request = () => {
                             <Grid item xs={6} md={8}>
                                 <GoogleMapReact
                                     bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-                                    center={{ lat: lat && lat, lng: lng && lng }}
+                                    center={{ lat: MapStore.yourLocation.center.lat && MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng && MapStore.yourLocation.center.lng }}
                                     zoom={18}
                                     // onGoogleApiLoaded={() => getLocation()}
                                     options={getMapOptions}
                                 >
                                     <Marker
-                                        lat={lat && lat}
-                                        lng={lng && lng}
-                                        name={'aa'}
+                                        lat={MapStore.yourLocation.center.lat}
+                                        lng={MapStore.yourLocation.center.lng}
+                                        name={'your location'}
                                         color={'yellow'}
                                     />
                                 </GoogleMapReact>

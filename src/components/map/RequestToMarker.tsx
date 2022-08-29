@@ -122,7 +122,7 @@ const Request = () => {
         debugger
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
-        Geocode.fromLatLng(lat.toString(), lng.toString()).then(
+        Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
             (response: any) => {
                 const address = response.results[0].formatted_address;
                 requestStore.currentRequestAddressesName = address;
@@ -228,7 +228,7 @@ const Request = () => {
                                         lat={lat && lat}
                                         lng={lng && lng}
                                         name={'aa'}
-                                        color={'red'}
+                                        color={'yellow'}
                                     />
                                 </GoogleMapReact>
                             </Grid>

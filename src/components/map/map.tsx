@@ -74,9 +74,10 @@ const Map: React.FC = (props: any) => {
 
   useEffect(() => {
       getLocationNameByLatLng()
-  }, [MapStore.yourLocation.center.lat, MapStore.yourLocation.center.lng]);
+  }, [lat,lng]);
   
   useEffect(() => {
+    debugger
       getLocation()
   }, []);
 
@@ -85,10 +86,17 @@ const Map: React.FC = (props: any) => {
     if (!navigator.geolocation) {
       setStatus('Geolocation is not supported by your browser');
     } else {
+      debugger
       setStatus('Locating...');
       navigator.geolocation.getCurrentPosition((position) => {
         setStatus("");
-        MapStore.setCenter(position.coords.latitude,position.coords.longitude)
+        debugger
+       
+        MapStore.yourLocation.center.lat=position.coords.latitude
+        MapStore.yourLocation.center.lng=position.coords.longitude
+        setLat(position.coords.latitude)
+        setLng(position.coords.longitude)
+      
         
       }, () => {
         setStatus('Unable to retrieve your location');
@@ -103,8 +111,11 @@ const Map: React.FC = (props: any) => {
         debugger
         Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
             (response: any) => {
+              debugger
                 const address = response.results[0].formatted_address;
+                debugger
                 console.log(address);
+                debugger
                 requestStore.currentRequestAddressesName = address;
               
             },

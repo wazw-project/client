@@ -2,23 +2,17 @@ import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import markerStore from '../../store/markerStore';
 import { Marker as MarkerUtil } from '../../utils/marker';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import SearchAndAddMarker from './seachAndAddMarker'
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
 import systemStore from '../../store/systemStore';
-import RequestToMarker from './RequestToMarker';
 import RequestForSystem from './requestForSystem';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import userStore from '../../store/userStore';
 import ManagerStore from '../../store/managerStore';
-import { Role } from '../../utils/manager';
 import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
@@ -54,12 +48,11 @@ const Map: React.FC = (props: any) => {
     }
   }
 
-  const [IsManager, setIsManager] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  
   const getMapOptions = (maps: any) => {
     return {
       disableDefaultUI: true,
@@ -149,8 +142,7 @@ const Map: React.FC = (props: any) => {
     }
   }, [open]);
 
-  const location = useLocation();
-  const form: any = location.state;
+
 
   return (
 

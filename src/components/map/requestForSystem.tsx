@@ -13,12 +13,10 @@ import systemStore from '../../store/systemStore';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Typography from '@mui/material/Typography';
-import { wrap } from 'module';
 import Grid from '@mui/material/Grid';
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
@@ -32,7 +30,6 @@ import markerStore from '../../store/markerStore';
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react-lite';
 import ManagerStore from '../../store/managerStore';
-import {Role} from "../../utils/manager";
 import userStore from '../../store/userStore';
 
 const RequestForSystem = () => {
@@ -251,6 +248,3 @@ const RequestForSystem = () => {
 }
 export default observer(RequestForSystem)
 
-function key(key: any): React.MouseEventHandler<HTMLAnchorElement> | undefined {
-    throw new Error('Function not implemented.');
-}

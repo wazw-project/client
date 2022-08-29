@@ -5,11 +5,19 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 import React, { useState, useEffect } from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Marker as MarkerUtil } from '../../utils/marker';
+import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
+import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/icons-material/Menu";
 import Search from "@mui/icons-material/Search";
+import Directions from "@mui/icons-material/Directions";
+import { Button } from "@mui/material";
 import markerStore from '../../store/markerStore';
 import { observer } from 'mobx-react';
 import requestStore from "../../store/request";
@@ -58,7 +66,6 @@ const AutoComplete: React.FC = () => {
                         MapStore.yourLocation.center.lat=lat
                         MapStore.yourLocation.center.lng=lng
                         requestStore.currentRequestAddressesName=description.description;
-                        setF("gg")
                     })
                     .catch((error) => {
                         console.log("Error: ", error);
@@ -110,7 +117,7 @@ const AutoComplete: React.FC = () => {
         if (requestStore.currentRequestAddressesName) {
             setValue(requestStore.currentRequestAddressesName);
         }
-    }, [f]);
+    }, []);
 
     return (
         <>

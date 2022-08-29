@@ -37,29 +37,30 @@ import userStore from '../../store/userStore';
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
-    const [address,setAddress]=useState("")
+    const [address, setAddress] = useState("")
     const handleClick = () => {
         setOpen(!open);
     };
 
     const getLocationNameByLatLng = () => {
-        if(requestStore.currentRequest){
-        debugger
-        Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
-        Geocode.enableDebug();
-        debugger
-        Geocode.fromLatLng(requestStore.currentRequest.location.lat.toString(),requestStore.currentRequest.location.lng.toString()).then(
-            (response: any) => {
-                const address = response.results[0].formatted_address;
-               
-                console.log(address);
-                setAddress(address)
-                return address
-            },
-            (error: any) => {
-                console.error(error);
-            }
-        );}
+        if (requestStore.currentRequest) {
+            debugger
+            Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+            Geocode.enableDebug();
+            debugger
+            Geocode.fromLatLng(requestStore.currentRequest.location.lat.toString(), requestStore.currentRequest.location.lng.toString()).then(
+                (response: any) => {
+                    const address = response.results[0].formatted_address;
+
+                    console.log(address);
+                    setAddress(address)
+                    return address
+                },
+                (error: any) => {
+                    console.error(error);
+                }
+            );
+        }
     }
     async function getAllRequest() {
         debugger
@@ -84,8 +85,8 @@ const RequestForSystem = () => {
     useEffect(() => {
         debugger
         getAllRequest();
-      
-        
+
+
     }, [])
     const confirm=async()=>{
         debugger
@@ -125,7 +126,7 @@ const RequestForSystem = () => {
     handleClose()
         
     }
-    const dontConfirm=async()=>{
+    const dontConfirm = async () => {
         await requestStore.removeRequest(requestStore.currentRequest._id)
         handleClose()
     }
@@ -140,8 +141,8 @@ const RequestForSystem = () => {
                     <PersonPinIcon />
                 </ListItemIcon>
                 <ListItemText primary="request add location" />
-                {requestStore.request.length>0&&
-                <ListItemText sx={{color:"red"}} primary={requestStore.request.length} />}
+                {requestStore.request.length > 0 &&
+                    <ListItemText sx={{ color: "red" }} primary={requestStore.request.length} />}
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
@@ -170,77 +171,77 @@ const RequestForSystem = () => {
                 request details
             </DialogTitle>
             {requestStore.currentRequest &&
-                <DialogContent>         
+                <DialogContent>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
                             <AccountCircleRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.firstName + " "+requestStore.currentRequest.lastName}
-                              
+                                {requestStore.currentRequest.firstName + " " + requestStore.currentRequest.lastName}
+
                             </Typography>
                         </Grid>
-                        </Grid>   
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <LocalPhoneRoundedIcon/>
+                            <LocalPhoneRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.phone }
-                              
+                                {requestStore.currentRequest.phone}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <MailOutlineRoundedIcon/>
+                            <MailOutlineRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.email }
-                              
+                                {requestStore.currentRequest.email}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <AirplayRoundedIcon/>
+                            <AirplayRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.display_name }
-                              
+                                {requestStore.currentRequest.display_name}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <DescriptionRoundedIcon/>
+                            <DescriptionRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.notes }
-                              
+                                {requestStore.currentRequest.notes}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <LocationOnRoundedIcon/>
+                            <LocationOnRoundedIcon />
                         </Grid>
                         <Grid item >
-                            <Typography variant="h6" gutterBottom component="div">                        
-                                 {address}
+                            <Typography variant="h6" gutterBottom component="div">
+                                {address}
                             </Typography>
                         </Grid>
-                        </Grid>  
+                    </Grid>
                 </DialogContent>}
             <DialogActions>
-                <Button startIcon={<ThumbUpOffAltRoundedIcon/>} onClick={confirm}>confirm</Button>
-                <Button startIcon={<ThumbDownRoundedIcon/>} onClick={dontConfirm} autoFocus>
-                don't confirm
+                <Button startIcon={<ThumbUpOffAltRoundedIcon />} onClick={confirm}>confirm</Button>
+                <Button startIcon={<ThumbDownRoundedIcon />} onClick={dontConfirm} autoFocus>
+                    don't confirm
                 </Button>
             </DialogActions>
         </Dialog>

@@ -21,6 +21,7 @@ const getUser=async(id:string)=>{
 
 class Store {
     user: any = null;
+    userFromFireBase: any = null;
     token:string="";
     loginFrom="/"
     constructor() {

@@ -4,7 +4,6 @@ import usePlacesAutocomplete, {
     getLatLng,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-
 import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -42,16 +41,11 @@ const AutoComplete: React.FC = () => {
         debounce: 300,
     });
     const ref = useOnclickOutside(() => {
-        // When user clicks outside of the component, we can dismiss
-        // the searched suggestions by calling this method
         clearSuggestions();
     });
 
     const handleInput = (e: any) => {
-        // Update the keyword of the input element
-   
         setValue(e.target.value);
-        console.log(e.target.value)
     };
 
     const handleSelect =
@@ -68,6 +62,7 @@ const AutoComplete: React.FC = () => {
                         console.log("Coordinates: ", { lat, lng });
                         markerStore.markerToAdd.location.lat = lat;
                         markerStore.markerToAdd.location.lng = lng;
+                        requestStore.currentRequestAddressesName=description.description;
                     })
                     .catch((error) => {
                         console.log("Error: ", error);
@@ -97,7 +92,7 @@ const AutoComplete: React.FC = () => {
             return undefined;
         }
         (async () => {
-            await sleep(1e3); // For demo purposes.
+            await sleep(1e3); 
 
             if (active) {
                 // setOptions([...markers]);
@@ -108,6 +103,7 @@ const AutoComplete: React.FC = () => {
             active = false;
         };
     }, [loading]);
+
     useEffect(() => {
         if (!open) {
             setOptions([]);
@@ -120,8 +116,6 @@ const AutoComplete: React.FC = () => {
         }
     }, []);
 
-
-
     return (
         <>
             <Paper
@@ -133,8 +127,6 @@ const AutoComplete: React.FC = () => {
                     width: 500,
                 }}
             >
-
-                {/* <div ref={ref}> */}
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}
                     placeholder="Search Google Maps"
@@ -144,10 +136,6 @@ const AutoComplete: React.FC = () => {
                     disabled={!ready}
 
                 />
-
-                {/* We can use the "status" to decide whether we should display the dropdown or not */}
-
-                {/* </div> */}
                 <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
                     <Search />
                 </IconButton>

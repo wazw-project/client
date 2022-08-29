@@ -69,13 +69,11 @@ const Request = () => {
 
 
     const handleClickOpen = () => {
-        debugger
         setOpen(true);
         getLocation();
     };
 
     useEffect(() => {
-        debugger
         getLocationNameByLatLng()
     }, [lat, lng]);
 
@@ -97,8 +95,8 @@ const Request = () => {
                 "display_name": inputDisplay_name.current?.value,
                 "notes": inputNotes.current?.value,
                 "location": {
-                    "lat": lat,
-                    "lng": lng
+                    "lat": markerStore.markerToAdd.location.lat,
+                    "lng":  markerStore.markerToAdd.location.lng
                 },
             }
             try {
@@ -110,15 +108,18 @@ const Request = () => {
             catch (error) {
                 swal("error!", "error", "error");
             }
-            handleClose()
+            handleClose();
             setOpen(false);
+            requestStore.currentRequestAddressesName="";
         }
     }
+
     const login = () => {
         setLoginOpeb(true)
-        userStore.loginFrom="/Map"
+        userStore.loginFrom = "/Map"
     }
     const getLocationNameByLatLng = () => {
+        debugger
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
         Geocode.fromLatLng(lat.toString(), lng.toString()).then(
@@ -246,13 +247,13 @@ const Request = () => {
                     aria-describedby="alert-dialog-description"
                 >
                     {!loginOpen &&
-                    <>
-                <DialogTitle id="alert-dialog-title">
-                   for send request you need login!
-                </DialogTitle>
-                <Button variant="outlined" onClick={login}>
-                login
-            </Button></>}
+                        <>
+                            <DialogTitle id="alert-dialog-title">
+                                for send request you need login!
+                            </DialogTitle>
+                            <Button variant="outlined" onClick={login}>
+                                login
+                            </Button></>}
                     {loginOpen &&
                         <DialogActions>
                             <Login />

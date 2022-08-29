@@ -31,7 +31,9 @@ const Login: React.FC = () => {
       return;
     }
     if (user) {
+      debugger
       loginFromDB(user.uid);
+      // userStore.userFromFireBase=user;        
       user.getIdToken().then((value=>{
         console.log(value);   
         userStore.token=value;
@@ -59,7 +61,11 @@ const Login: React.FC = () => {
       await userStore.getUser(Uid);  
       if(userStore.user._id===""){
        await addUserToDb(Uid)
+<<<<<<< HEAD
       userStore.user=await userStore.getUser(Uid);        
+=======
+       await userStore.getUser(Uid);
+>>>>>>> 428584cc68ed09f4f767096c2ce7e458030544e6
       }     
       navigate(userStore.loginFrom)
     } catch (error) { console.log(error); }

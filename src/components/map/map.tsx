@@ -91,17 +91,6 @@ const Map: React.FC = (props: any) => {
   const location = useLocation();
   const form: any = location.state;
 
-  //   async function getMarkersBySystemId() {
-  //     try {
-  //         await markerStore.getMarkersBySystemId(form.id);
-  //     } catch (err) {
-  //         console.log(err)
-  //     }
-  // }
-  // useEffect(() => {
-  //   getMarkersBySystemId();
-  // }, [])
-
   return (
 
     <Grid container spacing={2} height={592}>

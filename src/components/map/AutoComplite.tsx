@@ -127,7 +127,7 @@ const AutoComplete: React.FC = () => {
                     p: "2px 4px",
                     display: "flex",
                     alignItems: "center",
-                    width: 500,
+                    width: 300,
                 }}
             >
                 <InputBase

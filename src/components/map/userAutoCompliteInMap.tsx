@@ -40,22 +40,17 @@ const UserAutoCompliteInMap: React.FC = () => {
   
 
 return(
-    <Paper
-    component="form"
-    sx={{
-      p: "2px 4px",
-      //display: "flex",
-      alignItems: "center",
-      width: 420,
-      height:80
-    }}
-  >
-    <IconButton sx={{ p: "10px" }} aria-label="menu">
-      <Menu />
-    </IconButton>
+ <>
+ <Grid container spacing={2}>
+    <Grid item xs={8}>
     <AutoComplete/>
-    <RequestToMarker />
-    </Paper>
+  </Grid>
+  <Grid item xs={4}>
+  <RequestToMarker />
+  </Grid>
+  </Grid>
+    
+    </>
 )
 }
 export default observer(UserAutoCompliteInMap)

@@ -142,7 +142,7 @@ const Request = () => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="contained" sx={{marginLeft:"5%"}} onClick={handleClickOpen}>
                 Request
             </Button>
             {userStore.user ?

@@ -19,6 +19,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import userStore from '../../store/userStore';
 import ManagerStore from '../../store/managerStore';
 import { Role } from '../../utils/manager';
+import UserAutoCompliteInMap from './userAutoCompliteInMap';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -114,7 +115,7 @@ const Map: React.FC = (props: any) => {
       <Grid item xs={6} md={4}>
         <TitleMapLocation />
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
-          <RequestToMarker />}
+         <UserAutoCompliteInMap/>}
         {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
           <>
             <SearchAndAddMarker />

@@ -16,6 +16,9 @@ import systemStore from '../../store/systemStore';
 import RequestToMarker from './RequestToMarker';
 import RequestForSystem from './requestForSystem';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import userStore from '../../store/userStore';
+import ManagerStore from '../../store/managerStore';
+import { Role } from '../../utils/manager';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -27,17 +30,27 @@ function sleep(delay = 0) {
 
 const Map: React.FC = (props: any) => {
   async function getMarker() {
-    try { 
-        await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
+    try {
+      await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
     } catch (error) { console.log(error); }
-}
-useEffect(() => {
-  getMarker();
-}, [])
+  }
+  useEffect(() => {
+    debugger
+    getManagers()
+    getMarker();
+  }, [])
 
+  const getManagers = async () => {
+    debugger
+    if (userStore.user) {
+      await ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id, systemStore.currentSystem._id)
+  
+        console.log(ManagerStore.currentManager.role)
+      
+    }
+  }
 
-
-
+  const [IsManager, setIsManager] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
@@ -78,16 +91,16 @@ useEffect(() => {
   const location = useLocation();
   const form: any = location.state;
 
-//   async function getMarkersBySystemId() {
-//     try {
-//         await markerStore.getMarkersBySystemId(form.id);
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
-// useEffect(() => {
-//   getMarkersBySystemId();
-// }, [])
+  //   async function getMarkersBySystemId() {
+  //     try {
+  //         await markerStore.getMarkersBySystemId(form.id);
+  //     } catch (err) {
+  //         console.log(err)
+  //     }
+  // }
+  // useEffect(() => {
+  //   getMarkersBySystemId();
+  // }, [])
 
   return (
 
@@ -99,7 +112,7 @@ useEffect(() => {
           zoom={MapStore.currentMap.zoom}
           options={getMapOptions}
         >
-          {markers&&markerStore.markers.map(m => (
+          {markers && markerStore.markers.map(m => (
             <Marker
               lat={m.location.lat}
               lng={m.location.lng}
@@ -110,12 +123,15 @@ useEffect(() => {
         </GoogleMapReact>
       </Grid>
       <Grid item xs={6} md={4}>
-       <TitleMapLocation/>   
-       
-     <RequestToMarker/>
-     <RequestForSystem/>
-        <SearchAndAddMarker/>
-        {MapStore.currentCard && <CardSolution/>}        
+        <TitleMapLocation />
+        {(!ManagerStore.currentManager||ManagerStore.currentManager.role!=="1") &&
+        <RequestToMarker />}
+        {ManagerStore.currentManager&&ManagerStore.currentManager.role==="1" &&
+        <>
+        <RequestForSystem />
+        <SearchAndAddMarker />
+        </>}
+        {MapStore.currentCard && <CardSolution />}
       </Grid>
     </Grid>
   );

@@ -33,6 +33,7 @@ import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react-lite';
 import ManagerStore from '../../store/managerStore';
 import {Role} from "../../utils/manager";
+import userStore from '../../store/userStore';
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
@@ -87,7 +88,19 @@ const RequestForSystem = () => {
         
     }, [])
     const confirm=async()=>{
-   debugger
+        debugger
+        const manager={ 
+            "user_id": userStore.user._id,
+            "system_id":systemStore.currentSystem._id,
+            "active": true,
+            "display_name":  requestStore.currentRequest.display_name,
+        //    "role": Role.MANAGER,
+           "invitation_sent": "aaa"
+          }
+          debugger
+         ManagerStore.addManager(manager)
+         debugger
+         ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id,systemStore.currentSystem._id)
     const newMarker: any = {
       "manager_id": systemStore.currentSystem.managerUid,
       "system_id": systemStore.currentSystem._id,
@@ -106,14 +119,9 @@ const RequestForSystem = () => {
      MapStore.setCenter(requestStore.currentRequest.location.lat,requestStore.currentRequest.location.lng);
     //swal("saved!", "your location added!", "success");
    await requestStore.removeRequest(requestStore.currentRequest._id)
+   
+  
    requestStore.currentRequest=null
-  const manger={ "user_id": "string",
-   "system_id":systemStore.currentSystem._id,
-   "active": true,
-   "display_name": "string",
-   role: Role.MANAGER,
-   invitation_sent: "string"}
-  // ManagerStore.addManager(manager)
     handleClose()
         
     }

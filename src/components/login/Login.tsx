@@ -59,7 +59,7 @@ const Login: React.FC = () => {
       await userStore.getUser(Uid);  
       if(userStore.user._id===""){
        await addUserToDb(Uid)
-       await userStore.getUser(Uid);        
+      userStore.user=await userStore.getUser(Uid);        
       }     
       navigate(userStore.loginFrom)
     } catch (error) { console.log(error); }

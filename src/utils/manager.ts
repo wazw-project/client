@@ -3,10 +3,10 @@ export interface Manager{
     system_id: string,
     active: boolean
     display_name: string
-    role: Role
+    role?: Role
     invitation_sent: string
  }
 
  export enum Role{
-    MAINADMIN,ADMIN,MANAGER,
+    MAINADMIN,ADMIN,MANAGER,USER
 }

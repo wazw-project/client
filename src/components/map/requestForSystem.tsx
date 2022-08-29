@@ -31,6 +31,8 @@ import ThumbDownRoundedIcon from '@mui/icons-material/ThumbDownRounded';
 import markerStore from '../../store/markerStore';
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react-lite';
+import ManagerStore from '../../store/managerStore';
+import {Role} from "../../utils/manager";
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
@@ -105,6 +107,13 @@ const RequestForSystem = () => {
     //swal("saved!", "your location added!", "success");
    await requestStore.removeRequest(requestStore.currentRequest._id)
    requestStore.currentRequest=null
+  const manger={ "user_id": "string",
+   "system_id":systemStore.currentSystem._id,
+   "active": true,
+   "display_name": "string",
+   role: Role.MANAGER,
+   invitation_sent: "string"}
+  // ManagerStore.addManager(manager)
     handleClose()
         
     }

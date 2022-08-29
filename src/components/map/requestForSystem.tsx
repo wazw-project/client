@@ -109,9 +109,18 @@ const RequestForSystem = () => {
         MapStore.setCenter(requestStore.currentRequest.location.lat, requestStore.currentRequest.location.lng);
         //swal("saved!", "your location added!", "success");
         await requestStore.removeRequest(requestStore.currentRequest._id)
-        requestStore.currentRequest = null;
-
+        requestStore.currentRequest = null
+        const manger = {
+            "user_id": "string",
+            "system_id": systemStore.currentSystem._id,
+            "active": true,
+            "display_name": "string",
+            role: Role.MANAGER,
+            invitation_sent: "string"
+        }
+        // ManagerStore.addManager(manager)
         handleClose()
+
     }
     const dontConfirm = async () => {
         await requestStore.removeRequest(requestStore.currentRequest._id)

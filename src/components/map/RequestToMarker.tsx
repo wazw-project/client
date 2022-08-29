@@ -17,6 +17,8 @@ import { RequestToMarker } from '../../utils/request';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import Geocode from "react-geocode";
+import userStore from '../../store/userStore';
+import Login from '../login/Login';
 
 const Request = () => {
     const [open, setOpen] = React.useState(false);
@@ -25,7 +27,17 @@ const Request = () => {
     const inputPhone = useRef<HTMLInputElement>();
     const inputEmail = useRef<HTMLInputElement>();
     const inputDisplay_name = useRef<HTMLInputElement>();
-
+    const [FirstNameV, setFirstNameV] = useState<string>("");
+    const [LastNameV, setLastNameV] = useState<string>("");
+    const [PhoneV, setPhoneV] = useState<string>("");
+    const [EmailV, setEmailV] = useState<string>("");
+    const [Display_nameV, setDisplayNameV] = useState<string>("");
+    const [startFirstNameV, setstartFirstNameV] = useState<boolean>(false);
+    const [startLastNameV, setstartLastNameV] = useState<boolean>(false);
+    const [startPhoneV, setstartPhoneV] = useState<boolean>(false);
+    const [startEmailV, setstartEmailV] = useState<boolean>(false);
+    const [startDisplay_nameV, setstartDisplayNameV] = useState<boolean>(false);
+    const [loginOpen, setLoginOpeb] = useState<boolean>(false);
     const [lat, setLat] = useState<number>(0);
     const [lng, setLng] = useState<number>(0);
     const [status, setStatus] = useState<string>("");
@@ -55,7 +67,7 @@ const Request = () => {
         };
     };
 
-   
+
     const handleClickOpen = () => {
         debugger
         setOpen(true);
@@ -65,45 +77,54 @@ const Request = () => {
     useEffect(() => {
         debugger
         getLocationNameByLatLng()
-    },[lat,lng]);
+    }, [lat, lng]);
 
     const handleClose = () => {
         setOpen(false);
     };
     const sendRequest = async () => {
+        if (FirstNameV === "" || LastNameV === "" || PhoneV === "" || EmailV === "" || !isValidEmail(EmailV)) {
+            swal("your form is not validate!!", "You clicked the button!", "error");
+        }
+        else {
+            const newRequest: any = {
+                "firstName": inputFirstName.current?.value,
+                "lastName": inputLastName.current?.value,
+                "phone": inputPhone.current?.value,
+                "email": inputEmail.current?.value,
+                "system_id": systemStore.currentSystem._id,
+                "user_id": userStore.user._id,
+                "display_name": inputDisplay_name.current?.value,
+                "notes": inputNotes.current?.value,
+                "location": {
+                    "lat": lat,
+                    "lng": lng
+                },
+            }
+            try {
+                await requestStore.addRequest(newRequest)
+                requestStore.currentRequest = newRequest
 
-        const newRequest: any = {
-            "firstName": inputFirstName.current?.value,
-            "lastName": inputLastName.current?.value,
-            "phone": inputPhone.current?.value,
-            "email": inputEmail.current?.value,
-            "system_id": systemStore.currentSystem._id,
-            "display_name": inputDisplay_name.current?.value,
-            "notes":inputNotes.current?.value,
-            "location": {
-                "lat": lat,
-                "lng": lng
-            },
+                swal("saved!", "your request send!", "success");
+            }
+            catch (error) {
+                swal("error!", "error", "error");
+            }
+            handleClose()
+            setOpen(false);
         }
-        try {
-            await requestStore.addRequest(newRequest)
-            requestStore.currentRequest=newRequest
-            swal("saved!", "your request send!", "success");
-        }
-        catch (error) {
-            swal("error!", "error", "error");
-        }
-        handleClose()
-        setOpen(false);
     }
-
+    const login = () => {
+        setLoginOpeb(true)
+        userStore.loginFrom="/Map"
+    }
     const getLocationNameByLatLng = () => {
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
-        Geocode.fromLatLng(lat.toString(),lng.toString()).then(
+        Geocode.fromLatLng(lat.toString(), lng.toString()).then(
             (response: any) => {
                 const address = response.results[0].formatted_address;
-                requestStore.currentRequestAddressesName=address;
+                requestStore.currentRequestAddressesName = address;
                 console.log(address);
             },
             (error: any) => {
@@ -111,79 +132,133 @@ const Request = () => {
             }
         );
     }
+    function isValidPhone(phone: string) {
+        return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(phone);
+    }
+    function isValidEmail(email: string) {
+        return /^[-!#$%&\'*+\\.\/0-9=?A-Z^_`{|}~]+@([-0-9A-Z]+\.)+([0-9A-Z]){2,4}$/i.test(email);
+    }
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Request
             </Button>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    send request to open marker in this system, enter your details...
-                </DialogTitle>
+            {userStore.user ?
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        send request to open marker in this system, enter your details...
+                    </DialogTitle>
 
 
-                <DialogContent>
-                    <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputFirstName} label="first-Name" variant="standard" />
-                    </Grid>
-                    <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputLastName} label="last-Name" variant="standard" />
-                    </Grid>
-                    <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputDisplay_name} label="display_name" variant="standard" />
-                    </Grid>
-                    <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputPhone} label="phone" variant="standard" />
-                    </Grid>
-                    <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputEmail} label="email" variant="standard" />
-                    </Grid>
-                    <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField
-                            inputRef={inputNotes}
-                            id="standard-textarea"
-                            label="notes"
-                            placeholder="notes"
-                            minRows={3}
-                            multiline
-                            variant="standard"
-                        />
-                    </Grid>
-                    <Grid item sx={{ marginTop: "4%" }}>
-                        <AutoComplete />
-                    </Grid>
-                    <Grid container spacing={2} height={592}>
-                        <Grid item xs={6} md={8}>
-                            <GoogleMapReact
-                                bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-                                center={{ lat: lat && lat, lng: lng && lng }}
-                                zoom={18}
-                                // onGoogleApiLoaded={() => getLocation()}
-                                options={getMapOptions}
-                            >
-                                <Marker
-                                    lat={lat && lat}
-                                    lng={lng && lng}
-                                    name={'aa'}
-                                    color={'red'}
-                                />
-                            </GoogleMapReact>
+                    <DialogContent>
+                        <Grid item sx={{ marginTop: "4%" }}>
+                            <TextField inputRef={inputFirstName}
+                                label="first-Name"
+                                variant="standard"
+                                onChange={(e) => (setFirstNameV(e.target.value), setstartFirstNameV(true))}
+                                onBlur={(e) => (setFirstNameV(e.target.value), setstartFirstNameV(true))}
+                                helperText={FirstNameV === "" ? "required!" : " "}
+                                error={FirstNameV === "" && startFirstNameV}
+                            />
                         </Grid>
-                    </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={sendRequest}>save</Button>
-                    <Button onClick={handleClose} autoFocus>
-                        close
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                        <Grid item sx={{ marginTop: "4%" }}>
+                            <TextField inputRef={inputLastName}
+                                label="last-Name"
+                                variant="standard"
+                                onChange={(e) => (setLastNameV(e.target.value), setstartLastNameV(true))}
+                                onBlur={(e) => (setLastNameV(e.target.value), setstartLastNameV(true))}
+                                helperText={LastNameV === "" ? "required!" : " "}
+                                error={LastNameV === "" && startLastNameV}
+                            />
+                        </Grid>
+                        <Grid item sx={{ marginTop: "4%" }}>
+                            <TextField inputRef={inputDisplay_name} label="display_name" variant="standard" />
+                        </Grid>
+                        <Grid item sx={{ marginTop: "4%" }}>
+                            <TextField inputRef={inputPhone}
+                                label="phone"
+                                variant="standard"
+                                onChange={(e) => (setPhoneV(e.target.value), setstartPhoneV(true))}
+                                onBlur={(e) => (setPhoneV(e.target.value), setstartPhoneV(true))}
+                                helperText={PhoneV === "" ? "required!" : isValidPhone(PhoneV) ? "" : "not valid phone"}
+                                error={(PhoneV === "" || !isValidPhone(PhoneV)) && startPhoneV}
+                            />
+                        </Grid>
+                        <Grid item sx={{ marginTop: "4%" }}>
+                            <TextField inputRef={inputEmail}
+                                label="email"
+                                variant="standard"
+                                onChange={(e) => (setEmailV(e.target.value), setstartEmailV(true))}
+                                onBlur={(e) => (setEmailV(e.target.value), setstartEmailV(true))}
+                                helperText={EmailV === "" ? "required!" : isValidEmail(EmailV) ? "" : "not valid email"}
+                                error={(EmailV === "" || !isValidEmail(EmailV)) && startEmailV}
+                            />
+                        </Grid>
+                        <Grid item sx={{ marginTop: "4%" }}>
+                            <TextField
+                                inputRef={inputNotes}
+                                id="standard-textarea"
+                                label="notes"
+                                placeholder="notes"
+                                minRows={3}
+                                multiline
+                                variant="standard"
+                            />
+                        </Grid>
+                        <Grid item sx={{ marginTop: "4%" }}>
+                            <AutoComplete />
+                        </Grid>
+                        <Grid container spacing={2} height={592}>
+                            <Grid item xs={6} md={8}>
+                                <GoogleMapReact
+                                    bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
+                                    center={{ lat: lat && lat, lng: lng && lng }}
+                                    zoom={18}
+                                    // onGoogleApiLoaded={() => getLocation()}
+                                    options={getMapOptions}
+                                >
+                                    <Marker
+                                        lat={lat && lat}
+                                        lng={lng && lng}
+                                        name={'aa'}
+                                        color={'red'}
+                                    />
+                                </GoogleMapReact>
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={sendRequest}>save</Button>
+                        <Button onClick={handleClose} autoFocus>
+                            close
+                        </Button>
+                    </DialogActions>
+                </Dialog> : <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    {!loginOpen &&
+                    <>
+                <DialogTitle id="alert-dialog-title">
+                   for send request you need login!
+                </DialogTitle>
+                <Button variant="outlined" onClick={login}>
+                login
+            </Button></>}
+                    {loginOpen &&
+                        <DialogActions>
+                            <Login />
+                        </DialogActions>}
+                </Dialog>
+            }
         </div>
     );
 }

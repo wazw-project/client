@@ -151,7 +151,7 @@ const SystemDetails: React.FC = () => {
             </Typography>
             <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
               {systenStore.currentSystem?.email}
-             
+
             </Typography>
           </CardContent>
 
@@ -166,7 +166,7 @@ const SystemDetails: React.FC = () => {
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
                 Delete
               </Button>
-              <Button variant="outlined"onClick={()=>{navigate("/Map")}}>
+              <Button variant="outlined" onClick={() => { navigate("/Map") }}>
                 see all business location
               </Button>
             </Container>

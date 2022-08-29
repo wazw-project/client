@@ -64,7 +64,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
     MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
-    MapStore.setZoom(13)
+    MapStore.setZoom(15)
     MapStore.setCardOfSolution(true)
   }
   const searchMarker = async () => {
@@ -74,7 +74,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
     if (markerStore.currentMarker != null) {
 
       MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
-      MapStore.setZoom(13)
+      MapStore.setZoom(15)
       MapStore.setCardOfSolution(true)
     }
   }

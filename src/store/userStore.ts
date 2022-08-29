@@ -23,6 +23,7 @@ class Store {
     user: any = null;
     userFromFireBase: any = null;
     token:string="";
+    loginFrom="/"
     constructor() {
         makeAutoObservable(this);
     } 
@@ -30,6 +31,7 @@ class Store {
         await addUser(user);
         this.user=user;
     }
+
     async getUser(id:string){
        const user= await getUser(id);
        this.user=user;

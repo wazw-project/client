@@ -19,6 +19,10 @@ import Marker from './Marker';
 import Geocode from "react-geocode";
 import userStore from '../../store/userStore';
 import Login from '../login/Login';
+import usePlacesAutocomplete, {
+    getGeocode,
+    getLatLng,
+} from "use-places-autocomplete";
 
 const Request = () => {
     const [open, setOpen] = React.useState(false);
@@ -97,8 +101,8 @@ const Request = () => {
                 "display_name": inputDisplay_name.current?.value,
                 "notes": inputNotes.current?.value,
                 "location": {
-                    "lat": lat,
-                    "lng": lng
+                    "lat": markerStore.markerToAdd.location.lat,
+                    "lng":  markerStore.markerToAdd.location.lng
                 },
             }
             try {
@@ -114,9 +118,10 @@ const Request = () => {
             setOpen(false);
         }
     }
+
     const login = () => {
         setLoginOpeb(true)
-        userStore.loginFrom="/Map"
+        userStore.loginFrom = "/Map"
     }
     const getLocationNameByLatLng = () => {
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
@@ -246,13 +251,13 @@ const Request = () => {
                     aria-describedby="alert-dialog-description"
                 >
                     {!loginOpen &&
-                    <>
-                <DialogTitle id="alert-dialog-title">
-                   for send request you need login!
-                </DialogTitle>
-                <Button variant="outlined" onClick={login}>
-                login
-            </Button></>}
+                        <>
+                            <DialogTitle id="alert-dialog-title">
+                                for send request you need login!
+                            </DialogTitle>
+                            <Button variant="outlined" onClick={login}>
+                                login
+                            </Button></>}
                     {loginOpen &&
                         <DialogActions>
                             <Login />

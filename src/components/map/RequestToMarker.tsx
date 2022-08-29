@@ -19,10 +19,6 @@ import Marker from './Marker';
 import Geocode from "react-geocode";
 import userStore from '../../store/userStore';
 import Login from '../login/Login';
-import usePlacesAutocomplete, {
-    getGeocode,
-    getLatLng,
-} from "use-places-autocomplete";
 
 const Request = () => {
     const [open, setOpen] = React.useState(false);
@@ -73,13 +69,11 @@ const Request = () => {
 
 
     const handleClickOpen = () => {
-        debugger
         setOpen(true);
         getLocation();
     };
 
     useEffect(() => {
-        debugger
         getLocationNameByLatLng()
     }, [lat, lng]);
 
@@ -114,8 +108,9 @@ const Request = () => {
             catch (error) {
                 swal("error!", "error", "error");
             }
-            handleClose()
+            handleClose();
             setOpen(false);
+            requestStore.currentRequestAddressesName="";
         }
     }
 
@@ -124,6 +119,7 @@ const Request = () => {
         userStore.loginFrom = "/Map"
     }
     const getLocationNameByLatLng = () => {
+        debugger
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
         Geocode.fromLatLng(lat.toString(), lng.toString()).then(

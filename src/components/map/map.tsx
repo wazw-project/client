@@ -74,7 +74,7 @@ const Map: React.FC = (props: any) => {
 
   useEffect(() => {
       getLocationNameByLatLng()
-  }, [MapStore.currentMap.center.lat, MapStore.currentMap.center.lng]);
+  }, [MapStore.yourLocation.center.lat, MapStore.yourLocation.center.lng]);
   
   useEffect(() => {
       getLocation()
@@ -101,7 +101,7 @@ const Map: React.FC = (props: any) => {
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
         debugger
-        Geocode.fromLatLng(MapStore.currentMap.center.lat.toString(), MapStore.currentMap.center.lng.toString()).then(
+        Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
             (response: any) => {
                 const address = response.results[0].formatted_address;
                 console.log(address);
@@ -147,13 +147,13 @@ const Map: React.FC = (props: any) => {
       <Grid item xs={6} md={8}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-          center={{ lat: MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng }}
-          zoom={MapStore.currentMap.zoom}
+          center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
+          zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
         >
           <Marker
-            lat={MapStore.currentMap.center.lat}
-            lng={MapStore.currentMap.center.lng}
+            lat={MapStore.yourLocation.center.lat}
+            lng={MapStore.yourLocation.center.lng}
             name={'your location'}
             color={'yellow'}
           />

@@ -63,8 +63,8 @@ const AutoComplete: React.FC = () => {
                         console.log("Coordinates: ", { lat, lng });
                         markerStore.markerToAdd.location.lat = lat;
                         markerStore.markerToAdd.location.lng = lng;
-                        MapStore.currentMap.center.lat=lat
-                        MapStore.currentMap.center.lng=lng
+                        MapStore.yourLocation.center.lat=lat
+                        MapStore.yourLocation.center.lng=lng
                         requestStore.currentRequestAddressesName=description.description;
                     })
                     .catch((error) => {

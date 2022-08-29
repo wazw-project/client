@@ -44,9 +44,9 @@ const Map: React.FC = (props: any) => {
     debugger
     if (userStore.user) {
       await ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id, systemStore.currentSystem._id)
-  
-        console.log(ManagerStore.currentManager.role)
-      
+
+      console.log(ManagerStore.currentManager.role)
+
     }
   }
 
@@ -113,14 +113,17 @@ const Map: React.FC = (props: any) => {
       </Grid>
       <Grid item xs={6} md={4}>
         <TitleMapLocation />
-        {(!ManagerStore.currentManager||ManagerStore.currentManager.role!=="1") &&
-        <RequestToMarker />}
-        {ManagerStore.currentManager&&ManagerStore.currentManager.role==="1" &&
-        <>
-        <RequestForSystem />
-        <SearchAndAddMarker />
-        </>}
-        {MapStore.currentCard && <CardSolution />}
+        {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
+          <RequestToMarker />}
+        {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
+          <>
+            <SearchAndAddMarker />
+            {MapStore.currentCard && <CardSolution />}
+            <RequestForSystem />
+
+            
+          </>}
+
       </Grid>
     </Grid>
   );

@@ -219,6 +219,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
       >
         <Directions />
       </IconButton>
+      
       <Button variant="contained" onClick={handleClickOpen}>
         add Marker
       </Button>

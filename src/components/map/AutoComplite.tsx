@@ -21,6 +21,7 @@ import { Button } from "@mui/material";
 import markerStore from '../../store/markerStore';
 import { observer } from 'mobx-react';
 import requestStore from "../../store/request";
+import MapStore from "../../store/mapStore";
 
 function sleep(delay = 0) {
     return new Promise((resolve) => {
@@ -62,6 +63,8 @@ const AutoComplete: React.FC = () => {
                         console.log("Coordinates: ", { lat, lng });
                         markerStore.markerToAdd.location.lat = lat;
                         markerStore.markerToAdd.location.lng = lng;
+                        MapStore.currentMap.center.lat=lat
+                        MapStore.currentMap.center.lng=lng
                         requestStore.currentRequestAddressesName=description.description;
                     })
                     .catch((error) => {
@@ -134,6 +137,7 @@ const AutoComplete: React.FC = () => {
                     value={value}
                     onChange={handleInput}
                     disabled={!ready}
+                    defaultValue={requestStore.currentRequestAddressesName}
 
                 />
                 <IconButton type="button" sx={{ p: "10px" }} aria-label="search">

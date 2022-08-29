@@ -73,7 +73,7 @@ const Map: React.FC = (props: any) => {
 
   useEffect(() => {
       getLocationNameByLatLng()
-  }, [lat, lng]);
+  }, [MapStore.currentMap.center.lat, MapStore.currentMap.center.lng]);
   
   useEffect(() => {
       getLocation()
@@ -88,7 +88,7 @@ const Map: React.FC = (props: any) => {
       navigator.geolocation.getCurrentPosition((position) => {
         setStatus("");
         MapStore.setCenter(position.coords.latitude,position.coords.longitude)
-       
+        
       }, () => {
         setStatus('Unable to retrieve your location');
       });

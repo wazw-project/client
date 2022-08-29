@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { System } from '../../utils/system';
-import {  Card } from '@mui/material';
+import { Card } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -21,7 +21,8 @@ import { observer } from 'mobx-react';
 import systemStore from '../../store/systemStore';
 import userStore from '../../store/userStore';
 import { useForm } from 'react-hook-form';
-
+import ManagerStore from '../../store/managerStore';
+import {Role} from "../../utils/manager";
 
 const Systems: React.FC = () => {
     const navigate = useNavigate();
@@ -73,7 +74,7 @@ const Systems: React.FC = () => {
     }
     const addSystem = async () => {
         debugger
-        if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV)||urlNameV.includes(" ")) {
+        if (topicV === "" || objectNameV === "" || descriptionV === "" || emailV === "" || phoneV === "" || urlNameV === "" || urlImageV === "" || !isValidEmail(emailV) || urlNameV.includes(" ")) {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else {
@@ -81,18 +82,24 @@ const Systems: React.FC = () => {
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
                 "objectName": inputObjectName.current?.value,
-                "managerUid": userStore.user._id,        
+                "managerUid": userStore.user._id,
                 "description": inputDescription.current?.value,
                 "email": inputEmail.current?.value,
                 "phone": inputPhone.current?.value,
                 "urlName": inputUrlName.current?.value,
                 "urlImage": inputUrlImage.current?.value
-
-           
             }
             try {
-                await systemStore.addSystem(dataSystem);
-                console.log(systemStore.systems)
+                const systemFromDB=await systemStore.addSystem(dataSystem);
+                const manager: any = {
+                    "user_id": userStore.user._id,
+                    "system_id": systemFromDB._id,
+                    "active": true,
+                    "display_name": systemFromDB.objectName,
+                    "role":Role.ADMIN ,
+                    "invitation_sent": "aa"
+                }
+                await ManagerStore.addManager(manager);
                 swal("your system added!!", "You clicked the button!", "success");
                 getSystems();
             } catch (error) { console.log(error); }
@@ -220,8 +227,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
                                     onBlur={(e) => (setPhoneV(e.target.value), setStartPhoneV(true))}
-                                    helperText={phoneV === "" ? "required!" :isValidPhone(phoneV)?"":"not valid phone"}
-                                    error={(phoneV === "" ||!isValidPhone(phoneV) ) && startPhoneV}
+                                    helperText={phoneV === "" ? "required!" : isValidPhone(phoneV) ? "" : "not valid phone"}
+                                    error={(phoneV === "" || !isValidPhone(phoneV)) && startPhoneV}
                                 />
                                 <TextField
                                     inputRef={inputUrlName}
@@ -231,8 +238,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
                                     onBlur={(e) => (setUrlNameV(e.target.value), setStartUrlNameV(true))}
-                                    helperText={urlNameV === "" ? "required!" :urlNameV.includes(" ")?"url without space" :" "}
-                                    error={(urlNameV === ""  || urlNameV.includes(" ") )&& startUrlNameV}
+                                    helperText={urlNameV === "" ? "required!" : urlNameV.includes(" ") ? "url without space" : " "}
+                                    error={(urlNameV === "" || urlNameV.includes(" ")) && startUrlNameV}
                                 />
                                 <TextField
                                     inputRef={inputUrlImage}
@@ -242,8 +249,8 @@ const Systems: React.FC = () => {
                                     sx={{ marginTop: 1 }}
                                     onChange={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
                                     onBlur={(e) => (setUrlImageV(e.target.value), setStartUrlImageV(true))}
-                                    helperText={urlImageV === "" ? "required!" : isValidUrl(urlImageV)?"":"not valid url"}
-                                    error={urlImageV === "" && startUrlImageV||!isValidUrl(urlImageV)}
+                                    helperText={urlImageV === "" ? "required!" : isValidUrl(urlImageV) ? "" : "not valid url"}
+                                    error={urlImageV === "" && startUrlImageV || !isValidUrl(urlImageV)}
                                 />
 
                             </FormControl>

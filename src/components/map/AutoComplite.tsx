@@ -21,6 +21,7 @@ import Directions from "@mui/icons-material/Directions";
 import { Button } from "@mui/material";
 import markerStore from '../../store/markerStore';
 import { observer } from 'mobx-react';
+import requestStore from "../../store/request";
 
 function sleep(delay = 0) {
     return new Promise((resolve) => {
@@ -112,6 +113,13 @@ const AutoComplete: React.FC = () => {
             setOptions([]);
         }
     }, [open]);
+
+    useEffect(() => {
+        if (requestStore.currentRequestAddressesName) {
+            setValue(requestStore.currentRequestAddressesName);
+        }
+    }, []);
+
 
 
     return (

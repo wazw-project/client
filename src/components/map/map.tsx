@@ -22,7 +22,7 @@ import { Role } from '../../utils/manager';
 import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
-import TitleMapLocationUser from './titleMapLocationUser';
+
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -171,7 +171,7 @@ const Map: React.FC = (props: any) => {
         
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
         <>
-        <TitleMapLocationUser/>
+         
           <UserAutoCompliteInMap />
           </>}
         {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
@@ -180,7 +180,6 @@ const Map: React.FC = (props: any) => {
             <SearchAndAddMarker />
             {MapStore.currentCard && <CardSolution />}
             <RequestForSystem />
-
 
           </>}
 

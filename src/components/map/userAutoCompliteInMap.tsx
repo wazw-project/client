@@ -35,12 +35,14 @@ import swal from 'sweetalert';
 import RequestToMarker from './RequestToMarker';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
+import TitleMapLocationUser from './titleMapLocationUser';
 
 const UserAutoCompliteInMap: React.FC = () => {
   
 
 return(
  <>
+  <TitleMapLocationUser/>
  <Grid container spacing={2}>
     <Grid item xs={8}>
     <AutoComplete/>

@@ -20,6 +20,9 @@ const OurAppBar = () => {
   const system = () => {
     navigate('/systems')
   }
+  const Allsystem = () => {
+    navigate('/searchSystemOfAll')
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -42,6 +45,7 @@ const OurAppBar = () => {
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>
               <Button color="inherit" onClick={() => system()}>system</Button>
+              <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
             </>
           }
           {userStore.user === null &&

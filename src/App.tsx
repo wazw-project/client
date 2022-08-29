@@ -28,6 +28,7 @@ function App() {
           <Route path="/Map" element={<Map/>} />  
           <Route path="/AddMarker" element={<AddMarker/>} /> 
           <Route path="/autoComplitSystem" element={<AutoComplitSystem />} /> 
+          <Route path="/searchSystemOfAll" element={<SearchSystemOfAll/>}/>
         </Routes>
       </Router>
     </div>

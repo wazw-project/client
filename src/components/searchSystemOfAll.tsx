@@ -71,7 +71,7 @@ const SearchSystemOfAll: React.FC = () => {
                                 <CardActions>
                                     <Button variant="contained" onClick={() => {
                                         systemStore.currentSystem = system;
-                                        navigate(`/Map`)
+                                        navigate(`/Map/hello/${system.urlName}`)
                                     }}
                                     >see the places of this system</Button>
                                 </CardActions>

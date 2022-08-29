@@ -6,7 +6,7 @@ class Store {
 
     currentMap: Map =
         {
-            zoom: 8,
+            zoom: 18,
             center: { lat: 31.0461, lng: 34.8516 }
         }
     currentCard: boolean = false;

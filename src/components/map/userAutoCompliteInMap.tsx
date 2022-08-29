@@ -33,26 +33,29 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import swal from 'sweetalert';
 import RequestToMarker from './RequestToMarker';
+import Geocode from "react-geocode";
+import requestStore from '../../store/request';
 
 const UserAutoCompliteInMap: React.FC = () => {
+  
+
 return(
     <Paper
     component="form"
     sx={{
       p: "2px 4px",
-      display: "flex",
+      //display: "flex",
       alignItems: "center",
       width: 420,
-      height:60
+      height:80
     }}
   >
     <IconButton sx={{ p: "10px" }} aria-label="menu">
       <Menu />
     </IconButton>
     <AutoComplete/>
-    
     <RequestToMarker />
     </Paper>
 )
 }
-export default UserAutoCompliteInMap
+export default observer(UserAutoCompliteInMap)

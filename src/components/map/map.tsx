@@ -20,6 +20,8 @@ import userStore from '../../store/userStore';
 import ManagerStore from '../../store/managerStore';
 import { Role } from '../../utils/manager';
 import UserAutoCompliteInMap from './userAutoCompliteInMap';
+import Geocode from "react-geocode";
+import requestStore from '../../store/request';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -65,6 +67,52 @@ const Map: React.FC = (props: any) => {
       styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
     };
   };
+  const [lat, setLat] = useState<number>(0);
+  const [lng, setLng] = useState<number>(0);
+  const [status, setStatus] = useState<string>("");
+
+  useEffect(() => {
+      getLocationNameByLatLng()
+  }, [lat, lng]);
+  
+  useEffect(() => {
+      getLocation()
+  }, []);
+
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus('Geolocation is not supported by your browser');
+    } else {
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus("");
+        MapStore.setCenter(position.coords.latitude,position.coords.longitude)
+       
+      }, () => {
+        setStatus('Unable to retrieve your location');
+      });
+    }
+  }
+  const getLocationNameByLatLng = () => {
+    if (requestStore.currentRequest) {
+        debugger
+        Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+        Geocode.enableDebug();
+        debugger
+        Geocode.fromLatLng(MapStore.currentMap.center.lat.toString(), MapStore.currentMap.center.lng.toString()).then(
+            (response: any) => {
+                const address = response.results[0].formatted_address;
+                console.log(address);
+                requestStore.currentRequestAddressesName = address;
+              
+            },
+            (error: any) => {
+                console.error(error);
+            }
+        );
+    }
+}
 
 
   useEffect(() => {
@@ -102,6 +150,12 @@ const Map: React.FC = (props: any) => {
           zoom={MapStore.currentMap.zoom}
           options={getMapOptions}
         >
+          <Marker
+            lat={MapStore.currentMap.center.lat}
+            lng={MapStore.currentMap.center.lng}
+            name={'your location'}
+            color={'yellow'}
+          />
           {markers && markerStore.markers.map(m => (
             <Marker
               lat={m.location.lat}
@@ -115,14 +169,14 @@ const Map: React.FC = (props: any) => {
       <Grid item xs={6} md={4}>
         <TitleMapLocation />
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
-         <UserAutoCompliteInMap/>}
+          <UserAutoCompliteInMap />}
         {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
           <>
             <SearchAndAddMarker />
             {MapStore.currentCard && <CardSolution />}
             <RequestForSystem />
 
-            
+
           </>}
 
       </Grid>

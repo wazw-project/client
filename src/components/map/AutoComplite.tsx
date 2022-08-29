@@ -115,12 +115,11 @@ const AutoComplete: React.FC = () => {
     }, [open]);
 
     useEffect(() => {
+        debugger
         if (requestStore.currentRequestAddressesName) {
             setValue(requestStore.currentRequestAddressesName);
         }
     }, []);
-
-
 
     return (
         <>

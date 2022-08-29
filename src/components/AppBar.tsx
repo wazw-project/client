@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import store from '../store/userStore';
+import userStore from '../store/userStore';
 const OurAppBar = () => {
   const navigate = useNavigate();
 
@@ -35,15 +35,16 @@ const OurAppBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            {userStore.userFromFireBase?.displayName}
           </Typography>
-          {store.user &&
+          <img src={userStore.userFromFireBase?.photoURL|| ""}></img>
+          {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>
               <Button color="inherit" onClick={() => system()}>system</Button>
             </>
           }
-          {store.user === null &&
+          {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
         </Toolbar>
       </AppBar>

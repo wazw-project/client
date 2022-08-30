@@ -163,7 +163,7 @@ const getLocationNameByLatLng = () => {
       </Grid>
       <Grid item xs={6} md={4}>
         
-        {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
+        {(!ManagerStore.currentManager || ManagerStore.currentManager.role!== "1") &&
         <>
         {requestStore.currentRequestAddressesName&&
           <UserAutoCompliteInMap />}

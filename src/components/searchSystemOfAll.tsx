@@ -48,16 +48,17 @@ const SearchSystemOfAll: React.FC = () => {
             </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={9}>
-                    <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
+                    <Stack padding={3} direction="row" spacing={5} sx={{  '& .MuiCard-root': { m: 3 }, flexWrap: 'wrap' }} >
                         {systemStore.allSystems && systemStore.allSystems.map((system: System) =>
-                            <Card>
+                            <Card >
                                 <CardMedia
                                     component="img"
                                     alt="system"
                                     height="140"
+                                    
                                     image={system.urlImage}
                                 />
-                                <CardContent>
+                                <CardContent >
                                     <Typography gutterBottom variant="h5" component="div">
                                         {system.topic}
                                     </Typography>

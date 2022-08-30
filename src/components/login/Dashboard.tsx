@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import userStore from "../../store/userStore";
 import requestStore from "../../store/request";
+import ManagerStore from "../../store/managerStore";
+import systemStore from "../../store/systemStore";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -31,7 +33,10 @@ function Dashboard() {
     if (loading) return;
     if (!user) return navigate("/");
     userStore.user=null
+    ManagerStore.currentManager=""
     requestStore.currentRequestAddressesName=""
+    systemStore.currentSystem=null
+
     fetchUserName();
   }, [user, loading]);
   return (

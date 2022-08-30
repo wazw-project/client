@@ -70,6 +70,7 @@ const SearchSystemOfAll: React.FC = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button variant="contained" onClick={() => {
+                                        debugger
                                         systemStore.currentSystem = system;
                                         navigate(`/Map/hello/${system.urlName}`)
                                     }}

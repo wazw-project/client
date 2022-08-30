@@ -5,7 +5,8 @@
         "Geocode",
         "MAINADMIN",
         "occured",
-        "swal"
+        "swal",
+        "sweetalert"
     ],
     "liveServer.settings.port": 5501
 }

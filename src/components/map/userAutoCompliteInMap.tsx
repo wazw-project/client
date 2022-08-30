@@ -21,16 +21,13 @@ const UserAutoCompliteInMap: React.FC = () => {
         <Grid item xs={4}>
           <RequestToMarker />
         </Grid>
-         <Grid item xs={4}>
-          <Button variant="contained" onClick={() =>MapStore.resultWays=true
-          // {debugger
-          //    <CardOfShortDistances />}
-             }>
-          Accepting places near me</Button>
+        <Grid item xs={4}>
+          <Button variant="contained" onClick={() => MapStore.resultWays = true}>
+            Accepting places near me</Button>
         </Grid>
         <Grid item xs={4}>
-          {MapStore.resultWays&&<CardOfShortDistances />}
-        </Grid> 
+          {MapStore.resultWays && <CardOfShortDistances />}
+        </Grid>
       </Grid>
     </>
   )

@@ -13,6 +13,7 @@ const addUser=async(userToDb:User)=>{
 
 const getUser=async(id:string)=>{
     try{
+        debugger
        const res = await axios.get(`http://localhost:3333/user/${id}`);   
        let tempList = await res.data;
        return tempList;
@@ -31,8 +32,14 @@ class Store {
         await addUser(user);
         this.user=user;
     }
+    async onRefresh(user:User|any){
+        await addUser(user);
+        this.user=user;
+    }
+ 
 
     async getUser(id:string){
+        debugger;
        const user= await getUser(id);
        this.user=user;
       return user

@@ -42,11 +42,12 @@ const OurAppBar = () => {
             {userStore.userFromFireBase?.displayName}
           </Typography>
           <img src={(userStore.userFromFireBase&&userStore.userFromFireBase.photoURL)|| ""}></img> */}
+           <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
           {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>
               <Button color="inherit" onClick={() => system()}>system</Button>
-              <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
+             
             </>
           }
           {userStore.user === null &&

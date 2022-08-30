@@ -78,6 +78,7 @@ const Systems: React.FC = () => {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else {
+            debugger;
             console.log(userStore.user._id);
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
@@ -109,11 +110,12 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
-
+              debugger
             await systemStore.loadSystems();
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
+        debugger
         getSystems();
     }, [])
 

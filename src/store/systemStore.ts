@@ -21,6 +21,7 @@ const addSystem = async (system: System,token:string) => {
 
 const getSystems = async (managerId:string) => {
     try {   
+        debugger
         const res = await axios.get(`http://localhost:3333/system/${managerId}`) 
         // {
         //     headers: {"Authorization": token },
@@ -86,6 +87,7 @@ class Store {
     }
 
     async loadSystems() {
+        debugger
         this.systems = await getSystems(userStore.user._id);
     }
 

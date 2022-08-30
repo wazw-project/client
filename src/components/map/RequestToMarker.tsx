@@ -49,6 +49,8 @@ const Request = () => {
                 setStatus("");
                 setLat(position.coords.latitude);
                 setLng(position.coords.longitude);
+                MapStore.currentMap.center.lat=position.coords.latitude
+                MapStore.currentMap.center.lng=position.coords.longitude
             }, () => {
                 setStatus('Unable to retrieve your location');
             });
@@ -210,7 +212,8 @@ const Request = () => {
                             />
                         </Grid>
                         <Grid item sx={{ marginTop: "4%" }}>
-                            <AutoComplete />
+                        {requestStore.currentRequestAddressesName&&
+                            <AutoComplete />}
                         </Grid>
                         <Grid container spacing={2} height={592}>
                             <Grid item xs={6} md={8}>

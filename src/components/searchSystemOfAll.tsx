@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import AutoComplitSystem from './system/autoComplitSystem';
 import Grid from '@mui/material/Grid';
 import requestStore from '../store/request';
+import userStore from '../store/userStore';
 
 const SearchSystemOfAll: React.FC = () => {
     const navigate = useNavigate();
@@ -31,7 +32,14 @@ const SearchSystemOfAll: React.FC = () => {
         getAllSystems();
     }, [])
 
-   
+   const addSystem=()=>{
+       if(!userStore.user){
+           navigate('/login')
+       }
+       else{
+           navigate('/systems')
+       }
+   }
 
     return (
         <div id="allBusiness" >
@@ -75,7 +83,7 @@ const SearchSystemOfAll: React.FC = () => {
                         <AutoComplitSystem />
                     </Grid>
                     <Grid item xs={8} md={6}>
-                        <Button variant="contained" onClick={() => navigate("/login")}>
+                        <Button variant="contained" onClick={addSystem}>
                             add system
                         </Button>
                     </Grid>

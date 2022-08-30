@@ -165,8 +165,8 @@ const getLocationNameByLatLng = () => {
         
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
         <>
-         
-          <UserAutoCompliteInMap />
+        {requestStore.currentRequestAddressesName&&
+          <UserAutoCompliteInMap />}
           </>}
         {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
           <>

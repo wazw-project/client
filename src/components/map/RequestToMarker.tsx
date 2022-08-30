@@ -119,7 +119,7 @@ const Request = () => {
         debugger
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
-        Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
+        Geocode.fromLatLng(MapStore.currentMap.center.lat.toString(), MapStore.currentMap.center.lng.toString()).then(
             (response: any) => {
                 const address = response.results[0].formatted_address;
                 requestStore.currentRequestAddressesName = address;
@@ -216,14 +216,14 @@ const Request = () => {
                             <Grid item xs={6} md={8}>
                                 <GoogleMapReact
                                     bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-                                    center={{ lat: MapStore.yourLocation.center.lat && MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng && MapStore.yourLocation.center.lng }}
+                                    center={{ lat: MapStore.currentMap.center.lat && MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng && MapStore.currentMap.center.lng }}
                                     zoom={18}
                                     // onGoogleApiLoaded={() => getLocation()}
                                     options={getMapOptions}
                                 >
                                     <Marker
-                                        lat={MapStore.yourLocation.center.lat}
-                                        lng={MapStore.yourLocation.center.lng}
+                                        lat={MapStore.currentMap.center.lat}
+                                        lng={MapStore.currentMap.center.lng}
                                         name={'your location'}
                                         color={'yellow'}
                                     />

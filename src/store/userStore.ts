@@ -27,7 +27,7 @@ class Store {
     constructor() {
         makeAutoObservable(this);
     } 
-    async addUser(user:User){
+    async addUser(user:User|any){
         await addUser(user);
         this.user=user;
     }

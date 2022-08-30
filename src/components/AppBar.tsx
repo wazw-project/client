@@ -37,10 +37,10 @@ const OurAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {userStore.userFromFireBase?.displayName}
           </Typography>
-          <img src={userStore.userFromFireBase?.photoURL|| ""}></img>
+          <img src={(userStore.userFromFireBase&&userStore.userFromFireBase.photoURL)|| ""}></img> */}
           {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>

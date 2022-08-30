@@ -137,7 +137,7 @@ const AutoComplete: React.FC = () => {
                     value={value}
                     onChange={handleInput}
                     disabled={!ready}
-                    defaultValue={requestStore.currentRequestAddressesName}
+                
 
                 />
                 <IconButton type="button" sx={{ p: "10px" }} aria-label="search">

@@ -109,7 +109,7 @@ const Request = () => {
             }
             handleClose();
             setOpen(false);
-            requestStore.currentRequestAddressesName="";
+            // requestStore.currentRequestAddressesName="";
         }
     }
 

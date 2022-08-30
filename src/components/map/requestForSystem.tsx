@@ -13,12 +13,10 @@ import systemStore from '../../store/systemStore';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Typography from '@mui/material/Typography';
-import { wrap } from 'module';
 import Grid from '@mui/material/Grid';
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
@@ -32,33 +30,34 @@ import markerStore from '../../store/markerStore';
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react-lite';
 import ManagerStore from '../../store/managerStore';
-import {Role} from "../../utils/manager";
+import userStore from '../../store/userStore';
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
-    const [address,setAddress]=useState("")
+    const [address, setAddress] = useState("")
     const handleClick = () => {
         setOpen(!open);
     };
 
     const getLocationNameByLatLng = () => {
-        if(requestStore.currentRequest){
-        debugger
-        Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
-        Geocode.enableDebug();
-        debugger
-        Geocode.fromLatLng(requestStore.currentRequest.location.lat.toString(),requestStore.currentRequest.location.lng.toString()).then(
-            (response: any) => {
-                const address = response.results[0].formatted_address;
-               
-                console.log(address);
-                setAddress(address)
-                return address
-            },
-            (error: any) => {
-                console.error(error);
-            }
-        );}
+        if (requestStore.currentRequest) {
+            debugger
+            Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+            Geocode.enableDebug();
+            debugger
+            Geocode.fromLatLng(requestStore.currentRequest.location.lat.toString(), requestStore.currentRequest.location.lng.toString()).then(
+                (response: any) => {
+                    const address = response.results[0].formatted_address;
+
+                    console.log(address);
+                    setAddress(address)
+                    return address
+                },
+                (error: any) => {
+                    console.error(error);
+                }
+            );
+        }
     }
     async function getAllRequest() {
         debugger
@@ -83,11 +82,23 @@ const RequestForSystem = () => {
     useEffect(() => {
         debugger
         getAllRequest();
-      
-        
+
+
     }, [])
     const confirm=async()=>{
-   debugger
+        debugger
+        const manager={ 
+            "user_id": userStore.user._id,
+            "system_id":systemStore.currentSystem._id,
+            "active": true,
+            "display_name":  requestStore.currentRequest.display_name,
+        //    "role": Role.MANAGER,
+           "invitation_sent": "aaa"
+          }
+          debugger
+         ManagerStore.addManager(manager)
+         debugger
+         ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id,systemStore.currentSystem._id)
     const newMarker: any = {
       "manager_id": systemStore.currentSystem.managerUid,
       "system_id": systemStore.currentSystem._id,
@@ -106,18 +117,13 @@ const RequestForSystem = () => {
      MapStore.setCenter(requestStore.currentRequest.location.lat,requestStore.currentRequest.location.lng);
     //swal("saved!", "your location added!", "success");
    await requestStore.removeRequest(requestStore.currentRequest._id)
+   
+  
    requestStore.currentRequest=null
-  const manger={ "user_id": "string",
-   "system_id":systemStore.currentSystem._id,
-   "active": true,
-   "display_name": "string",
-   role: Role.MANAGER,
-   invitation_sent: "string"}
-  // ManagerStore.addManager(manager)
     handleClose()
         
     }
-    const dontConfirm=async()=>{
+    const dontConfirm = async () => {
         await requestStore.removeRequest(requestStore.currentRequest._id)
         handleClose()
     }
@@ -132,8 +138,8 @@ const RequestForSystem = () => {
                     <PersonPinIcon />
                 </ListItemIcon>
                 <ListItemText primary="request add location" />
-                {requestStore.request.length>0&&
-                <ListItemText sx={{color:"red"}} primary={requestStore.request.length} />}
+                {requestStore.request.length > 0 &&
+                    <ListItemText sx={{ color: "red" }} primary={requestStore.request.length} />}
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
@@ -162,77 +168,77 @@ const RequestForSystem = () => {
                 request details
             </DialogTitle>
             {requestStore.currentRequest &&
-                <DialogContent>         
+                <DialogContent>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
                             <AccountCircleRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.firstName + " "+requestStore.currentRequest.lastName}
-                              
+                                {requestStore.currentRequest.firstName + " " + requestStore.currentRequest.lastName}
+
                             </Typography>
                         </Grid>
-                        </Grid>   
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <LocalPhoneRoundedIcon/>
+                            <LocalPhoneRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.phone }
-                              
+                                {requestStore.currentRequest.phone}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <MailOutlineRoundedIcon/>
+                            <MailOutlineRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.email }
-                              
+                                {requestStore.currentRequest.email}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <AirplayRoundedIcon/>
+                            <AirplayRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.display_name }
-                              
+                                {requestStore.currentRequest.display_name}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <DescriptionRoundedIcon/>
+                            <DescriptionRoundedIcon />
                         </Grid>
                         <Grid item >
                             <Typography variant="h6" gutterBottom component="div">
-                                {requestStore.currentRequest.notes }
-                              
+                                {requestStore.currentRequest.notes}
+
                             </Typography>
                         </Grid>
-                        </Grid>  
-                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    </Grid>
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item >
-                            <LocationOnRoundedIcon/>
+                            <LocationOnRoundedIcon />
                         </Grid>
                         <Grid item >
-                            <Typography variant="h6" gutterBottom component="div">                        
-                                 {address}
+                            <Typography variant="h6" gutterBottom component="div">
+                                {address}
                             </Typography>
                         </Grid>
-                        </Grid>  
+                    </Grid>
                 </DialogContent>}
             <DialogActions>
-                <Button startIcon={<ThumbUpOffAltRoundedIcon/>} onClick={confirm}>confirm</Button>
-                <Button startIcon={<ThumbDownRoundedIcon/>} onClick={dontConfirm} autoFocus>
-                don't confirm
+                <Button startIcon={<ThumbUpOffAltRoundedIcon />} onClick={confirm}>confirm</Button>
+                <Button startIcon={<ThumbDownRoundedIcon />} onClick={dontConfirm} autoFocus>
+                    don't confirm
                 </Button>
             </DialogActions>
         </Dialog>
@@ -242,6 +248,3 @@ const RequestForSystem = () => {
 }
 export default observer(RequestForSystem)
 
-function key(key: any): React.MouseEventHandler<HTMLAnchorElement> | undefined {
-    throw new Error('Function not implemented.');
-}

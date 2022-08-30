@@ -13,7 +13,6 @@ import systemStore from '../../store/systemStore';
 import MapStore from '../../store/mapStore';
 import markerStore from '../../store/markerStore';
 import requestStore from '../../store/request';
-import { RequestToMarker } from '../../utils/request';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import Geocode from "react-geocode";
@@ -32,12 +31,10 @@ const Request = () => {
     const [LastNameV, setLastNameV] = useState<string>("");
     const [PhoneV, setPhoneV] = useState<string>("");
     const [EmailV, setEmailV] = useState<string>("");
-    const [Display_nameV, setDisplayNameV] = useState<string>("");
     const [startFirstNameV, setstartFirstNameV] = useState<boolean>(false);
     const [startLastNameV, setstartLastNameV] = useState<boolean>(false);
     const [startPhoneV, setstartPhoneV] = useState<boolean>(false);
     const [startEmailV, setstartEmailV] = useState<boolean>(false);
-    const [startDisplay_nameV, setstartDisplayNameV] = useState<boolean>(false);
     const [loginOpen, setLoginOpeb] = useState<boolean>(false);
     const [lat, setLat] = useState<number>(0);
     const [lng, setLng] = useState<number>(0);
@@ -70,13 +67,11 @@ const Request = () => {
 
 
     const handleClickOpen = () => {
-        debugger
         setOpen(true);
         getLocation();
     };
 
     useEffect(() => {
-        debugger
         getLocationNameByLatLng()
     }, [lat, lng]);
 
@@ -98,8 +93,8 @@ const Request = () => {
                 "display_name": inputDisplay_name.current?.value,
                 "notes": inputNotes.current?.value,
                 "location": {
-                    "lat": lat,
-                    "lng": lng
+                    "lat": markerStore.markerToAdd.location.lat,
+                    "lng":  markerStore.markerToAdd.location.lng
                 },
             }
             try {
@@ -111,18 +106,21 @@ const Request = () => {
             catch (error) {
                 swal("error!", "error", "error");
             }
-            handleClose()
+            handleClose();
             setOpen(false);
+            requestStore.currentRequestAddressesName="";
         }
     }
+
     const login = () => {
         setLoginOpeb(true)
-        userStore.loginFrom="/Map"
+        userStore.loginFrom = `/Map/hello/${systemStore.currentSystem.urlName}`
     }
     const getLocationNameByLatLng = () => {
+        debugger
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
-        Geocode.fromLatLng(lat.toString(), lng.toString()).then(
+        Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
             (response: any) => {
                 const address = response.results[0].formatted_address;
                 requestStore.currentRequestAddressesName = address;
@@ -142,7 +140,7 @@ const Request = () => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="contained" sx={{marginLeft:"5%",marginTop:'5%'}} onClick={handleClickOpen}>
                 Request
             </Button>
             {userStore.user ?
@@ -219,16 +217,16 @@ const Request = () => {
                             <Grid item xs={6} md={8}>
                                 <GoogleMapReact
                                     bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-                                    center={{ lat: lat && lat, lng: lng && lng }}
+                                    center={{ lat: MapStore.yourLocation.center.lat && MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng && MapStore.yourLocation.center.lng }}
                                     zoom={18}
                                     // onGoogleApiLoaded={() => getLocation()}
                                     options={getMapOptions}
                                 >
                                     <Marker
-                                        lat={lat && lat}
-                                        lng={lng && lng}
-                                        name={'aa'}
-                                        color={'red'}
+                                        lat={MapStore.yourLocation.center.lat}
+                                        lng={MapStore.yourLocation.center.lng}
+                                        name={'your location'}
+                                        color={'yellow'}
                                     />
                                 </GoogleMapReact>
                             </Grid>
@@ -250,9 +248,6 @@ const Request = () => {
                     <>
                 <DialogTitle id="alert-dialog-title">
                    for send request you need login!
-                </DialogTitle>
-                <DialogTitle id="alert-dialog-title">
-                   <Recaptcha/>
                 </DialogTitle>
                 <Button variant="outlined" onClick={login}>
                 login

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { observer } from 'mobx-react';
-import { Autocomplete, CircularProgress, IconButton, TextField } from "@mui/material";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import systemStore from "../../store/systemStore";
 import { System } from "../../utils/system";
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ const AutoComplitSystem: React.FC = () => {
             setSelect(false);
             const nameSystem = inputNameSystem.current?.value;
             await systemStore.SearchSystem(nameSystem);
-            navigate(`/Map`)
+            navigate(`/Map/hello/${systemStore.currentSystem.urlName}`)
         }
     }
 

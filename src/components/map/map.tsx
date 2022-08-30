@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import markerStore from '../../store/markerStore';
 import { Marker as MarkerUtil } from '../../utils/marker';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import SearchAndAddMarker from './seachAndAddMarker'
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import CardSolution from './cardSolution';
 import TitleMapLocation from './titleMapLocation';
 import systemStore from '../../store/systemStore';
-import RequestToMarker from './RequestToMarker';
 import RequestForSystem from './requestForSystem';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import userStore from '../../store/userStore';
+import ManagerStore from '../../store/managerStore';
+import UserAutoCompliteInMap from './userAutoCompliteInMap';
+import Geocode from "react-geocode";
+import requestStore from '../../store/request';
+
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -27,22 +28,31 @@ function sleep(delay = 0) {
 
 const Map: React.FC = (props: any) => {
   async function getMarker() {
-    try { 
-        await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
+    try {
+      await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
     } catch (error) { console.log(error); }
-}
-useEffect(() => {
-  getMarker();
-}, [])
+  }
+  useEffect(() => {
+    debugger
+    getManagers()
+    getMarker();
+  }, [])
 
+  const getManagers = async () => {
+    debugger
+    if (userStore.user) {
+      await ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id, systemStore.currentSystem._id)
 
+      console.log(ManagerStore.currentManager.role)
 
+    }
+  }
 
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  
   const getMapOptions = (maps: any) => {
     return {
       disableDefaultUI: true,
@@ -51,6 +61,50 @@ useEffect(() => {
       styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
     };
   };
+  const [lat, setLat] = useState<number>(0);
+  const [lng, setLng] = useState<number>(0);
+  const [status, setStatus] = useState<string>("");
+
+  useEffect(() => {
+      getLocationNameByLatLng()
+  }, [lat,lng]);
+  
+  useEffect(() => {
+    debugger
+      getLocation()
+  }, []);
+
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+        setStatus('Geolocation is not supported by your browser');
+    } else {
+        setStatus('Locating...');
+        navigator.geolocation.getCurrentPosition((position) => {
+            setStatus("");
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+        }, () => {
+            setStatus('Unable to retrieve your location');
+        });
+    }
+}
+
+const getLocationNameByLatLng = () => {
+  debugger
+  Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+  Geocode.enableDebug();
+  Geocode.fromLatLng(MapStore.yourLocation.center.lat.toString(), MapStore.yourLocation.center.lng.toString()).then(
+      (response: any) => {
+          const address = response.results[0].formatted_address;
+          requestStore.currentRequestAddressesName = address;
+          console.log(address);
+      },
+      (error: any) => {
+          console.error(error);
+      }
+  );
+}
 
 
   useEffect(() => {
@@ -75,19 +129,7 @@ useEffect(() => {
     }
   }, [open]);
 
-  const location = useLocation();
-  const form: any = location.state;
 
-//   async function getMarkersBySystemId() {
-//     try {
-//         await markerStore.getMarkersBySystemId(form.id);
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
-// useEffect(() => {
-//   getMarkersBySystemId();
-// }, [])
 
 //
 
@@ -141,11 +183,17 @@ useEffect(() => {
       <Grid item xs={6} md={8}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-          center={{ lat: MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng }}
-          zoom={MapStore.currentMap.zoom}
+          center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
+          zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
         >
-          {markers&&markerStore.markers.map(m => (
+          <Marker
+            lat={MapStore.yourLocation.center.lat}
+            lng={MapStore.yourLocation.center.lng}
+            name={'your location'}
+            color={'yellow'}
+          />
+          {markers && markerStore.markers.map(m => (
             <Marker
               lat={m.location.lat}
               lng={m.location.lng}
@@ -156,12 +204,21 @@ useEffect(() => {
         </GoogleMapReact>
       </Grid>
       <Grid item xs={6} md={4}>
-       <TitleMapLocation/>   
-       
-     <RequestToMarker/>
-     <RequestForSystem/>
-        <SearchAndAddMarker/>
-        {MapStore.currentCard && <CardSolution/>}        
+        
+        {(!ManagerStore.currentManager || ManagerStore.currentManager.role === "0") &&
+        <>
+         
+          <UserAutoCompliteInMap />
+          </>}
+        {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
+          <>
+          <TitleMapLocation />
+            <SearchAndAddMarker />
+            {MapStore.currentCard && <CardSolution />}
+            <RequestForSystem />
+
+          </>}
+
       </Grid>
     </Grid>
   );

@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import userStore from "../../store/userStore";
+import requestStore from "../../store/request";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -30,6 +31,7 @@ function Dashboard() {
     if (loading) return;
     if (!user) return navigate("/");
     userStore.user=null
+    requestStore.currentRequestAddressesName=""
     fetchUserName();
   }, [user, loading]);
   return (

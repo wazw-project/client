@@ -23,23 +23,13 @@ import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import AutoComplete from './AutoComplite';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import SaveIcon from '@mui/icons-material/Save';
-import userStore from '../../store/userStore';
 import systemStore from '../../store/systemStore';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import swal from 'sweetalert';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -219,6 +209,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
       >
         <Directions />
       </IconButton>
+
       <Button variant="contained" onClick={handleClickOpen}>
         add Marker
       </Button>

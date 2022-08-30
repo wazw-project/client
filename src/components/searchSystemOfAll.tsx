@@ -12,10 +12,8 @@ import { observer } from 'mobx-react';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 import AutoComplitSystem from './system/autoComplitSystem';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import requestStore from '../store/request';
 
 const SearchSystemOfAll: React.FC = () => {
     const navigate = useNavigate();
@@ -29,17 +27,11 @@ const SearchSystemOfAll: React.FC = () => {
 
     useEffect(() => {
         debugger
+  
         getAllSystems();
     }, [])
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    }));
-
+   
 
     return (
         <div id="allBusiness" >
@@ -71,7 +63,7 @@ const SearchSystemOfAll: React.FC = () => {
                                 <CardActions>
                                     <Button variant="contained" onClick={() => {
                                         systemStore.currentSystem = system;
-                                        navigate(`/Map`)
+                                        navigate(`/Map/hello/${system.urlName}`)
                                     }}
                                     >see the places of this system</Button>
                                 </CardActions>

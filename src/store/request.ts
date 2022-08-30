@@ -2,8 +2,6 @@
 import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
 import {RequestToMarker} from '../utils/request'
-import systemStore from './systemStore';
-
 
 const addRequest = async (request:RequestToMarker) => {
     try {

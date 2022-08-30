@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './Marker.css';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

@@ -54,7 +54,8 @@ function Register() {
       "email": email
     }
     try {
-        await userStore.addUser(userToDb);         
+        await userStore.addUser(userToDb); 
+        userStore.user=userToDb        
     } catch (error) { console.log(error); }
   }
 

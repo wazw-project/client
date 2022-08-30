@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import userStore from '../store/userStore';
+import { observer } from 'mobx-react';
 const OurAppBar = () => {
   const navigate = useNavigate();
 
@@ -56,4 +57,4 @@ const OurAppBar = () => {
   );
 }
 
-export default OurAppBar
+export default observer(OurAppBar)

@@ -78,6 +78,7 @@ const Systems: React.FC = () => {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
         else {
+            debugger;
             console.log(userStore.user._id);
             const dataSystem: any = {
                 "topic": inputTopic.current?.value,
@@ -109,20 +110,26 @@ const Systems: React.FC = () => {
 
     async function getSystems() {
         try {
-
+              debugger
             await systemStore.loadSystems();
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
+        debugger
         getSystems();
     }, [])
 
     return (
         <div id="allBusiness" >
-            <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>All systems</Typography>
+            <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>your systems</Typography>
             <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
 
-                <Button variant="contained" onClick={handleClickOpen}>
+
+                
+            <Button sx={{
+                    width: '10%', height: '50vh', borderRadius: 50,marginTop:'2%'
+                }}
+                    variant="outlined" onClick={handleClickOpen}>
                     add system
                 </Button>
                 {systemStore.systems && systemStore.systems.map((system: System) =>

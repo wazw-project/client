@@ -1,11 +1,13 @@
 {
     "cSpell.words": [
         "Acibz",
+        "addresss",
         "Complit",
         "Geocode",
         "MAINADMIN",
         "occured",
-        "swal"
+        "swal",
+        "sweetalert"
     ],
     "liveServer.settings.port": 5501
 }

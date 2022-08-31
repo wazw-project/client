@@ -18,7 +18,6 @@ import Marker from './Marker';
 import Geocode from "react-geocode";
 import userStore from '../../store/userStore';
 import Login from '../login/Login';
-import Recaptcha from '../reCAPTCHA';
 
 const Request = () => {
     const [open, setOpen] = React.useState(false);
@@ -50,6 +49,8 @@ const Request = () => {
                 setStatus("");
                 setLat(position.coords.latitude);
                 setLng(position.coords.longitude);
+                MapStore.currentMap.center.lat=position.coords.latitude
+                MapStore.currentMap.center.lng=position.coords.longitude
             }, () => {
                 setStatus('Unable to retrieve your location');
             });
@@ -108,7 +109,7 @@ const Request = () => {
             }
             handleClose();
             setOpen(false);
-            requestStore.currentRequestAddressesName="";
+            // requestStore.currentRequestAddressesName="";
         }
     }
 
@@ -211,13 +212,14 @@ const Request = () => {
                             />
                         </Grid>
                         <Grid item sx={{ marginTop: "4%" }}>
-                            <AutoComplete />
+                        {requestStore.currentRequestAddressesName&&
+                            <AutoComplete />}
                         </Grid>
                         <Grid container spacing={2} height={592}>
                             <Grid item xs={6} md={8}>
                                 <GoogleMapReact
                                     bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
-                                    center={{ lat: MapStore.currentMap.center.lat && MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng && MapStore.currentMap.center.lng }}
+                                    center={{ lat: MapStore.currentMap.center.lat && MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng && MapStore.yourLocation.center.lng }}
                                     zoom={18}
                                     // onGoogleApiLoaded={() => getLocation()}
                                     options={getMapOptions}
@@ -245,13 +247,13 @@ const Request = () => {
                     aria-describedby="alert-dialog-description"
                 >
                     {!loginOpen &&
-                    <>
-                <DialogTitle id="alert-dialog-title">
-                   for send request you need login!
-                </DialogTitle>
-                <Button variant="outlined" onClick={login}>
-                login
-            </Button></>}
+                        <>
+                            <DialogTitle id="alert-dialog-title">
+                                for send request you need login!
+                            </DialogTitle>
+                            <Button variant="outlined" onClick={login}>
+                                login
+                            </Button></>}
                     {loginOpen &&
                         <DialogActions>
                             <Login />

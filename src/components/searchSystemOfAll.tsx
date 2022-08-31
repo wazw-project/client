@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import AutoComplitSystem from './system/autoComplitSystem';
 import Grid from '@mui/material/Grid';
 import requestStore from '../store/request';
+import userStore from '../store/userStore';
 
 const SearchSystemOfAll: React.FC = () => {
     const navigate = useNavigate();
@@ -27,29 +28,37 @@ const SearchSystemOfAll: React.FC = () => {
 
     useEffect(() => {
         debugger
-  
+
         getAllSystems();
     }, [])
 
-   
+    const addSystem = () => {
+        if (!userStore.user) {
+            navigate('/login')
+        }
+        else {
+            navigate('/systems')
+        }
+    }
 
     return (
         <div id="allBusiness" >
-            <Typography variant="h4" gutterBottom>
-                search for one product do you want
+            <Typography sx={{ textAlign: 'center' }} variant="h4" gutterBottom>
+                search for one system do you want
             </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={9}>
-                    <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
+                    <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 3 }, flexWrap: 'wrap' }} >
                         {systemStore.allSystems && systemStore.allSystems.map((system: System) =>
-                            <Card>
+                            <Card >
                                 <CardMedia
                                     component="img"
                                     alt="system"
                                     height="140"
+
                                     image={system.urlImage}
                                 />
-                                <CardContent>
+                                <CardContent >
                                     <Typography gutterBottom variant="h5" component="div">
                                         {system.topic}
                                     </Typography>
@@ -62,6 +71,7 @@ const SearchSystemOfAll: React.FC = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button variant="contained" onClick={() => {
+                                        debugger
                                         systemStore.currentSystem = system;
                                         navigate(`/Map/hello/${system.urlName}`)
                                     }}
@@ -71,11 +81,14 @@ const SearchSystemOfAll: React.FC = () => {
                     </Stack>
                 </Grid>
                 <Grid item xs={3}>
-                    <Grid item xs={6} md={8}>
+                    <Grid item xs={6} md={8} sx={{ marginTop: '20%' }}>
                         <AutoComplitSystem />
                     </Grid>
-                    <Grid item xs={8} md={6}>
-                        <Button variant="contained" onClick={() => navigate("/login")}>
+                    <Grid sx={{ marginTop: '20%', marginLeft: '15%' }} item xs={8} md={6}>
+                        <Button sx={{
+                            width: '100%', height: '20vh', borderRadius: 50
+                        }}
+                            variant="outlined" onClick={addSystem}>
                             add system
                         </Button>
                     </Grid>

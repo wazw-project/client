@@ -44,10 +44,12 @@ const Login: React.FC = () => {
   }, [user, loading]);
 
   const logIn = async () => {
+    debugger
     if (emailV === "" || !isValidEmail(emailV) || PasswordV === "" || PasswordV.length <= 5) {
       swal("your form is not validate!!", "You clicked the button!", "error");
     }
     else {
+      debugger
       await logInWithEmailAndPassword(email, password);
     }
   }
@@ -58,11 +60,15 @@ const Login: React.FC = () => {
   const loginFromDB = async (Uid: any) => {
     debugger
     try {
-      await userStore.getUser(Uid);  
-      if(userStore.user._id===""){
-       await addUserToDb(Uid)
-      userStore.user=await userStore.getUser(Uid);        
-      }     
+      debugger
+      const userrr= await userStore.getUser(Uid);  
+      debugger
+      if(!userrr){
+        await addUserToDb(Uid)
+             
+      }  
+      debugger
+      userStore.user=await userStore.getUser(Uid);    
       navigate(userStore.loginFrom)
     } catch (error) { console.log(error); }
   }

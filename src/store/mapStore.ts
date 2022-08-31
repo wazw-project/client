@@ -14,6 +14,8 @@ class Store {
             center: { lat: 31.0461, lng: 34.8516 }
         }
     currentCard: boolean = false;
+    resultWays:boolean = false;
+    
     constructor() {
         makeAutoObservable(this);
     }

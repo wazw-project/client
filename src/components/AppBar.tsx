@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import userStore from '../store/userStore';
+import { observer } from 'mobx-react';
 const OurAppBar = () => {
   const navigate = useNavigate();
 
@@ -41,11 +42,12 @@ const OurAppBar = () => {
             {userStore.userFromFireBase?.displayName}
           </Typography>
           <img src={(userStore.userFromFireBase&&userStore.userFromFireBase.photoURL)|| ""}></img> */}
+           <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
           {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>
               <Button color="inherit" onClick={() => system()}>system</Button>
-              <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
+             
             </>
           }
           {userStore.user === null &&
@@ -56,4 +58,4 @@ const OurAppBar = () => {
   );
 }
 
-export default OurAppBar
+export default observer(OurAppBar)

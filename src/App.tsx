@@ -10,8 +10,24 @@ import Map from "./components/map/map";
 import AddMarker from "./components/map/AutoComplite";
 import SearchSystemOfAll from "./components/searchSystemOfAll";
 import AutoComplitSystem from "./components/system/autoComplitSystem";
+import { onAuthStateChanged,getAuth } from "firebase/auth";
+import userStore from "./store/userStore";
+
+
+let auth = getAuth();
+// let user = auth.currentUser;
+onAuthStateChanged(auth, (user) => {
+  auth = getAuth();
+  user = auth.currentUser;
+  userStore.userFromFireBase=user
+  debugger;
+  userStore.addUser(user);
+  debugger;  
+
+});
 
 function App() {
+
   return (
     <div className="app">
       <Router>

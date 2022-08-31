@@ -22,7 +22,7 @@ const addManager=async(manager:Manager)=>{
     try {
         const res = await axios.post(`http://localhost:3333/managers/addManagers`,manager);
         let tempList = await res.data;
-        if(tempList!="")
+        if(tempList!=="")
           return tempList;
         throw new Error(`Could not add manager`)
     }

@@ -36,6 +36,7 @@ function Dashboard() {
     ManagerStore.currentManager=""
     requestStore.currentRequestAddressesName=""
     systemStore.currentSystem=null
+    requestStore.robot=false;
 
     fetchUserName();
   }, [user, loading]);

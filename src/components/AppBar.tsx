@@ -46,7 +46,7 @@ const OurAppBar = () => {
           {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>
-              <Button color="inherit" onClick={() => system()}>system</Button>
+              <Button color="inherit" onClick={() => system()}>your system</Button>
              
             </>
           }

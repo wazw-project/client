@@ -50,7 +50,7 @@ const SearchSystemOfAll: React.FC = () => {
                 <Grid item xs={9}>
                     <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 3 }, flexWrap: 'wrap' }} >
                         {systemStore.allSystems && systemStore.allSystems.map((system: System) =>
-                            <Card >
+                            <Card key={system._id}>
                                 <CardMedia
                                     component="img"
                                     alt="system"
@@ -72,8 +72,10 @@ const SearchSystemOfAll: React.FC = () => {
                                 <CardActions>
                                     <Button variant="contained" onClick={() => {
                                         debugger
-                                        systemStore.currentSystem = system;
-                                        navigate(`/Map/hello/${system.urlName}`)
+                                       
+                                      
+                                       debugger
+                                        navigate(`/Map/${system.urlName}/${system._id}`)
                                     }}
                                     >see the places of this system</Button>
                                 </CardActions>

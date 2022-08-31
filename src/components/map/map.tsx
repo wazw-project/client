@@ -18,6 +18,7 @@ import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
 import { render } from 'react-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 
 function sleep(delay = 0) {
@@ -29,17 +30,29 @@ function sleep(delay = 0) {
 
 
 const Map: React.FC = (props: any) => {
-  async function getMarker() {
-    try {
-      await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
-    } catch (error) { console.log(error); }
-  }
+
+  const { id } = useParams();
+
   useEffect(() => {
     debugger
-    getManagers()
-    getMarker();
-  }, [])
+    console.log("hhhhhhhhhhhhhhhhhhhhh", id)
+    gatAllForComponent()
 
+  }, [])
+  const gatAllForComponent = async () => {
+    debugger
+    await getSystemById()
+    debugger
+    await getManagers()
+    debugger
+    await getMarker();
+  }
+  const getSystemById = async () => {
+    debugger
+    await systemStore.getSystemById(String(id))
+    debugger;
+    console.log(systemStore.currentSystem._id)
+  }
   const getManagers = async () => {
     debugger
     if (userStore.user) {
@@ -48,6 +61,15 @@ const Map: React.FC = (props: any) => {
       console.log(ManagerStore.currentManager.role)
 
     }
+  }
+  async function getMarker() {
+    try {
+      debugger
+      if(systemStore.currentSystem){
+      console.log(systemStore.currentSystem._id)
+      await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
+      }
+    } catch (error) { console.log(error); }
   }
 
   const [open, setOpen] = useState<boolean>(false);
@@ -74,6 +96,7 @@ const Map: React.FC = (props: any) => {
   useEffect(() => {
     debugger
     getLocation()
+
   }, []);
 
 
@@ -146,7 +169,7 @@ const Map: React.FC = (props: any) => {
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
-         
+
         >
           <Marker
             lat={MapStore.yourLocation.center.lat}
@@ -164,7 +187,7 @@ const Map: React.FC = (props: any) => {
             />
           ))}
         </GoogleMapReact>
-     
+
       </Grid>
       <Grid item xs={6} md={4}>
 

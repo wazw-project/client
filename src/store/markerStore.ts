@@ -19,8 +19,12 @@ const UpdateMarker = async (id: string, marker: Marker) => {
 }
 const getAllMarkerForSystem = async (system_id: string) => {
     try {
+        debugger
         const res = await axios.get(`http://localhost:3333/marker/getBySystemId/${system_id}`);
+        debugger
         let tempList = await res.data;
+        debugger;
+        console.log(tempList)
         return tempList;
     }
     catch (error) { console.log(error); }
@@ -63,43 +67,10 @@ class Store {
     constructor() {
         makeAutoObservable(this);
 
-        // this.markers.push({
-        //     manager_id: 'dfsdv',
-        //     system_id: "fsdv",
-        //     lat: 31.0461,
-        //     lng: 34.8516,
-        //     description: "gjmhb",
-        //     name: "Tamar-o",
-        //     notes: "njnkjn",
-        //     email: "string",
-        //     phone: "5476876"
-        // })
-        // this.markers.push({
-        //     manager_id: 'dfsdv',
-        //     system_id: "fsdv",
-        //     lat: 31.0461,
-        //     lng: 35.8516,
-        //     description: "gjmhb",
-        //     name: "Tamar-k",
-        //     notes: "njnkjn",
-        //     email: "string",
-        //     phone: "5476876"
-        // })
-        // this.markers.push({
-        //     manager_id: 'dfsdv',
-        //     system_id: "fsdv",
-
-        //     lat: 31.0461,
-        //     lng: 36.8516,
-
-        //     description: "gjmhb",
-        //     name: "Naama",
-        //     notes: "njnkjn",
-        //     email: "string",
-        //     phone: "5476876"
-        // })
+       
     }
     async getAllMarkerForSystem(id: string) {
+        debugger
         this.markers = await getAllMarkerForSystem(id)
         console.log(this.markers)
     }

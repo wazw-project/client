@@ -51,10 +51,13 @@ const SearchAndAddMarker: React.FC = (props: any) => {
   const inputNotes = useRef<HTMLInputElement>();
 
   const handleSelect = async () => {
+    debugger
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
+    debugger
+  
     MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
-    MapStore.setZoom(15)
+    MapStore.setZoom(30)
     MapStore.setCardOfSolution(true)
   }
   const searchMarker = async () => {
@@ -62,7 +65,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
     if (markerStore.currentMarker != null) {
-
+        debugger
       MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
       MapStore.setZoom(15)
       MapStore.setCardOfSolution(true)

@@ -43,6 +43,7 @@ class Store {
     currentRequest: any = null;
     currentRequestAddressesName: string = "";
     request: RequestToMarker[] = [];
+    robot:boolean=false;
     constructor() {
         makeAutoObservable(this);
     } 

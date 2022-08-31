@@ -18,6 +18,7 @@ import Marker from './Marker';
 import Geocode from "react-geocode";
 import userStore from '../../store/userStore';
 import Login from '../login/Login';
+import Recaptcha from '../reCAPTCHA';
 
 const Request = () => {
     const [open, setOpen] = React.useState(false);
@@ -49,8 +50,8 @@ const Request = () => {
                 setStatus("");
                 setLat(position.coords.latitude);
                 setLng(position.coords.longitude);
-                MapStore.currentMap.center.lat=position.coords.latitude
-                MapStore.currentMap.center.lng=position.coords.longitude
+                MapStore.currentMap.center.lat = position.coords.latitude
+                MapStore.currentMap.center.lng = position.coords.longitude
             }, () => {
                 setStatus('Unable to retrieve your location');
             });
@@ -95,7 +96,7 @@ const Request = () => {
                 "notes": inputNotes.current?.value,
                 "location": {
                     "lat": markerStore.markerToAdd.location.lat,
-                    "lng":  markerStore.markerToAdd.location.lng
+                    "lng": markerStore.markerToAdd.location.lng
                 },
             }
             try {
@@ -141,7 +142,7 @@ const Request = () => {
 
     return (
         <div>
-            <Button variant="contained" sx={{marginLeft:"5%",marginTop:'5%'}} onClick={handleClickOpen}>
+            <Button variant="contained" sx={{ marginLeft: "5%", marginTop: '5%' }} onClick={handleClickOpen}>
                 Request
             </Button>
             {userStore.user ?
@@ -212,8 +213,8 @@ const Request = () => {
                             />
                         </Grid>
                         <Grid item sx={{ marginTop: "4%" }}>
-                        {requestStore.currentRequestAddressesName&&
-                            <AutoComplete />}
+                            {requestStore.currentRequestAddressesName &&
+                                <AutoComplete />}
                         </Grid>
                         <Grid container spacing={2} height={592}>
                             <Grid item xs={6} md={8}>
@@ -241,6 +242,7 @@ const Request = () => {
                         </Button>
                     </DialogActions>
                 </Dialog> : <Dialog
+
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"
@@ -250,17 +252,21 @@ const Request = () => {
                         <>
                             <DialogTitle id="alert-dialog-title">
                                 for send request you need login!
+                                {!requestStore.robot &&
+                                    <Recaptcha />}
                             </DialogTitle>
-                            <Button variant="outlined" onClick={login}>
-                                login
-                            </Button></>}
+                            {requestStore.robot &&
+                                <Button variant="outlined" onClick={login}>
+                                    login
+                                </Button>}
+                        </>}
                     {loginOpen &&
                         <DialogActions>
                             <Login />
                         </DialogActions>}
                 </Dialog>
             }
-        </div>
+        </div >
     );
 }
 export default observer(Request)

@@ -17,9 +17,8 @@ import ManagerStore from '../../store/managerStore';
 import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
-import { render } from 'react-dom';
 import { useParams, useSearchParams } from 'react-router-dom';
-
+import { onAuthStateChanged,getAuth } from "firebase/auth";
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -27,24 +26,26 @@ function sleep(delay = 0) {
   });
 }
 
-
-
+let auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  auth = getAuth();
+  user = auth.currentUser;
+  userStore.userFromFireBase=user
+  console.log(userStore.userFromFireBase.uid)
+  userStore.getUser(userStore.userFromFireBase.uid)
+  userStore.addUser(user); 
+  
+});
 const Map: React.FC = (props: any) => {
-
+  
   const { id } = useParams();
 
   useEffect(() => {
-    debugger
-    console.log("hhhhhhhhhhhhhhhhhhhhh", id)
-    gatAllForComponent()
-
+    getAllForComponent()
   }, [])
-  const gatAllForComponent = async () => {
-    debugger
+  const getAllForComponent = async () => {
     await getSystemById()
-    debugger
     await getManagers()
-    debugger
     await getMarker();
   }
   const getSystemById = async () => {
@@ -61,6 +62,7 @@ const Map: React.FC = (props: any) => {
       console.log(ManagerStore.currentManager.role)
 
     }
+ 
   }
   async function getMarker() {
     try {
@@ -193,7 +195,7 @@ const Map: React.FC = (props: any) => {
 
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role !== "1") &&
           <>
-            {requestStore.currentRequestAddressesName &&
+            {(requestStore.currentRequestAddressesName) &&
               <UserAutoCompliteInMap />}
           </>}
         {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&

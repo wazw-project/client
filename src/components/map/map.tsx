@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
@@ -16,6 +17,7 @@ import ManagerStore from '../../store/managerStore';
 import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
+import { render } from 'react-dom';
 
 
 function sleep(delay = 0) {
@@ -52,7 +54,7 @@ const Map: React.FC = (props: any) => {
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
 
-  
+
   const getMapOptions = (maps: any) => {
     return {
       disableDefaultUI: true,
@@ -66,47 +68,47 @@ const Map: React.FC = (props: any) => {
   const [status, setStatus] = useState<string>("");
 
   useEffect(() => {
-      getLocationNameByLatLng()
-  }, [lat,lng]);
-  
+    getLocationNameByLatLng()
+  }, [lat, lng]);
+
   useEffect(() => {
     debugger
-      getLocation()
+    getLocation()
   }, []);
 
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-        setStatus('Geolocation is not supported by your browser');
+      setStatus('Geolocation is not supported by your browser');
     } else {
-        setStatus('Locating...');
-        navigator.geolocation.getCurrentPosition((position) => {
-            setStatus("");
-            setLat(position.coords.latitude);
-            setLng(position.coords.longitude);
-            MapStore.yourLocation.center.lat=position.coords.latitude
-            MapStore.yourLocation.center.lng=position.coords.longitude
-        }, () => {
-            setStatus('Unable to retrieve your location');
-        });
+      setStatus('Locating...');
+      navigator.geolocation.getCurrentPosition((position) => {
+        setStatus("");
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+        MapStore.yourLocation.center.lat = position.coords.latitude
+        MapStore.yourLocation.center.lng = position.coords.longitude
+      }, () => {
+        setStatus('Unable to retrieve your location');
+      });
     }
-}
+  }
 
-const getLocationNameByLatLng = () => {
-  debugger
-  Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
-  Geocode.enableDebug();
-  Geocode.fromLatLng(lat.toString(),lng.toString()).then(
+  const getLocationNameByLatLng = () => {
+    debugger
+    Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+    Geocode.enableDebug();
+    Geocode.fromLatLng(lat.toString(), lng.toString()).then(
       (response: any) => {
-          const address = response.results[0].formatted_address;
-          requestStore.currentRequestAddressesName = address;
-          console.log(address);
+        const address = response.results[0].formatted_address;
+        requestStore.currentRequestAddressesName = address;
+        console.log(address);
       },
       (error: any) => {
-          console.error(error);
+        console.error(error);
       }
-  );
-}
+    );
+  }
 
 
   useEffect(() => {
@@ -144,6 +146,7 @@ const getLocationNameByLatLng = () => {
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
+         
         >
           <Marker
             lat={MapStore.yourLocation.center.lat}
@@ -151,6 +154,7 @@ const getLocationNameByLatLng = () => {
             name={'your location'}
             color={'yellow'}
           />
+
           {markers && markerStore.markers.map(m => (
             <Marker
               lat={m.location.lat}
@@ -160,17 +164,18 @@ const getLocationNameByLatLng = () => {
             />
           ))}
         </GoogleMapReact>
+     
       </Grid>
       <Grid item xs={6} md={4}>
-        
-        {(!ManagerStore.currentManager || ManagerStore.currentManager.role!== "1") &&
-        <>
-        {requestStore.currentRequestAddressesName&&
-          <UserAutoCompliteInMap />}
+
+        {(!ManagerStore.currentManager || ManagerStore.currentManager.role !== "1") &&
+          <>
+            {requestStore.currentRequestAddressesName &&
+              <UserAutoCompliteInMap />}
           </>}
         {ManagerStore.currentManager && ManagerStore.currentManager.role === "1" &&
           <>
-          <TitleMapLocation />
+            <TitleMapLocation />
             <SearchAndAddMarker />
             {MapStore.currentCard && <CardSolution />}
             <RequestForSystem />

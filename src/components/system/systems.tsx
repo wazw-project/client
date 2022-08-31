@@ -121,10 +121,15 @@ const Systems: React.FC = () => {
 
     return (
         <div id="allBusiness" >
-            <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>All systems</Typography>
+            <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>your systems</Typography>
             <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
 
-                <Button variant="contained" onClick={handleClickOpen}>
+
+                
+            <Button sx={{
+                    width: '10%', height: '50vh', borderRadius: 50,marginTop:'2%'
+                }}
+                    variant="outlined" onClick={handleClickOpen}>
                     add system
                 </Button>
                 {systemStore.systems && systemStore.systems.map((system: System) =>

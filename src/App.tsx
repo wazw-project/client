@@ -12,12 +12,10 @@ import SearchSystemOfAll from "./components/searchSystemOfAll";
 import AutoComplitSystem from "./components/system/autoComplitSystem";
 import { onAuthStateChanged,getAuth } from "firebase/auth";
 import userStore from "./store/userStore";
-import ManagerStore from "./store/managerStore";
-import systemStore from "./store/systemStore";
-import markerStore from "./store/markerStore";
-import MapStore from "./store/mapStore";
+
+
 let auth = getAuth();
-let user = auth.currentUser;
+// let user = auth.currentUser;
 onAuthStateChanged(auth, (user) => {
   auth = getAuth();
   user = auth.currentUser;
@@ -27,11 +25,8 @@ onAuthStateChanged(auth, (user) => {
   debugger;  
 
 });
+
 function App() {
-
- 
-
-
 
   return (
     <div className="app">

@@ -26,16 +26,16 @@ function sleep(delay = 0) {
   });
 }
 
-let auth = getAuth();
-onAuthStateChanged(auth, (user) => {
-  auth = getAuth();
-  user = auth.currentUser;
-  userStore.userFromFireBase=user
-  console.log(userStore.userFromFireBase.uid)
-  userStore.getUser(userStore.userFromFireBase.uid)
-  userStore.addUser(user); 
+// let auth = getAuth();
+// onAuthStateChanged(auth, (user) => {
+//   auth = getAuth();
+//   user = auth.currentUser;
+//   userStore.userFromFireBase=user
+//   console.log(userStore.userFromFireBase.uid)
+//   userStore.getUser(userStore.userFromFireBase.uid)
+//   userStore.addUser(user); 
   
-});
+// });
 const Map: React.FC = (props: any) => {
   
   const { id } = useParams();

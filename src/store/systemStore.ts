@@ -28,6 +28,7 @@ const getSystems = async (managerId: string) => {
         //     headers: {"Authorization": token },
         // });
         let tempList = await res.data;
+        console.log(tempList)
         return tempList;
     } catch (error) { console.log(error); }
 }
@@ -63,6 +64,7 @@ const editSystem = async (managerId: string, system: System, token: string) => {
 const getSystemById = async (id: string) => {
     try {
         debugger
+        console.log(id)
         const res = await axios.get(` http://localhost:3333/system/systemById/${id}`)
         debugger
         const data = await res.data;
@@ -86,7 +88,10 @@ class Store {
 
     async loadSystems() {
         debugger
+        console.log(userStore.user._id)
         this.systems = await getSystems(userStore.user._id);
+        debugger;
+        console.log(this.systems)
     }
 
     async getAllSystems() {

@@ -46,7 +46,9 @@ const SystemDetails: React.FC = () => {
   const { nameURL } = useParams();
 
   async function getSystem() {
+    debugger
     try {
+      debugger
       await systenStore.getSystemById(form.id);
     } catch (err) {
       console.log(err)

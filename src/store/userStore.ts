@@ -4,8 +4,10 @@ import axios from 'axios';
 
 const addUser=async(userToDb:User)=>{
     try {
+        debugger
         const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
         let tempList = await res.data;
+        console.log(tempList)
         return tempList;
       } catch (error) { console.log(error); }
 }
@@ -29,8 +31,10 @@ class Store {
         makeAutoObservable(this);
     } 
     async addUser(user:User|any){
+        debugger
         await addUser(user);
         this.user=user;
+        console.log(this.user)
     }
     async onRefresh(user:User|any){
         await addUser(user);

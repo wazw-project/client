@@ -49,23 +49,31 @@ const SearchAndAddMarker: React.FC = (props: any) => {
   const inputPhone = useRef<HTMLInputElement>();
   const inputEmail = useRef<HTMLInputElement>();
   const inputNotes = useRef<HTMLInputElement>();
-
+  const [selectFirst, setSelectFirst] = useState<number>(0)
   const handleSelect = async () => {
     debugger
-    const nameMarker = inputNameMarker.current?.value;
-    await markerStore.SearchMarker(nameMarker)
-    debugger
-  
-    MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
-    MapStore.setZoom(30)
-    MapStore.setCardOfSolution(true)
+    if (selectFirst !== 0) {
+
+      debugger
+      const nameMarker = inputNameMarker.current?.value;
+      await markerStore.SearchMarker(nameMarker)
+      debugger
+      console.log(markerStore.currentMarker.location.lat)
+      MapStore.yourLocation.center.lng=markerStore.currentMarker.location.lng;
+      MapStore.yourLocation.center.lat=markerStore.currentMarker.location.lat;
+      MapStore.yourLocation.zoom=20
+      MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
+      MapStore.setZoom(30)
+      MapStore.setCardOfSolution(true)
+    }
+    setSelectFirst(1)
   }
   const searchMarker = async () => {
     markerStore.currentMarker = null
     const nameMarker = inputNameMarker.current?.value;
     await markerStore.SearchMarker(nameMarker)
     if (markerStore.currentMarker != null) {
-        debugger
+      debugger
       MapStore.setCenter(markerStore.currentMarker.location.lat, markerStore.currentMarker.location.lng)
       MapStore.setZoom(15)
       MapStore.setCardOfSolution(true)
@@ -119,7 +127,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
     MapStore.setCardOfSolution(false);
     markerStore.addMarker(newMarker);
     MapStore.setZoom(15);
-    MapStore.setCenter(markerStore.markerToAdd.location.lat,markerStore.markerToAdd.location.lng);
+    MapStore.setCenter(markerStore.markerToAdd.location.lat, markerStore.markerToAdd.location.lng);
     swal("saved!", "your location added!", "success");
     handleClose()
   }
@@ -242,7 +250,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
               </Grid>
               <Grid item xs={4}>
                 <TextareaAutosize
-                 // inputRef={inputNotes}
+                  // inputRef={inputNotes}
                   aria-label="minimum height"
                   minRows={3}
                   placeholder="notes"

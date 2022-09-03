@@ -43,9 +43,12 @@ class Store {
  
 
     async getUser(id:string){
+        debugger
         debugger;
        const user= await getUser(id);
        this.user=user;
+       console.log(this.user)
+       debugger
       return user
     }   
 }

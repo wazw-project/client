@@ -138,7 +138,6 @@ const Map: React.FC = (props: any) => {
 
 
   return (
-
     <Grid container spacing={2} height={592}>
       <Grid item xs={6} md={8}>
         <GoogleMapReact
@@ -146,7 +145,6 @@ const Map: React.FC = (props: any) => {
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
-         
         >
           <Marker
             lat={MapStore.yourLocation.center.lat}
@@ -154,7 +152,6 @@ const Map: React.FC = (props: any) => {
             name={'your location'}
             color={'yellow'}
           />
-
           {markers && markerStore.markers.map(m => (
             <Marker
               lat={m.location.lat}

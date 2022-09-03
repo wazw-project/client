@@ -28,7 +28,7 @@ const AutoComplitSystem: React.FC = () => {
             setSelect(false);
             const nameSystem = inputNameSystem.current?.value;
             await systemStore.SearchSystem(nameSystem);
-            navigate(`/Map/hello/${systemStore.currentSystem.urlName}`)
+            navigate(`/Map/${systemStore.currentSystem.urlName}/${systemStore.currentSystem._id}`)
         }
     }
 

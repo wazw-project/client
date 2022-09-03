@@ -7,11 +7,11 @@ class Store {
     currentMap: Map =
         {
             zoom: 18,
-            center: { lat: 31.0461, lng: 34.8516 }
+            center: { lat: 0, lng: 0 }
         }
         yourLocation:Map={
             zoom: 18,
-            center: { lat: 31.0461, lng: 34.8516 }
+            center: { lat: 0, lng: 0}
         }
     currentCard: boolean = false;
     resultWays:boolean = false;

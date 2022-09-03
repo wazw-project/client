@@ -46,7 +46,9 @@ const SystemDetails: React.FC = () => {
   const { nameURL } = useParams();
 
   async function getSystem() {
+    debugger
     try {
+      debugger
       await systenStore.getSystemById(form.id);
     } catch (err) {
       console.log(err)
@@ -166,7 +168,8 @@ const SystemDetails: React.FC = () => {
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
                 Delete
               </Button>
-              <Button variant="outlined" onClick={() => { navigate(`/Map/hello/${systenStore.currentSystem.urlName}`) }}>
+              <Button variant="outlined" onClick={() => { navigate(`/Map/${systenStore.currentSystem.urlName}/${systenStore.currentSystem._id}`) }}>
+             
                 see all business location
               </Button>
             </Container>

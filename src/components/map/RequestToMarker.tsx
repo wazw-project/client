@@ -116,7 +116,7 @@ const Request = () => {
 
     const login = () => {
         setLoginOpeb(true)
-        userStore.loginFrom = `/Map/hello/${systemStore.currentSystem.urlName}`
+        userStore.loginFrom = `/Map/${systemStore.currentSystem.urlName}/${systemStore.currentSystem._id}`
     }
     const getLocationNameByLatLng = () => {
         debugger

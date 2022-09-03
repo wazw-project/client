@@ -27,10 +27,13 @@ const Login: React.FC = () => {
   const [PasswordV, setPasswordV] = useState<string>("******");
 
   useEffect(() => {
+    debugger
     if (loading) {
       return;
     }
     if (user) {
+      debugger
+      console.log(user.uid)
       debugger
       loginFromDB(user.uid);
       // userStore.userFromFireBase=user;        
@@ -62,8 +65,10 @@ const Login: React.FC = () => {
     try {
       debugger
       const userrr= await userStore.getUser(Uid);  
+      console.log(userrr)
       debugger
       if(!userrr){
+        debugger
         await addUserToDb(Uid)
              
       }  
@@ -82,8 +87,9 @@ const Login: React.FC = () => {
     }
 
     try {
-      
-     const res= await userStore.addUser(userToDb);        
+      debugger
+     const res= await userStore.addUser(userToDb);     
+     console.log(res)   
       setUserFromDb(res);
     } catch (error) { console.log(error); }
   }

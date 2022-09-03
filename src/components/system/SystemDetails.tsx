@@ -168,7 +168,8 @@ const SystemDetails: React.FC = () => {
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
                 Delete
               </Button>
-              <Button variant="outlined" onClick={() => { navigate(`/Map/${systenStore.currentSystem.urlName}/%${systenStore.currentSystem._id}`) }}>
+              <Button variant="outlined" onClick={() => { navigate(`/Map/${systenStore.currentSystem.urlName}/${systenStore.currentSystem._id}`) }}>
+             
                 see all business location
               </Button>
             </Container>

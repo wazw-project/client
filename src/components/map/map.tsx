@@ -18,6 +18,7 @@ import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
 import { useParams, useSearchParams } from 'react-router-dom';
+import mapStore from '../../store/mapStore';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -27,9 +28,7 @@ function sleep(delay = 0) {
 
 
 const Map: React.FC = (props: any) => {
-
   const { id } = useParams();
-
   useEffect(() => {
     getAllForComponent()
   }, [])
@@ -48,11 +47,8 @@ const Map: React.FC = (props: any) => {
     debugger
     if (userStore.user) {
       await ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id, systemStore.currentSystem._id)
-
       console.log(ManagerStore.currentManager.role)
-
     }
-
   }
   async function getMarker() {
     try {
@@ -63,12 +59,10 @@ const Map: React.FC = (props: any) => {
       }
     } catch (error) { console.log(error); }
   }
-type directionResult=google.maps.DirectionsResult;
+  type directionResult = google.maps.DirectionsResult;
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
-
-
   const getMapOptions = (maps: any) => {
     return {
       disableDefaultUI: true,
@@ -77,13 +71,11 @@ type directionResult=google.maps.DirectionsResult;
       styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
     };
   };
-
-const [direction,setDirection]=useState<directionResult>()
-
+  const [direction, setDirection] = useState<directionResult>()
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
   const [status, setStatus] = useState<string>("");
-
+  const [mapp, setMapp] = useState()
   useEffect(() => {
     getLocationNameByLatLng()
   }, [lat, lng]);
@@ -91,7 +83,7 @@ const [direction,setDirection]=useState<directionResult>()
   useEffect(() => {
     debugger
     getLocation()
-    
+
   }, []);
 
 
@@ -152,34 +144,36 @@ const [direction,setDirection]=useState<directionResult>()
   }, [open]);
 
 
-  const apiIsLoaded = (map:any) => {
-    const directionsService = new google.maps.DirectionsService();
-    const directionsRenderer = new google.maps.DirectionsRenderer();
-    directionsRenderer.setMap(map);
+  // const apiIsLoaded = () => {
+  //   debugger
+  //   if (mapp) {
+  //     debugger;
+  //     console.log(mapp)
+  //     const directionsService = new google.maps.DirectionsService();
+  //     const directionsRenderer = new google.maps.DirectionsRenderer();
+  //     directionsRenderer.setMap(mapp);
+  //     directionsService.route(
+  //       {
+  //         origin: markerStore.origin,
+  //         destination: markerStore.destination,
+  //         travelMode: google.maps.TravelMode.DRIVING
+  //       },
+  //       (result, status) => {
+  //         if (status === google.maps.DirectionsStatus.OK) {
+  //           directionsRenderer.setDirections(result);
+  //         } else {
+  //           console.error(`error fetching directions ${result}`);
+  //         }
+  //       }
+  //     );
+  //   };
 
-
-    directionsService.route(
-      {
-        origin: markerStore.origin,
-        destination: markerStore.destination,
-        travelMode: google.maps.TravelMode.DRIVING
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-          directionsRenderer.setDirections(result);
-        } else {
-          console.error(`error fetching directions ${result}`);
-        }
-      }
-    );
-  };
-
-
+  // }
 
 
   return (
     <Grid container spacing={2} height={592}>
-     
+
       <Grid item xs={6} md={8}>
     
         <GoogleMapReact
@@ -187,9 +181,10 @@ const [direction,setDirection]=useState<directionResult>()
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
-           yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map }) => apiIsLoaded(map)}         
-        >   
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map }) => MapStore.map=map}
+
+        >
           <Marker
             lat={MapStore.yourLocation.center.lat}
             lng={MapStore.yourLocation.center.lng}

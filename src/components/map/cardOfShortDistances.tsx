@@ -143,7 +143,7 @@ const CardOfShortDistances: React.FC = () => {
     return (
         <div>
             {addresses && addresses.map((address: string) =>(
-                 <CardContent>
+                 <CardContent onClick={()=>mapStore.apiIsLoaded()}>
                      <List sx={style} component="nav" aria-label="mailbox folders">
                          <ListItem button>
                              <ListItemText primary={address} />

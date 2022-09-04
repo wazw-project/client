@@ -18,7 +18,6 @@ import UserAutoCompliteInMap from './userAutoCompliteInMap';
 import Geocode from "react-geocode";
 import requestStore from '../../store/request';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { onAuthStateChanged,getAuth } from "firebase/auth";
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -26,18 +25,9 @@ function sleep(delay = 0) {
   });
 }
 
-// let auth = getAuth();
-// onAuthStateChanged(auth, (user) => {
-//   auth = getAuth();
-//   user = auth.currentUser;
-//   userStore.userFromFireBase=user
-//   console.log(userStore.userFromFireBase.uid)
-//   userStore.getUser(userStore.userFromFireBase.uid)
-//   userStore.addUser(user); 
-  
-// });
+
 const Map: React.FC = (props: any) => {
-  
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -62,18 +52,18 @@ const Map: React.FC = (props: any) => {
       console.log(ManagerStore.currentManager.role)
 
     }
- 
+
   }
   async function getMarker() {
     try {
       debugger
-      if(systemStore.currentSystem){
-      console.log(systemStore.currentSystem._id)
-      await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
+      if (systemStore.currentSystem) {
+        console.log(systemStore.currentSystem._id)
+        await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
       }
     } catch (error) { console.log(error); }
   }
-
+type directionResult=google.maps.DirectionsResult;
   const [open, setOpen] = useState<boolean>(false);
   const [options, setOptions] = useState<readonly MarkerUtil[]>([]);
   const loading = open && options.length === 0;
@@ -87,6 +77,9 @@ const Map: React.FC = (props: any) => {
       styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
     };
   };
+
+const [direction,setDirection]=useState<directionResult>()
+
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
   const [status, setStatus] = useState<string>("");
@@ -98,7 +91,7 @@ const Map: React.FC = (props: any) => {
   useEffect(() => {
     debugger
     getLocation()
-
+    
   }, []);
 
 
@@ -159,18 +152,44 @@ const Map: React.FC = (props: any) => {
   }, [open]);
 
 
+  const apiIsLoaded = (map:any) => {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
+
+
+    directionsService.route(
+      {
+        origin: markerStore.origin,
+        destination: markerStore.destination,
+        travelMode: google.maps.TravelMode.DRIVING
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsRenderer.setDirections(result);
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      }
+    );
+  };
+
 
 
 
   return (
     <Grid container spacing={2} height={592}>
+     
       <Grid item xs={6} md={8}>
+    
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
-        >
+           yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map }) => apiIsLoaded(map)}         
+        >   
           <Marker
             lat={MapStore.yourLocation.center.lat}
             lng={MapStore.yourLocation.center.lng}

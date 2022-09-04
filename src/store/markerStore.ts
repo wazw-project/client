@@ -48,6 +48,9 @@ const getMarkersBySystemId=async(systemId: string)=>{
 }
 class Store {
 
+     origin = { lat: 40.756795, lng: -73.954298 };
+     destination = { lat: 41.756795, lng: -78.954298 };
+    
     markers: Marker[] = [];
     currentMarker: any = null;
     markerToAdd: Marker = {

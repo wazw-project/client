@@ -48,23 +48,51 @@ const CardOfShortDistances: React.FC = () => {
         return distance;
     }
     
+    // const find_closest_marker=(lat: number, lng: number)=> {
+    //     debugger;
+    //     let distances = [];
+    //     let closest = -1;
+    //     for (let i = 0; i < markerStore.markers.length; i++) {
+    //         const d = getDistanceBetweenPoints(
+    //             markerStore.markers[i].location.lat,
+    //             markerStore.markers[i].location.lng,
+    //             lat,
+    //             lng
+    //         );
+    //         distances[i] = d;
+    //         if (closest == -1 || d < distances[closest]) {
+    //             closest = i;
+    //         }
+    //     }
+    //     mapStore.yourLocation.center = {
+    //         lat: markerStore.markers[closest].location.lat,
+    //         lng: markerStore.markers[closest].location.lng,
+    //     };
+    //     mapStore.yourLocation.zoom = 18;
+    //     // mapStore.openInfo = true;
+    //     markerStore.currentMarker = markerStore.markers[closest];
+    //     swal("Closest location is " + markerStore.markers[closest].location.lat);
+    //     MapStore.resultWays = false;
+    // }
+
     const find_closest_marker=(lat: number, lng: number)=> {
         debugger;
         let distances = [];
+        let min1= Number.MAX_VALUE;
+        let min2= Number.MAX_VALUE;
+        let min3= Number.MAX_VALUE;
         let closest = -1;
-        for (let index = 0; index < 3; index++) {
-          
-            for (let i = 0; i < markerStore.markers.length; i++) {
-                const d = getDistanceBetweenPoints(
-                    markerStore.markers[i].location.lat,
-                    markerStore.markers[i].location.lng,
-                    lat,
-                    lng
-                );
-                distances[i] = d;
-                if (closest === -1 || d < distances[closest]) {
-                    closest = i;
-                }
+        for (let i = 0; i < markerStore.markers.length; i++) {
+            const d = getDistanceBetweenPoints(
+                markerStore.markers[i].location.lat,
+                markerStore.markers[i].location.lng,
+                lat,
+                lng
+            );
+            distances[i] = d;
+            if (closest == -1 || d < distances[closest] ) {
+                min1=d;
+                closest = i;
             }
         }
        
@@ -73,15 +101,12 @@ const CardOfShortDistances: React.FC = () => {
             lng: markerStore.markers[closest].location.lng,
         };
         mapStore.yourLocation.zoom = 18;
-        // mapStore.openInfo = true;
         markerStore.currentMarker = markerStore.markers[closest];
         swal("Closest location is " + markerStore.markers[closest].location.lat);
-        debugger
         markerStore.destination.lat=markerStore.markers[closest].location.lat
         markerStore.destination.lng=markerStore.markers[closest].location.lng
         console.log( markerStore.destination.lat)
         console.log( markerStore.destination.lng)
-        MapStore.resultWays = false;
     }
     
     useEffect(() => {

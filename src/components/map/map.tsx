@@ -144,32 +144,7 @@ const Map: React.FC = (props: any) => {
   }, [open]);
 
 
-  // const apiIsLoaded = () => {
-  //   debugger
-  //   if (mapp) {
-  //     debugger;
-  //     console.log(mapp)
-  //     const directionsService = new google.maps.DirectionsService();
-  //     const directionsRenderer = new google.maps.DirectionsRenderer();
-  //     directionsRenderer.setMap(mapp);
-  //     directionsService.route(
-  //       {
-  //         origin: markerStore.origin,
-  //         destination: markerStore.destination,
-  //         travelMode: google.maps.TravelMode.DRIVING
-  //       },
-  //       (result, status) => {
-  //         if (status === google.maps.DirectionsStatus.OK) {
-  //           directionsRenderer.setDirections(result);
-  //         } else {
-  //           console.error(`error fetching directions ${result}`);
-  //         }
-  //       }
-  //     );
-  //   };
-
-  // }
-
+  
 
   return (
     <Grid container spacing={2} height={592}>

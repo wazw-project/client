@@ -30,6 +30,7 @@ const apiIsLoaded = (map:any) => {
 
   }
 class Store {
+       address:string[]=[]
        map:any=null;
     currentMap: Map =
         {

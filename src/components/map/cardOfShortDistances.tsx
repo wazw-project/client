@@ -12,6 +12,7 @@ import mapStore from '../../store/mapStore';
 import swal from 'sweetalert';
 import Geocode from "react-geocode";
 import { async } from '@firebase/util';
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const style = {
     width: '100%',
@@ -117,6 +118,7 @@ const CardOfShortDistances: React.FC = () => {
             addressesName[i] = x;
         }
         setAddresses(addressesName);
+        mapStore.address=addressesName
     }
 
     useEffect(() => {
@@ -140,10 +142,24 @@ const CardOfShortDistances: React.FC = () => {
         );
         return addresss;
     }
+    const drow=(i:number)=>{
+        debugger
+        markerStore.origin.lat=mapStore.yourLocation.center.lat;
+        markerStore.origin.lng=mapStore.yourLocation.center.lng;
+        getGeocode({ address: mapStore.address[i] })
+                    .then((results) => getLatLng(results[0]))
+                    .then(({ lat, lng }) => {
+                        markerStore.destination.lat=lat;
+                        markerStore.destination.lng=lng;
+                    })
+       
+        mapStore.apiIsLoaded()
+    }
+    const index=[0,1,2]
     return (
         <div>
-            {addresses && addresses.map((address: string) =>(
-                 <CardContent onClick={()=>mapStore.apiIsLoaded()}>
+            {addresses && addresses.map((address: string,index:number) =>(
+                 <CardContent  onClick={()=>(drow(index))}>
                      <List sx={style} component="nav" aria-label="mailbox folders">
                          <ListItem button>
                              <ListItemText primary={address} />

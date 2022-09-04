@@ -52,18 +52,22 @@ const CardOfShortDistances: React.FC = () => {
         debugger;
         let distances = [];
         let closest = -1;
-        for (let i = 0; i < markerStore.markers.length; i++) {
-            const d = getDistanceBetweenPoints(
-                markerStore.markers[i].location.lat,
-                markerStore.markers[i].location.lng,
-                lat,
-                lng
-            );
-            distances[i] = d;
-            if (closest == -1 || d < distances[closest]) {
-                closest = i;
+        for (let index = 0; index < 3; index++) {
+          
+            for (let i = 0; i < markerStore.markers.length; i++) {
+                const d = getDistanceBetweenPoints(
+                    markerStore.markers[i].location.lat,
+                    markerStore.markers[i].location.lng,
+                    lat,
+                    lng
+                );
+                distances[i] = d;
+                if (closest === -1 || d < distances[closest]) {
+                    closest = i;
+                }
             }
         }
+       
         mapStore.yourLocation.center = {
             lat: markerStore.markers[closest].location.lat,
             lng: markerStore.markers[closest].location.lng,

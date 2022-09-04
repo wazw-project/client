@@ -39,7 +39,9 @@ const AutoComplete: React.FC = () => {
 
     const handleInput = (e: any) => {
         setValue(e.target.value);
+        MapStore.resultWays=false;
     };
+
 
     const handleSelect =
         (description: any) =>
@@ -129,8 +131,6 @@ const AutoComplete: React.FC = () => {
                     value={value}
                     onChange={handleInput}
                     disabled={!ready}
-                
-
                 />
                 <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
                     <Search />

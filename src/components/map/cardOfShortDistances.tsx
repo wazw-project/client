@@ -100,10 +100,8 @@ const CardOfShortDistances: React.FC = () => {
             lng: markerStore.markers[closest].location.lng,
         };
         mapStore.yourLocation.zoom = 18;
-        // mapStore.openInfo = true;
         markerStore.currentMarker = markerStore.markers[closest];
         swal("Closest location is " + markerStore.markers[closest].location.lat);
-        MapStore.resultWays = false;
     }
     
     useEffect(() => {

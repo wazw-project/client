@@ -53,33 +53,33 @@ const CardSolution: React.FC = () => {
         alt="green iguana"
       />
       <CardContent>
-        {markerStore.currentMarker.name&&
-        <Typography gutterBottom variant="h5" component="div">
-        {markerStore.currentMarker.name}
-        </Typography>}
+        {markerStore.currentMarker.name &&
+          <Typography gutterBottom variant="h5" component="div">
+            {markerStore.currentMarker.name}
+          </Typography>}
         {markerStore.currentMarker.description &&
           <Typography gutterBottom variant="h5" component="div">
             {markerStore.currentMarker.description}
           </Typography>}
-          {markerStore.currentMarker.notes&&
-        <Typography variant="body2" color="text.secondary">
-   {markerStore.currentMarker.notes}
-        </Typography>}
-        {markerStore.currentMarker.phone&&
-        <Typography variant="body2" color="text.secondary">
-         {markerStore.currentMarker.phone}
-        </Typography>}
-        {markerStore.currentMarker.email&&
-        <Typography variant="body2" color="text.secondary">
-        {markerStore.currentMarker.email}
-        </Typography>}
+        {markerStore.currentMarker.notes &&
+          <Typography variant="body2" color="text.secondary">
+            {markerStore.currentMarker.notes}
+          </Typography>}
+        {markerStore.currentMarker.phone &&
+          <Typography variant="body2" color="text.secondary">
+            {markerStore.currentMarker.phone}
+          </Typography>}
+        {markerStore.currentMarker.email &&
+          <Typography variant="body2" color="text.secondary">
+            {markerStore.currentMarker.email}
+          </Typography>}
       </CardContent>
       <CardActions>
         <Button variant="outlined" onClick={deleteMarker} startIcon={<DeleteIcon />}>
           Delete
         </Button>
-        <div style={{marginLeft:'5%'}}>
-        <EditMarker/>
+        <div style={{ marginLeft: '5%' }}>
+          <EditMarker />
         </div>
         {/* <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
           Edit

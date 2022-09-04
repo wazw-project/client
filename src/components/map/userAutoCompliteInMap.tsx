@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import AutoComplete from './AutoComplite';
 import Grid from '@mui/material/Grid';
@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import MapStore from '../../store/mapStore';
 
 const UserAutoCompliteInMap: React.FC = () => {
-
+  const [open, setOpen] = useState<boolean>(false);
   return (
     <>
       <TitleMapLocationUser />
@@ -21,12 +21,15 @@ const UserAutoCompliteInMap: React.FC = () => {
         <Grid item xs={4}>
           <RequestToMarker />
         </Grid>
-        <Grid item xs={4}>
-          <Button variant="contained" onClick={() => MapStore.resultWays = true}>
+        <Grid item xs={12}>
+          <Button variant="contained" onClick={() =>
+            {
+              MapStore.resultWays = !MapStore.resultWays;
+              // setOpen(true);
+              // <CardOfShortDistances />
+            }}>
             Accepting places near me</Button>
-        </Grid>
-        <Grid item xs={4}>
-          {MapStore.resultWays && <CardOfShortDistances />}
+            {MapStore.resultWays && <CardOfShortDistances />}
         </Grid>
       </Grid>
     </>

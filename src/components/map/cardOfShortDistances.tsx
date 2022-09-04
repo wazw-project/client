@@ -136,11 +136,11 @@ const CardOfShortDistances: React.FC = () => {
             }
         );
         debugger;
-        mapStore.apiIsLoaded()
+       
     }
     return (
         <>{address && 
-            <Card sx={{ maxWidth: 450, marginTop: "5%" }}>
+            <Card sx={{ maxWidth: 450, marginTop: "5%" }} onClick={()=>mapStore.apiIsLoaded()}>
                 <CardContent>
                     <List sx={style} component="nav" aria-label="mailbox folders">
                          <ListItem button>

@@ -175,8 +175,7 @@ const Map: React.FC = (props: any) => {
     <Grid container spacing={2} height={592}>
 
       <Grid item xs={6} md={8}>
-        {markerStore.origin &&
-          <button onClick={()=>(mapStore.apiIsLoaded())}>לחץ עלי</button>}
+    
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}

@@ -44,7 +44,11 @@ const EditMarker = () => {
        try{
        await markerStore.UpdateMarker(markerStore.currentMarker._id, newMarker);
        MapStore.setCardOfSolution(false)
-       MapStore.setZoom(8)
+    
+       MapStore.yourLocation.zoom=8
+       MapStore.yourLocation.center.lng=MapStore.yourLocation.center.lng;
+       MapStore.yourLocation.center.lat=MapStore.yourLocation.center.lat;
+
         swal("saved!", "your location added!", "success");
        } 
        catch(error){

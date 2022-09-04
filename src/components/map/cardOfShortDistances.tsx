@@ -72,6 +72,11 @@ const CardOfShortDistances: React.FC = () => {
         // mapStore.openInfo = true;
         markerStore.currentMarker = markerStore.markers[closest];
         swal("Closest location is " + markerStore.markers[closest].location.lat);
+        debugger
+        markerStore.destination.lat=markerStore.markers[closest].location.lat
+        markerStore.destination.lng=markerStore.markers[closest].location.lng
+        console.log( markerStore.destination.lat)
+        console.log( markerStore.destination.lng)
         MapStore.resultWays = false;
     }
     
@@ -129,4 +134,4 @@ const CardOfShortDistances: React.FC = () => {
         </>
     )
 }
-export default CardOfShortDistances
+export default observer(CardOfShortDistances)

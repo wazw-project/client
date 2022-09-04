@@ -115,15 +115,16 @@ const RequestForSystem = () => {
      markerStore.addMarker(newMarker);
      MapStore.setZoom(13);
      MapStore.setCenter(requestStore.currentRequest.location.lat,requestStore.currentRequest.location.lng);
-    //swal("saved!", "your location added!", "success");
+     await requestStore.removeRequest(requestStore.currentRequest._id)
+    handleClose()
     MapStore.yourLocation.center.lng=markerStore.currentMarker.location.lng;
     MapStore.yourLocation.center.lat=markerStore.currentMarker.location.lat;
     MapStore.yourLocation.zoom=20
-   await requestStore.removeRequest(requestStore.currentRequest._id)
+   
  
   
    requestStore.currentRequest=null
-    handleClose()
+   
         
     }
     const dontConfirm = async () => {

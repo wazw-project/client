@@ -11,6 +11,7 @@ import markerStore from '../../store/markerStore';
 import mapStore from '../../store/mapStore';
 import swal from 'sweetalert';
 import Geocode from "react-geocode";
+import { async } from '@firebase/util';
 
 const style = {
     width: '100%',
@@ -20,12 +21,12 @@ const style = {
 
 
 const CardOfShortDistances: React.FC = () => {
-    const [address, setAddress] = useState("");
+    const [addresses, setAddresses] = useState<string[]>([]);
 
     function degreesToRadians(degrees: number) {
         return (degrees * Math.PI) / 180;
     }
-    
+
     function getDistanceBetweenPoints(
         lat1: number,
         lng1: number,
@@ -41,13 +42,12 @@ const CardOfShortDistances: React.FC = () => {
             Math.cos(degreesToRadians(lat1)) *
             Math.sin(dLong / 2) *
             Math.sin(dLong / 2);
-    
+
         let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         let distance = R * c;
-    
         return distance;
     }
-    
+
     // const find_closest_marker=(lat: number, lng: number)=> {
     //     debugger;
     //     let distances = [];
@@ -75,91 +75,84 @@ const CardOfShortDistances: React.FC = () => {
     //     MapStore.resultWays = false;
     // }
 
-    const find_closest_marker=(lat: number, lng: number)=> {
+    const find_closest_marker = async (lat: number, lng: number) => {
         debugger;
-        let distances = [];
-        let min1= Number.MAX_VALUE;
-        let min2= Number.MAX_VALUE;
-        let min3= Number.MAX_VALUE;
-        let closest = -1;
-        for (let i = 0; i < markerStore.markers.length; i++) {
-            const d = getDistanceBetweenPoints(
-                markerStore.markers[i].location.lat,
-                markerStore.markers[i].location.lng,
-                lat,
-                lng
-            );
-            distances[i] = d;
-            if (closest == -1 || d < distances[closest] ) {
-                min1=d;
-                closest = i;
+        let arr = [-1, -1, -1];
+        if (markerStore.markers.length !== 0) {
+            for (let j = 0; j < arr.length; j++) {
+                let distance = Number.MAX_VALUE;
+                for (let i = 0; i < markerStore.markers.length; i++) {
+                    const d = getDistanceBetweenPoints(
+                        markerStore.markers[i].location.lat,
+                        markerStore.markers[i].location.lng,
+                        lat,
+                        lng
+                    );
+                    if (arr[j] == -1 || d < distance) {
+                        distance = d;
+                        if (j > 0) {
+                            if (j == 1) {
+                                if (i !== arr[j - 1])
+                                    arr[j] = i;
+                            }
+                            if (j == 2) {
+                                if (i !== arr[j - 1] && i !== arr[j - 2])
+                                    arr[j] = i;
+                            }
+                        } else
+                            arr[j] = i;
+                    }
+
+                }
             }
         }
-        mapStore.yourLocation.center = {
-            lat: markerStore.markers[closest].location.lat,
-            lng: markerStore.markers[closest].location.lng,
-        };
-        mapStore.yourLocation.zoom = 18;
-        markerStore.currentMarker = markerStore.markers[closest];
-        swal("Closest location is " + markerStore.markers[closest].location.lat);
-        markerStore.destination.lat=markerStore.markers[closest].location.lat
-        markerStore.destination.lng=markerStore.markers[closest].location.lng
-        console.log( markerStore.destination.lat)
-        console.log( markerStore.destination.lng)
+        else {
+            alert("there is no markers");
+        }
+
+        let addressesName: any[] = [];
+        for (let i = 0; i < arr.length; i++) {
+            const x = await getLocationNameByLatLng(arr[i]);
+            console.log(x);
+            addressesName[i] = x;
+        }
+        setAddresses(addressesName);
     }
-    
+
     useEffect(() => {
         find_closest_marker(mapStore.yourLocation.center.lat, mapStore.yourLocation.center.lng);
     }, []);
-    
-    useEffect(() => {
-        getLocationNameByLatLng()
-    },[markerStore.currentMarker])
-    
-    const getLocationNameByLatLng = () => {
+
+    const getLocationNameByLatLng = async (index: number) => {
         debugger
+        let addresss = "";
         Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
         Geocode.enableDebug();
-        Geocode.fromLatLng(markerStore.currentMarker.location.lat.toString(), markerStore.currentMarker.location.lng.toString()).then(
+        console.log(markerStore.markers[index].location.lat.toString())
+        console.log(markerStore.markers[index].location.lng.toString())
+        await Geocode.fromLatLng(markerStore.markers[index].location.lat.toString(), markerStore.markers[index].location.lng.toString()).then(
             (response: any) => {
-                const addresss = response.results[0].formatted_address;
-                setAddress(addresss);
-                // requestStore.currentRequestAddressesName = address;
-                console.log(addresss);
+                addresss = response.results[0].formatted_address;
             },
             (error: any) => {
                 console.error(error);
             }
         );
+        return addresss;
     }
     return (
-        <>{address && 
-            <Card sx={{ maxWidth: 450, marginTop: "5%" }}>
-                <CardContent>
-                    <List sx={style} component="nav" aria-label="mailbox folders">
+        <div>
+            {addresses && addresses.map((address: string) =>(
+                 <CardContent>
+                     <List sx={style} component="nav" aria-label="mailbox folders">
                          <ListItem button>
-                            <ListItemText primary={address} />
-                        </ListItem>
-                        {/*
-                        {/* <ListItem button>
-                            <ListItemText primary="Inbox" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem button divider>
-                            <ListItemText primary="Drafts" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemText primary="Trash" />
-                        </ListItem>
-                        <Divider light />
-                        <ListItem button>
-                            <ListItemText primary="Spam" />
-                        </ListItem> */}
-                    </List>
-                </CardContent>
-            </Card>
-        }
-        </>
+                             <ListItemText primary={address} />
+                         </ListItem>
+                         <Divider />
+                     </List>
+                 </CardContent>
+            ))}
+        </div>
     )
 }
 export default observer(CardOfShortDistances)

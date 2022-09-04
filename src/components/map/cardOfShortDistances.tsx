@@ -90,23 +90,26 @@ const CardOfShortDistances: React.FC = () => {
                 lng
             );
             distances[i] = d;
-            if (closest == -1 || d < distances[closest] ) {
+            if (closest === -1 || d < distances[closest] ) {
                 min1=d;
                 closest = i;
             }
         }
        
-        mapStore.yourLocation.center = {
-            lat: markerStore.markers[closest].location.lat,
-            lng: markerStore.markers[closest].location.lng,
-        };
+        // mapStore.yourLocation.center = {
+        //     lat: markerStore.markers[closest].location.lat,
+        //     lng: markerStore.markers[closest].location.lng,
+        // };
         mapStore.yourLocation.zoom = 18;
         markerStore.currentMarker = markerStore.markers[closest];
         swal("Closest location is " + markerStore.markers[closest].location.lat);
-        markerStore.destination.lat=markerStore.markers[closest].location.lat
-        markerStore.destination.lng=markerStore.markers[closest].location.lng
-        console.log( markerStore.destination.lat)
-        console.log( markerStore.destination.lng)
+        markerStore.destination.lat=markerStore.currentMarker.location.lat
+        markerStore.destination.lng=markerStore.currentMarker.location.lng    
+        markerStore.origin.lat=mapStore.yourLocation.center.lat
+        markerStore.origin.lng=mapStore.yourLocation.center.lng
+        debugger;
+        console.log( markerStore.destination.lat,markerStore.destination.lng)  
+        console.log(markerStore.origin.lat,markerStore.origin.lng)
     }
     
     useEffect(() => {
@@ -132,6 +135,8 @@ const CardOfShortDistances: React.FC = () => {
                 console.error(error);
             }
         );
+        debugger;
+        mapStore.apiIsLoaded()
     }
     return (
         <>{address && 

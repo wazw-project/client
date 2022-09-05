@@ -36,7 +36,8 @@ const Login: React.FC = () => {
       console.log(user.uid)
       debugger
       loginFromDB(user.uid);
-      // userStore.userFromFireBase=user;        
+      userStore.userFromFireBase=user;
+      console.log(userStore.userFromFireBase)     
       user.getIdToken().then((value=>{
         console.log(value);   
         userStore.token=value;

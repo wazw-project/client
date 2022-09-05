@@ -9,6 +9,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import userStore from '../store/userStore';
 import { observer } from 'mobx-react';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+
 const OurAppBar = () => {
   const navigate = useNavigate();
 
@@ -38,20 +41,23 @@ const OurAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {userStore.userFromFireBase?.displayName}
-          </Typography>
-          <img src={(userStore.userFromFireBase&&userStore.userFromFireBase.photoURL)|| ""}></img> */}
-           <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
+          <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
           {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>
               <Button color="inherit" onClick={() => system()}>your system</Button>
-             
             </>
           }
           {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
+          {userStore.userFromFireBase &&
+            <div>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                {userStore.userFromFireBase && userStore.userFromFireBase.displayName}
+              </Typography>
+              <img src={`${userStore.userFromFireBase.photoURL}`}></img>
+            </div>
+          }
         </Toolbar>
       </AppBar>
     </Box>

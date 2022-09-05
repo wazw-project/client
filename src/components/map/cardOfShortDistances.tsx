@@ -14,6 +14,7 @@ import Geocode from "react-geocode";
 import { async } from '@firebase/util';
 import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
+import CardOfSelected from './cardOfSelected';
 const style = {
     width: '100%',
     maxWidth: 360,
@@ -49,32 +50,7 @@ const CardOfShortDistances: React.FC = () => {
         return distance;
     }
 
-    // const find_closest_marker=(lat: number, lng: number)=> {
-    //     debugger;
-    //     let distances = [];
-    //     let closest = -1;
-    //     for (let i = 0; i < markerStore.markers.length; i++) {
-    //         const d = getDistanceBetweenPoints(
-    //             markerStore.markers[i].location.lat,
-    //             markerStore.markers[i].location.lng,
-    //             lat,
-    //             lng
-    //         );
-    //         distances[i] = d;
-    //         if (closest == -1 || d < distances[closest]) {
-    //             closest = i;
-    //         }
-    //     }
-    //     mapStore.yourLocation.center = {
-    //         lat: markerStore.markers[closest].location.lat,
-    //         lng: markerStore.markers[closest].location.lng,
-    //     };
-    //     mapStore.yourLocation.zoom = 18;
-    //     // mapStore.openInfo = true;
-    //     markerStore.currentMarker = markerStore.markers[closest];
-    //     swal("Closest location is " + markerStore.markers[closest].location.lat);
-    //     MapStore.resultWays = false;
-    // }
+
 
     const find_closest_marker = async (lat: number, lng: number) => {
         debugger;
@@ -142,20 +118,23 @@ const CardOfShortDistances: React.FC = () => {
         );
         return addresss;
     }
-    const drow=(i:number)=>{
-        debugger
+    const [cardSelected,setCardSelected]=useState(false)
+    const drow= async(i:number)=>{
+        debugger      
         markerStore.origin.lat=mapStore.yourLocation.center.lat;
         markerStore.origin.lng=mapStore.yourLocation.center.lng;
-        getGeocode({ address: mapStore.address[i] })
+      await  getGeocode({ address: mapStore.address[i] })
                     .then((results) => getLatLng(results[0]))
                     .then(({ lat, lng }) => {
                         markerStore.destination.lat=lat;
                         markerStore.destination.lng=lng;
                     })
-       
-        mapStore.apiIsLoaded()
+       await mapStore.apiIsLoaded()
+        debugger
+        await markerStore.selecteCard()
+        console.log(markerStore.currentMarker.name)
+        setCardSelected(true)
     }
-    const index=[0,1,2]
     return (
         <div>
             {addresses && addresses.map((address: string,index:number) =>(
@@ -169,6 +148,7 @@ const CardOfShortDistances: React.FC = () => {
                      </List>
                  </CardContent>
             ))}
+            {cardSelected&&markerStore.currentMarker&& <CardOfSelected/>}
         </div>
     )
 }

@@ -4,15 +4,17 @@ import { Map } from '../utils/map';
 import markerStore from './markerStore';
 
 
-const apiIsLoaded = (map:any) => {
+const apiIsLoaded =async (map:any) => {
     debugger
     if (map) {
       debugger;
+     
       console.log(map)
       const directionsService = new google.maps.DirectionsService();
       const directionsRenderer = new google.maps.DirectionsRenderer();
       directionsRenderer.setMap(map);
-      directionsService.route(
+      directionsRenderer.setDirections(null)
+     await directionsService.route(
         {
           origin: markerStore.origin,
           destination: markerStore.destination,

@@ -35,21 +35,8 @@ const OurAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           {userStore.userFromFireBase &&
             <div>
-              {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                {userStore.userFromFireBase && userStore.userFromFireBase.displayName}
-              </Typography> */}
-              {/* <img src={`${userStore.userFromFireBase.photoURL}`}></img> */}
               <Stack direction="row" spacing={2}>
                 <Avatar src={userStore.userFromFireBase.photoURL} />
                 {/* alt={userStore.userFromFireBase.displayName} sx={{ bgcolor: deepOrange[500] }} */}

@@ -9,11 +9,10 @@ import { workerData } from 'worker_threads';
 const addSystem = async (system: System, token: string) => {
     debugger;
     try {
-        const res = await axios.post(`http://localhost:3333/system/addSystem`, system);
-        // {
-        //     headers: {"Authorization": token },
-        //     body:
-        // });
+        const res = await axios.post(`http://localhost:3333/system/addSystem`, system,
+        {
+            headers: {"Authorization": token },
+        });
         const data = await res.data;
         console.log(data);
         return data;
@@ -63,12 +62,8 @@ const editSystem = async (managerId: string, system: System, token: string) => {
 
 const getSystemById = async (id: string) => {
     try {
-        debugger
-        console.log(id)
         const res = await axios.get(` http://localhost:3333/system/systemById/${id}`)
-        debugger
         const data = await res.data;
-        console.log(data)
         return data;
     } catch (err) {
         console.log(err)
@@ -101,7 +96,7 @@ class Store {
     }
 
     async addSystem(system: System) {
-        debugger;
+        debugger
         const systemFromDB = await addSystem(system, this.token);
         this.systems.push(system);
         return systemFromDB;

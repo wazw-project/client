@@ -11,6 +11,9 @@ import userStore from '../store/userStore';
 import { observer } from 'mobx-react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import { deepOrange, deepPurple } from '@mui/material/colors';
 
 const OurAppBar = () => {
   const navigate = useNavigate();
@@ -41,6 +44,18 @@ const OurAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
+          {userStore.userFromFireBase &&
+            <div>
+              {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                {userStore.userFromFireBase && userStore.userFromFireBase.displayName}
+              </Typography> */}
+              {/* <img src={`${userStore.userFromFireBase.photoURL}`}></img> */}
+              <Stack direction="row" spacing={2}>
+                <Avatar src={userStore.userFromFireBase.photoURL} />
+                {/* alt={userStore.userFromFireBase.displayName} sx={{ bgcolor: deepOrange[500] }} */}
+              </Stack>
+            </div>
+          }
           <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
           {userStore.user &&
             <>
@@ -50,14 +65,6 @@ const OurAppBar = () => {
           }
           {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
-          {userStore.userFromFireBase &&
-            <div>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                {userStore.userFromFireBase && userStore.userFromFireBase.displayName}
-              </Typography>
-              <img src={`${userStore.userFromFireBase.photoURL}`}></img>
-            </div>
-          }
         </Toolbar>
       </AppBar>
     </Box>

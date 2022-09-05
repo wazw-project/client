@@ -257,15 +257,6 @@ const SearchAndAddMarker: React.FC = (props: any) => {
                   style={{ width: 200 }}
                 />
               </Grid>
-              <Grid item xs={4}>
-                <div className="App">
-                  <button onClick={getLocation}>Get Location</button>
-                  <h1>Coordinates</h1>
-                  <p>{status}</p>
-                  {lat && <p>Latitude: {lat}</p>}
-                  {lng && <p>Longitude: {lng}</p>}
-                </div>
-              </Grid>
               <Grid container spacing={2} height={592}>
                 <Grid item xs={6} md={8}>
                   <GoogleMapReact

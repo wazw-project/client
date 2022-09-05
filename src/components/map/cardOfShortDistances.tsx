@@ -13,7 +13,7 @@ import swal from 'sweetalert';
 import Geocode from "react-geocode";
 import { async } from '@firebase/util';
 import { getGeocode, getLatLng } from 'use-places-autocomplete';
-
+import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 const style = {
     width: '100%',
     maxWidth: 360,
@@ -163,6 +163,7 @@ const CardOfShortDistances: React.FC = () => {
                      <List sx={style} component="nav" aria-label="mailbox folders">
                          <ListItem button>
                              <ListItemText primary={address} />
+                             <DirectionsWalkIcon/>
                          </ListItem>
                          <Divider />
                      </List>

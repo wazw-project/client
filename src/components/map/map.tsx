@@ -144,21 +144,18 @@ const Map: React.FC = (props: any) => {
   }, [open]);
 
 
-  
+
 
   return (
     <Grid container spacing={2} height={592}>
-
       <Grid item xs={6} md={8}>
-    
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
           yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map }) => MapStore.map=map}
-
+          onGoogleApiLoaded={({ map }) => MapStore.map = map}
         >
           <Marker
             lat={MapStore.yourLocation.center.lat}
@@ -175,10 +172,8 @@ const Map: React.FC = (props: any) => {
             />
           ))}
         </GoogleMapReact>
-
       </Grid>
       <Grid item xs={6} md={4}>
-
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role !== "1") &&
           <>
             {(requestStore.currentRequestAddressesName) &&
@@ -190,9 +185,7 @@ const Map: React.FC = (props: any) => {
             <SearchAndAddMarker />
             {MapStore.currentCard && <CardSolution />}
             <RequestForSystem />
-
           </>}
-
       </Grid>
     </Grid>
   );

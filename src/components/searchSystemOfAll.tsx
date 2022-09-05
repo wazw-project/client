@@ -71,10 +71,6 @@ const SearchSystemOfAll: React.FC = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button variant="contained" onClick={() => {
-                                        debugger
-                                       
-                                      
-                                       debugger
                                         navigate(`/Map/${system.urlName}/${system._id}`)
                                     }}
                                     >see the places of this system</Button>

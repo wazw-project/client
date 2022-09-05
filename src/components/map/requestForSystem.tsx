@@ -32,6 +32,9 @@ import { observer } from 'mobx-react-lite';
 import ManagerStore from '../../store/managerStore';
 import userStore from '../../store/userStore';
 
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
     const [address, setAddress] = useState("")
@@ -85,47 +88,48 @@ const RequestForSystem = () => {
 
 
     }, [])
-    const confirm=async()=>{
+    const confirm = async () => {
         debugger
-        const manager={ 
+        const manager = {
             "user_id": userStore.user._id,
-            "system_id":systemStore.currentSystem._id,
+            "system_id": systemStore.currentSystem._id,
             "active": true,
-            "display_name":  requestStore.currentRequest.display_name,
-        //    "role": Role.MANAGER,
-           "invitation_sent": "aaa"
-          }
-          debugger
-         ManagerStore.addManager(manager)
-         debugger
-         ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id,systemStore.currentSystem._id)
-    const newMarker: any = {
-      "manager_id": systemStore.currentSystem.managerUid,
-      "system_id": systemStore.currentSystem._id,
-      "location": {
-        "lat":requestStore.currentRequest.location.lat,
-        "lng":requestStore.currentRequest.location.lng
-      },
-      "description": requestStore.currentRequest.display_name,
-      "name": requestStore.currentRequest.firstName+" "+requestStore.currentRequest.lastName ,
-      "notes":requestStore.currentRequest.notes,
-      "phone": requestStore.currentRequest.phone,
-      "email":  requestStore.currentRequest.email}
-     MapStore.setCardOfSolution(false);
-     markerStore.addMarker(newMarker);
-     MapStore.setZoom(13);
-     MapStore.setCenter(requestStore.currentRequest.location.lat,requestStore.currentRequest.location.lng);
-     await requestStore.removeRequest(requestStore.currentRequest._id)
-    handleClose()
-    MapStore.yourLocation.center.lng=markerStore.currentMarker.location.lng;
-    MapStore.yourLocation.center.lat=markerStore.currentMarker.location.lat;
-    MapStore.yourLocation.zoom=20
-   
- 
-  
-   requestStore.currentRequest=null
-   
-        
+            "display_name": requestStore.currentRequest.display_name,
+            //    "role": Role.MANAGER,
+            "invitation_sent": "aaa"
+        }
+        debugger
+        ManagerStore.addManager(manager)
+        debugger
+        ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id, systemStore.currentSystem._id)
+        const newMarker: any = {
+            "manager_id": systemStore.currentSystem.managerUid,
+            "system_id": systemStore.currentSystem._id,
+            "location": {
+                "lat": requestStore.currentRequest.location.lat,
+                "lng": requestStore.currentRequest.location.lng
+            },
+            "description": requestStore.currentRequest.display_name,
+            "name": requestStore.currentRequest.firstName + " " + requestStore.currentRequest.lastName,
+            "notes": requestStore.currentRequest.notes,
+            "phone": requestStore.currentRequest.phone,
+            "email": requestStore.currentRequest.email
+        }
+        MapStore.setCardOfSolution(false);
+        markerStore.addMarker(newMarker);
+        MapStore.setZoom(13);
+        MapStore.setCenter(requestStore.currentRequest.location.lat, requestStore.currentRequest.location.lng);
+        await requestStore.removeRequest(requestStore.currentRequest._id)
+        handleClose()
+        MapStore.yourLocation.center.lng = markerStore.currentMarker.location.lng;
+        MapStore.yourLocation.center.lat = markerStore.currentMarker.location.lat;
+        MapStore.yourLocation.zoom = 20
+
+
+
+        requestStore.currentRequest = null
+
+
     }
     const dontConfirm = async () => {
         await requestStore.removeRequest(requestStore.currentRequest._id)
@@ -143,8 +147,11 @@ const RequestForSystem = () => {
                 </ListItemIcon>
                 <ListItemText primary="request add location" />
                 {requestStore.request.length > 0 &&
-                    <ListItemText sx={{ color: "red" }} primary={requestStore.request.length} />}
-                {open ? <ExpandLess /> : <ExpandMore />}
+                    <Badge badgeContent={requestStore.request.length} color="primary">
+                        <MailIcon color="action" />
+                    </Badge>}
+                {/* <ListItemText sx={{ color: "red" }} primary={requestStore.request.length} />} */}
+                {/* {open ? <ExpandLess /> : <ExpandMore />} */}
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>

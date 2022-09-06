@@ -77,6 +77,16 @@ class Store {
         this.markers = await getAllMarkerForSystem(id)
         console.log(this.markers)
     }
+    async selecteCard() {
+        debugger
+        console.log(this.destination.lat)
+        console.log(this.markers[0].location.lat)
+        console.log(this.markers[1].location.lat)
+        console.log(this.markers[2].location.lat)
+        this.currentMarker = await this.markers.find((m)=>(m.location.lat===this.destination.lat))
+      
+       
+    }
     async removeMarkers(id: string) {
         console.log(this.markers)
         await deleteMarker(id)

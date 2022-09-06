@@ -12,6 +12,8 @@ import SearchSystemOfAll from "./components/searchSystemOfAll";
 import AutoComplitSystem from "./components/system/autoComplitSystem";
 import { onAuthStateChanged,getAuth } from "firebase/auth";
 import userStore from "./store/userStore";
+import About from "./components/about";
+import { ThemeProvider,createTheme } from "@mui/material";
 
 
 let auth = getAuth();
@@ -31,9 +33,19 @@ onAuthStateChanged(auth, (user) => {
 });
 
 function App() {
-
+  let theme = createTheme();
+theme = createTheme(theme, {
+  palette: {
+    primary: {
+      main: "#FF0000",
+      light: "#b71c1c",
+      dark: "#f44336",
+    },
+  },
+});
   return (
     <div className="app">
+       <ThemeProvider theme={theme}>
       <Router>
       <OurAppBar />
         <Routes>
@@ -49,8 +61,10 @@ function App() {
           <Route path="/AddMarker" element={<AddMarker/>} /> 
           <Route path="/autoComplitSystem" element={<AutoComplitSystem />} /> 
           <Route path="/searchSystemOfAll" element={<SearchSystemOfAll/>}/>
+          <Route path="/about" element={<About/>}/>
         </Routes>
       </Router>
+      </ThemeProvider>
     </div>
   );
 }

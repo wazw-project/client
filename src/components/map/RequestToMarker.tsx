@@ -229,7 +229,7 @@ const Request = () => {
                                         lat={MapStore.currentMap.center.lat}
                                         lng={MapStore.currentMap.center.lng}
                                         name={'your location'}
-                                        color={'yellow'}
+                                        color={'white'}
                                     />
                                 </GoogleMapReact>
                             </Grid>

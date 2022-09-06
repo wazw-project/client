@@ -30,6 +30,9 @@ const OurAppBar = () => {
   const Allsystem = () => {
     navigate('/searchSystemOfAll')
   }
+  const About = () => {
+    navigate('/About')
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -43,7 +46,9 @@ const OurAppBar = () => {
               </Stack>
             </div>
           }
+            <Button color="inherit" onClick={() => About()}>about</Button>
           <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
+        
           {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>

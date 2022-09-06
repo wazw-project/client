@@ -55,7 +55,6 @@ const SearchSystemOfAll: React.FC = () => {
                                     component="img"
                                     alt="system"
                                     height="140"
-
                                     image={system.urlImage}
                                 />
                                 <CardContent >

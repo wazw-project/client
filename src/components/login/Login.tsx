@@ -32,20 +32,20 @@ const Login: React.FC = () => {
       return;
     }
     if (user) {
-      debugger
-      console.log(user.uid)
-      debugger
       loginFromDB(user.uid);
       userStore.userFromFireBase=user;
-      console.log(userStore.userFromFireBase)     
-      user.getIdToken().then((value=>{
-        console.log(value);   
-        userStore.token=value;
-        // store.setToken(value);
-      }))
-      console.log(userStore.token);
+      getIdToken();
     };
   }, [user, loading]);
+
+  const getIdToken=async()=>{
+    await user?.getIdToken().then((value=>{
+      debugger
+      console.log(value);   
+      userStore.token=value;
+    }));
+    console.log(userStore.token);
+  }
 
   const logIn = async () => {
     debugger

@@ -26,25 +26,24 @@ class Store {
     user: any = null;
     userFromFireBase: any = null;
     token:string="";
-    loginFrom="/"
+    loginFrom="/";
+
     constructor() {
         makeAutoObservable(this);
     } 
+
     async addUser(user:User|any){
-        debugger
         await addUser(user);
         this.user=user;
         console.log(this.user)
     }
+
     async onRefresh(user:User|any){
         await addUser(user);
         this.user=user;
     }
  
-
     async getUser(id:string){
-        debugger
-        debugger;
        const user= await getUser(id);
        this.user=user;
        console.log(this.user)

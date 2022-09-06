@@ -6,8 +6,9 @@ import { workerData } from 'worker_threads';
 
 
 
-const addSystem = async (system: System, token: string) => {
+const addSystem = async (system: System) => {
     debugger;
+    const token:any= userStore.token;
     try {
         const res = await axios.post(`http://localhost:3333/system/addSystem`, system,
         {
@@ -42,7 +43,8 @@ const getAllSystems = async () => {
     } catch (error) { console.log(error); }
 }
 
-const removeSystem = async (systemId: string, token: string) => {
+const removeSystem = async (systemId: string) => {
+    const token:any= userStore.token;
     try {
         await axios.delete(` http://localhost:3333/system/${systemId}`,
             {
@@ -51,10 +53,14 @@ const removeSystem = async (systemId: string, token: string) => {
     } catch (error) { console.log(error); }
 }
 
-const editSystem = async (managerId: string, system: System, token: string) => {
+const editSystem = async (managerId: string, system: System) => {
+    const token:any= userStore.token;
+    debugger
     try {
-        const res = await axios.put(` http://localhost:3333/system/${managerId}`, system)
-
+        const res = await axios.put(` http://localhost:3333/system/${managerId}`, system,
+        {
+            headers: {"Authorization": token },
+        });
         const data = await res.data;
         console.log(data);
     } catch (error) { console.log(error); }
@@ -62,7 +68,7 @@ const editSystem = async (managerId: string, system: System, token: string) => {
 
 const getSystemById = async (id: string) => {
     try {
-        const res = await axios.get(` http://localhost:3333/system/systemById/${id}`)
+        const res = await axios.get(`http://localhost:3333/system/systemById/${id}`)
         const data = await res.data;
         return data;
     } catch (err) {
@@ -74,7 +80,6 @@ const getSystemById = async (id: string) => {
 class Store {
     systems: System[] = [];
     currentSystem: any = null;
-    token: string = "";
     allSystems: System[] = [];
 
     constructor() {
@@ -97,19 +102,19 @@ class Store {
 
     async addSystem(system: System) {
         debugger
-        const systemFromDB = await addSystem(system, this.token);
+        const systemFromDB = await addSystem(system);
         this.systems.push(system);
         return systemFromDB;
     }
 
 
     async removeSystem() {
-        await removeSystem(this.currentSystem._id, this.token);
+        await removeSystem(this.currentSystem._id);
         this.currentSystem = null;
     }
 
     async editSystem(system: System) {
-        await editSystem(this.currentSystem._id, system, this.token);
+        await editSystem(this.currentSystem._id, system);
         this.currentSystem = system;
     }
 

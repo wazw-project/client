@@ -106,7 +106,7 @@ const Login: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'blue' }}>
+        <Avatar sx={{ m: 1, bgcolor: '#FF0000' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">

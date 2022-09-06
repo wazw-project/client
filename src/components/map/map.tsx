@@ -161,7 +161,7 @@ const Map: React.FC = (props: any) => {
             lat={MapStore.yourLocation.center.lat}
             lng={MapStore.yourLocation.center.lng}
             name={'your location'}
-            color={'yellow'}
+            color={'white'}
           />
           {markers && markerStore.markers.map(m => (
             <Marker

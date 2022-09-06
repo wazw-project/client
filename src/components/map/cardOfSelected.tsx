@@ -13,16 +13,16 @@ const CardOfSelected=()=> {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+      <Typography variant="h5" component="div">
         {markerStore.currentMarker.name}
         </Typography>
         <Typography variant="h5" component="div">
         {markerStore.currentMarker.description}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        <Typography variant="h5" component="div">
         {markerStore.currentMarker.phone}
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="h5" component="div">
         {markerStore.currentMarker.email}
       
         </Typography>

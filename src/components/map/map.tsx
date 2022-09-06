@@ -147,7 +147,7 @@ const Map: React.FC = (props: any) => {
 
 
   return (
-    <Grid container spacing={2} height={592}>
+    <Grid container spacing={2} height={662}>
       <Grid item xs={6} md={8}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}

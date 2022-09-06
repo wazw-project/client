@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Marker } from '../utils/marker';
 import { get } from 'react-hook-form';
 import systemStore from './systemStore';
+import Geocode from "react-geocode";
 const addMarker = async (marker: Marker) => {
     try {
         const res = await axios.post(`http://localhost:3333/marker/addMarker`, marker);
@@ -46,6 +47,27 @@ const getMarkersBySystemId=async(systemId: string)=>{
     }
     catch (error) { console.log(error); }
 }
+
+
+const getLocationNameByLatLng = async (lat:number,lng:number) => {
+    debugger
+    let addresss = "";
+    Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+    Geocode.enableDebug();
+    console.log(lat.toString())
+    console.log(lng.toString())
+    await Geocode.fromLatLng(lat.toString(),lng.toString()).then(
+        (response: any) => {
+            addresss = response.results[0].formatted_address;
+        },
+        (error: any) => {
+            console.error(error);
+        }
+    );
+    debugger;
+    console.log(addresss)
+    return addresss;
+}
 class Store {
 
      origin = { lat: 40.756795, lng: -73.954298 };
@@ -81,9 +103,12 @@ class Store {
         debugger
         console.log(this.destination.lat)
         console.log(this.markers[0].location.lat)
+        debugger;
         console.log(this.markers[1].location.lat)
         console.log(this.markers[2].location.lat)
-        this.currentMarker = await this.markers.find((m)=>(m.location.lat===this.destination.lat))
+        this.currentMarker = await this.markers.find((m)=>(
+             getLocationNameByLatLng(m.location.lat,m.location.lng)===getLocationNameByLatLng(this.destination.lat,this.destination.lng)
+            ))
       
        
     }

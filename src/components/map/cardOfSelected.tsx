@@ -18,10 +18,10 @@ const CardOfSelected = () => {
     <Card sx={{ minWidth: 275,textAlign:'center' }}>
 
       <CardContent>
-        <Typography sx={{ color: '#FF0000' }} variant="h4" component="div">
+        <Typography sx={{ color: '#b2ebf2' }} variant="h4" component="div">
           details:
         </Typography>
-        
+
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid sx={{height:'50%',marginLeft:'5%',marginTop:'3%'}} >
             <Man2Icon />

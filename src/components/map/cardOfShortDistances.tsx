@@ -120,6 +120,8 @@ const CardOfShortDistances: React.FC = () => {
     }
     const [cardSelected,setCardSelected]=useState(false)
     const drow= async(i:number)=>{
+        markerStore.currentMarker=null
+        setCardSelected(false)
         debugger      
         markerStore.origin.lat=mapStore.yourLocation.center.lat;
         markerStore.origin.lng=mapStore.yourLocation.center.lng;
@@ -132,7 +134,7 @@ const CardOfShortDistances: React.FC = () => {
        await mapStore.apiIsLoaded()
         debugger
         await markerStore.selecteCard()
-        console.log(markerStore.currentMarker.name)
+
         setCardSelected(true)
     }
     return (

@@ -13,7 +13,7 @@ import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import MailIcon from '@mui/icons-material/Mail';
 import Grid from '@mui/material/Grid';
 
-const CardOfSelected = () => {
+const CardOfSelected: React.FC = () => {
   return (
     <Card sx={{ minWidth: 275,textAlign:'center' }}>
 
@@ -21,7 +21,6 @@ const CardOfSelected = () => {
         <Typography sx={{ color: '#b2ebf2' }} variant="h4" component="div">
           details:
         </Typography>
-
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid sx={{height:'50%',marginLeft:'5%',marginTop:'3%'}} >
             <Man2Icon />
@@ -68,4 +67,4 @@ const CardOfSelected = () => {
     </Card>
   );
 }
-export default observer(CardOfSelected) 
+export default observer(CardOfSelected)

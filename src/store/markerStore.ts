@@ -4,6 +4,7 @@ import { Marker } from '../utils/marker';
 import { get } from 'react-hook-form';
 import systemStore from './systemStore';
 import Geocode from "react-geocode";
+import { breakpoints } from '@mui/system';
 const addMarker = async (marker: Marker) => {
     try {
         const res = await axios.post(`http://localhost:3333/marker/addMarker`, marker);
@@ -39,7 +40,7 @@ const deleteMarker = async (marker_id: string | undefined) => {
     catch (error) { console.log(error); }
 }
 
-const getMarkersBySystemId=async(systemId: string)=>{
+const getMarkersBySystemId = async (systemId: string) => {
     try {
         const res = await axios.delete(`http://localhost:3333/marker/getBySystemId/${systemId}`);
         let tempList = await res.data;
@@ -49,14 +50,14 @@ const getMarkersBySystemId=async(systemId: string)=>{
 }
 
 
-const getLocationNameByLatLng = async (lat:number,lng:number) => {
+const getLocationNameByLatLng = async (lat: number, lng: number) => {
     debugger
     let addresss = "";
     Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
     Geocode.enableDebug();
     console.log(lat.toString())
     console.log(lng.toString())
-    await Geocode.fromLatLng(lat.toString(),lng.toString()).then(
+    await Geocode.fromLatLng(lat.toString(), lng.toString()).then(
         (response: any) => {
             addresss = response.results[0].formatted_address;
         },
@@ -70,9 +71,9 @@ const getLocationNameByLatLng = async (lat:number,lng:number) => {
 }
 class Store {
 
-     origin = { lat: 40.756795, lng: -73.954298 };
-     destination = { lat: 41.756795, lng: -78.954298 };
-    
+    origin = { lat: 40.756795, lng: -73.954298 };
+    destination = { lat: 41.756795, lng: -78.954298 };
+
     markers: Marker[] = [];
     currentMarker: any = null;
     markerToAdd: Marker = {
@@ -92,7 +93,7 @@ class Store {
     constructor() {
         makeAutoObservable(this);
 
-       
+
     }
     async getAllMarkerForSystem(id: string) {
         debugger
@@ -101,16 +102,25 @@ class Store {
     }
     async selecteCard() {
         debugger
-        console.log(this.destination.lat)
-        console.log(this.markers[0].location.lat)
+        const addressName = await getLocationNameByLatLng(this.destination.lat, this.destination.lng)
+        debugger
+        console.log(addressName)
+        // this.currentMarker = await this.markers.find(async (m) => (
+            
+        //    (await getLocationNameByLatLng(m.location.lat, m.location.lng))  === addressName)
+        // )
+        await this.markers.map(async (m)=>{
+            debugger
+            const addressNameM= await getLocationNameByLatLng(m.location.lat, m.location.lng)
+            if(addressNameM===addressName){
+                debugger
+                this.currentMarker=m
+                
+            }
+        })
         debugger;
-        console.log(this.markers[1].location.lat)
-        console.log(this.markers[2].location.lat)
-        this.currentMarker = await this.markers.find((m)=>(
-             getLocationNameByLatLng(m.location.lat,m.location.lng)===getLocationNameByLatLng(this.destination.lat,this.destination.lng)
-            ))
-      
-       
+        console.log(this.currentMarker)
+
     }
     async removeMarkers(id: string) {
         console.log(this.markers)

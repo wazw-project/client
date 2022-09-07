@@ -6,7 +6,9 @@ import {RequestToMarker} from '../utils/request'
 const addRequest = async (request:RequestToMarker) => {
     try {
         debugger;
-        const res = await axios.post(`http://localhost:3333/request/addRequest`, request);
+        //const res = await axios.post(`http://localhost:3333/request/addRequest`, request);
+        const res = await axios.post(`https://waze-project-360208.el.r.appspot.com/request/addRequest`, request);
+
         let tempList = await res.data;
         console.log(tempList)
         return tempList;
@@ -15,7 +17,9 @@ const addRequest = async (request:RequestToMarker) => {
 const getRequestForSystem = async (id:string) => {
     try {
         debugger;
-        const res = await axios.get(`http://localhost:3333/request/getBySystemId/${id}`);
+      //  const res = await axios.get(`http://localhost:3333/request/getBySystemId/${id}`);
+      const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/request/getBySystemId/${id}`);
+
         let tempList = await res.data;
         console.log(tempList)
         return tempList;
@@ -24,7 +28,9 @@ const getRequestForSystem = async (id:string) => {
 const removeRequest = async (id:string) => {
     try {
         debugger;
-        const res = await axios.delete(`http://localhost:3333/request/${id}`);
+        //const res = await axios.delete(`http://localhost:3333/request/${id}`);
+        const res = await axios.delete(`https://waze-project-360208.el.r.appspot.com/request/${id}`);
+
         let tempList = await res.data;
         console.log(tempList)
         return tempList;
@@ -33,7 +39,9 @@ const removeRequest = async (id:string) => {
 const getRequestById = async (id:string) => {
    try {
         debugger;
-        const res = await axios.get(`http://localhost:3333/request/${id}`);
+        //const res = await axios.get(`http://localhost:3333/request/${id}`);
+        const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/request/${id}`);
+
         let tempList = await res.data;
         console.log(tempList)
         return tempList;

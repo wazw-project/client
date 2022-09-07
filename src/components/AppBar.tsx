@@ -38,6 +38,7 @@ const OurAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+      
           {userStore.userFromFireBase &&
             <div>
               <Stack direction="row" spacing={2}>
@@ -46,15 +47,16 @@ const OurAppBar = () => {
               </Stack>
             </div>
           }
-            <Button color="inherit" onClick={() => About()}>about</Button>
-          <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
-        
-          {userStore.user &&
+            {userStore.user &&
             <>
               <Button color="inherit" onClick={() => logOut()}>log out</Button>
               <Button color="inherit" onClick={() => system()}>your system</Button>
             </>
           }
+            
+          <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
+        
+          <Button color="inherit" onClick={() => About()}>about</Button>
           {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
         </Toolbar>

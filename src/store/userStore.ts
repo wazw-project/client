@@ -5,7 +5,9 @@ import axios from 'axios';
 const addUser=async(userToDb:User)=>{
     try {
         debugger
-        const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
+        //const res = await axios.post(`http://localhost:3333/user/addUser`, userToDb);
+
+        const res = await axios.post(`https://waze-project-360208.el.r.appspot.com/user/addUser`, userToDb);
         let tempList = await res.data;
         console.log(tempList)
         return tempList;
@@ -16,7 +18,9 @@ const addUser=async(userToDb:User)=>{
 const getUser=async(id:string)=>{
     try{
         debugger
-       const res = await axios.get(`http://localhost:3333/user/${id}`);   
+      // const res = await axios.get(`http://localhost:3333/user/${id}`);  
+       const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/user/${id}`);   
+
        let tempList = await res.data;
        return tempList;
     }catch(error) { console.log(error); }

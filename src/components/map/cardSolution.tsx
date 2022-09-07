@@ -48,8 +48,8 @@ const CardSolution: React.FC = () => {
     <Card sx={{ maxWidth: 450, marginTop: "5%" }}>
       <CardMedia
         component="img"
-        height="200"
-        image="https://images.macrumors.com/t/Mzdy96yMLLhSy2dj7m3VXwkazns=/400x0/article-new/2021/04/Google-maps-feaure.jpg?lossy"
+        height="150"
+        image="https://img.icons8.com/external-wanicon-lineal-color-wanicon/344/external-map-user-interface-wanicon-lineal-color-wanicon.png"
         alt="green iguana"
       />
       <CardContent>

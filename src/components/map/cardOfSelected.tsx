@@ -21,14 +21,16 @@ const CardOfSelected: React.FC = () => {
         <Typography sx={{ color: '#b2ebf2' }} variant="h4" component="div">
           details:
         </Typography>
+
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid sx={{height:'50%',marginLeft:'5%',marginTop:'3%'}} >
             <Man2Icon />
           </Grid>
           <Grid item >
+            {markerStore.currentMarker.name&&
             <Typography variant="h5" component="div">
               {markerStore.currentMarker.name}
-            </Typography>
+            </Typography>}
           </Grid>
         </Grid>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -36,9 +38,10 @@ const CardOfSelected: React.FC = () => {
             <DescriptionIcon />
           </Grid>
           <Grid item >
+          {markerStore.currentMarker.description&&
             <Typography variant="h5" component="div">
             {markerStore.currentMarker.description}
-            </Typography>
+            </Typography>}
           </Grid>
         </Grid>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -46,9 +49,10 @@ const CardOfSelected: React.FC = () => {
             <PhoneIphoneIcon />
           </Grid>
           <Grid item >
+          {markerStore.currentMarker.phone &&
             <Typography variant="h5" component="div">
             {markerStore.currentMarker.phone}
-            </Typography>
+            </Typography>}
           </Grid>
         </Grid>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -56,9 +60,10 @@ const CardOfSelected: React.FC = () => {
             <MailIcon />
           </Grid>
           <Grid item >
+          {markerStore.currentMarker.email &&
             <Typography variant="h5" component="div">
             {markerStore.currentMarker.email}
-            </Typography>
+            </Typography>}
           </Grid>
         </Grid>
       

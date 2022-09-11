@@ -7,8 +7,8 @@ import Geocode from "react-geocode";
 import { breakpoints } from '@mui/system';
 const addMarker = async (marker: Marker) => {
     try {
-       // const res = await axios.post(`http://localhost:3333/marker/addMarker`, marker);
-       const res = await axios.post(`https://waze-project-360208.el.r.appspot.com/marker/addMarker`, marker);
+        const res = await axios.post(`http://localhost:3333/marker/addMarker`, marker);
+      // const res = await axios.post(`https://waze-project-360208.el.r.appspot.com/marker/addMarker`, marker);
 
         let tempList = await res.data;
         return tempList;
@@ -16,8 +16,8 @@ const addMarker = async (marker: Marker) => {
 }
 const UpdateMarker = async (id: string, marker: Marker) => {
     try {
-       // const res = await axios.put(`http://localhost:3333/marker/${id}`, marker);
-       const res = await axios.put(`https://waze-project-360208.el.r.appspot.com/marker/${id}`, marker);
+        const res = await axios.put(`http://localhost:3333/marker/${id}`, marker);
+      // const res = await axios.put(`https://waze-project-360208.el.r.appspot.com/marker/${id}`, marker);
 
         let tempList = await res.data;
         return tempList;
@@ -26,8 +26,8 @@ const UpdateMarker = async (id: string, marker: Marker) => {
 const getAllMarkerForSystem = async (system_id: string) => {
     try {
         debugger
-        //const res = await axios.get(`http://localhost:3333/marker/getBySystemId/${system_id}`);
-        const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/marker/getBySystemId/${system_id}`);
+        const res = await axios.get(`http://localhost:3333/marker/getBySystemId/${system_id}`);
+       // const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/marker/getBySystemId/${system_id}`);
 
         debugger
         let tempList = await res.data;
@@ -39,8 +39,8 @@ const getAllMarkerForSystem = async (system_id: string) => {
 }
 const deleteMarker = async (marker_id: string | undefined) => {
     try {
-       // const res = await axios.delete(`http://localhost:3333/marker/${marker_id}`);
-       const res = await axios.delete(`https://waze-project-360208.el.r.appspot.com/marker/${marker_id}`);
+        const res = await axios.delete(`http://localhost:3333/marker/${marker_id}`);
+       //const res = await axios.delete(`https://waze-project-360208.el.r.appspot.com/marker/${marker_id}`);
 
         let tempList = await res.data;
         return tempList;
@@ -50,8 +50,8 @@ const deleteMarker = async (marker_id: string | undefined) => {
 
 const getMarkersBySystemId = async (systemId: string) => {
     try {
-       // const res = await axios.delete(`http://localhost:3333/marker/getBySystemId/${systemId}`);
-       const res = await axios.delete(`https://waze-project-360208.el.r.appspot.com/marker/getBySystemId/${systemId}`);
+        const res = await axios.delete(`http://localhost:3333/marker/getBySystemId/${systemId}`);
+       //const res = await axios.delete(`https://waze-project-360208.el.r.appspot.com/marker/getBySystemId/${systemId}`);
 
         let tempList = await res.data;
         return tempList;
@@ -63,7 +63,8 @@ const getMarkersBySystemId = async (systemId: string) => {
 const getLocationNameByLatLng = async (lat: number, lng: number) => {
     debugger
     let addresss = "";
-    Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+    Geocode.setApiKey("AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k");
+    
     Geocode.enableDebug();
     console.log(lat.toString())
     console.log(lng.toString())

@@ -16,10 +16,12 @@ const Recaptcha: React.FC = () => {
     return (
         <div className="App">
             <ReCAPTCHA
-                sitekey="6LcYY7khAAAAAOL3e8Ah4gKrhlxlfykO615GjHaY"
+                sitekey="6LedkOIhAAAAAKvuKxYuIYc0MgrLdNfwoxv546-7"
                 onChange={onChange}
             />
         </div>
     );
 };
 export default Recaptcha;
+
+

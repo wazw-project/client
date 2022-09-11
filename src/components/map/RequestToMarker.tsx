@@ -19,6 +19,7 @@ import Geocode from "react-geocode";
 import userStore from '../../store/userStore';
 import Login from '../login/Login';
 import Recaptcha from '../reCAPTCHA';
+import MailStore from '../../store/mailStore';
 
 const Request = () => {
     const [open, setOpen] = React.useState(false);
@@ -81,6 +82,7 @@ const Request = () => {
         setOpen(false);
     };
     const sendRequest = async () => {
+
         if (FirstNameV === "" || LastNameV === "" || PhoneV === "" || EmailV === "" || !isValidEmail(EmailV)) {
             swal("your form is not validate!!", "You clicked the button!", "error");
         }
@@ -100,10 +102,11 @@ const Request = () => {
                 },
             }
             try {
+
                 await requestStore.addRequest(newRequest)
                 requestStore.currentRequest = newRequest
-
-                swal("saved!", "your request send!", "success");
+              await MailStore.sendMailToUser(newRequest.email)
+                swal("saved!", "your request send to manager and you get mail about it!", "success");
             }
             catch (error) {
                 swal("error!", "error", "error");
@@ -120,7 +123,7 @@ const Request = () => {
     }
     const getLocationNameByLatLng = () => {
         debugger
-        Geocode.setApiKey("AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw");
+        Geocode.setApiKey("AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k");
         Geocode.enableDebug();
         Geocode.fromLatLng(MapStore.currentMap.center.lat.toString(), MapStore.currentMap.center.lng.toString()).then(
             (response: any) => {
@@ -219,7 +222,7 @@ const Request = () => {
                         <Grid container spacing={2} height={592}>
                             <Grid item xs={6} md={8}>
                                 <GoogleMapReact
-                                    bootstrapURLKeys={{ key: 'AIzaSyAcibzCa3ilUV5eZNEQpjqLmWzdm35tymw' }}
+                                    bootstrapURLKeys={{ key: 'AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k' }}
                                     center={{ lat: MapStore.currentMap.center.lat && MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng && MapStore.yourLocation.center.lng }}
                                     zoom={18}
                                     // onGoogleApiLoaded={() => getLocation()}

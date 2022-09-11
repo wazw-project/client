@@ -10,8 +10,8 @@ const addSystem = async (system: System) => {
     debugger;
     const token:any= userStore.token;
     try {
-       // const res = await axios.post(`http://localhost:3333/system/addSystem`, system,
-       const res = await axios.post(`https://waze-project-360208.el.r.appspot.com/system/addSystem`, system,
+        const res = await axios.post(`http://localhost:3333/system/addSystem`, system,
+      // const res = await axios.post(`https://waze-project-360208.el.r.appspot.com/system/addSystem`, system,
 
         {
             headers: {"Authorization": token },
@@ -25,8 +25,8 @@ const addSystem = async (system: System) => {
 const getSystems = async (managerId: string) => {
     try {
         debugger
-        //const res = await axios.get(`http://localhost:3333/system/${managerId}`)
-        const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/system/${managerId}`)
+        const res = await axios.get(`http://localhost:3333/system/${managerId}`)
+        //const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/system/${managerId}`)
      
         // {
         //     headers: {"Authorization": token },
@@ -40,8 +40,8 @@ const getSystems = async (managerId: string) => {
 const getAllSystems = async () => {
     debugger
     try {
-      //  const res = await axios.get(`http://localhost:3333/system`)
-        const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/system`)
+        const res = await axios.get(`http://localhost:3333/system`)
+        //const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/system`)
 
         let tempList = await res.data;
         console.log(tempList);
@@ -52,9 +52,9 @@ const getAllSystems = async () => {
 const removeSystem = async (systemId: string) => {
     const token:any= userStore.token;
     try {
-        //await axios.delete(` http://localhost:3333/system/${systemId}`,
+        await axios.delete(` http://localhost:3333/system/${systemId}`,
 
-        await axios.delete(`https://waze-project-360208.el.r.appspot.com/system/${systemId}`,
+        //await axios.delete(`https://waze-project-360208.el.r.appspot.com/system/${systemId}`,
             {
                 headers: { "Authorization": token },
             });
@@ -65,9 +65,9 @@ const editSystem = async (managerId: string, system: System) => {
     const token:any= userStore.token;
     debugger
     try {
-        //const res = await axios.put(` http://localhost:3333/system/${managerId}`, system,
+        const res = await axios.put(` http://localhost:3333/system/${managerId}`, system,
 
-        const res = await axios.put(`https://waze-project-360208.el.r.appspot.com/system/${managerId}`, system,
+        //const res = await axios.put(`https://waze-project-360208.el.r.appspot.com/system/${managerId}`, system,
         {
             headers: {"Authorization": token },
         });
@@ -78,9 +78,9 @@ const editSystem = async (managerId: string, system: System) => {
 
 const getSystemById = async (id: string) => {
     try {
-       // const res = await axios.get(`http://localhost:3333/system/systemById/${id}`)
+        const res = await axios.get(`http://localhost:3333/system/systemById/${id}`)
 
-        const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/system/systemById/${id}`)
+        //const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/system/systemById/${id}`)
         const data = await res.data;
         return data;
     } catch (err) {

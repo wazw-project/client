@@ -106,7 +106,7 @@ const Map: React.FC = (props: any) => {
 
   const getLocationNameByLatLng = () => {
     debugger
-    Geocode.setApiKey("AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k");
+    Geocode.setApiKey(process.env.MAP_APY_KEY|| '');
     Geocode.enableDebug();
     Geocode.fromLatLng(lat.toString(), lng.toString()).then(
       (response: any) => {
@@ -150,7 +150,7 @@ const Map: React.FC = (props: any) => {
     <Grid container spacing={2} height={662}>
       <Grid item xs={6} md={8}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k' }}
+          bootstrapURLKeys={{ key: process.env.MAP_APY_KEY || ''}}
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}

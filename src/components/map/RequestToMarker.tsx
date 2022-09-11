@@ -123,7 +123,7 @@ const Request = () => {
     }
     const getLocationNameByLatLng = () => {
         debugger
-        Geocode.setApiKey("AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k");
+        Geocode.setApiKey(process.env.MAP_APY_KEY|| '');
         Geocode.enableDebug();
         Geocode.fromLatLng(MapStore.currentMap.center.lat.toString(), MapStore.currentMap.center.lng.toString()).then(
             (response: any) => {
@@ -222,7 +222,7 @@ const Request = () => {
                         <Grid container spacing={2} height={592}>
                             <Grid item xs={6} md={8}>
                                 <GoogleMapReact
-                                    bootstrapURLKeys={{ key: 'AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k' }}
+                                    bootstrapURLKeys={{ key: process.env.MAP_APY_KEY || ''}}
                                     center={{ lat: MapStore.currentMap.center.lat && MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng && MapStore.yourLocation.center.lng }}
                                     zoom={18}
                                     // onGoogleApiLoaded={() => getLocation()}

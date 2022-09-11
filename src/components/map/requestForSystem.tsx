@@ -45,7 +45,7 @@ const RequestForSystem = () => {
     const getLocationNameByLatLng = () => {
         if (requestStore.currentRequest) {
             debugger
-            Geocode.setApiKey("AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k");
+            Geocode.setApiKey(process.env.MAP_APY_KEY|| '');
             Geocode.enableDebug();
             debugger
             Geocode.fromLatLng(requestStore.currentRequest.location.lat.toString(), requestStore.currentRequest.location.lng.toString()).then(

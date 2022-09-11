@@ -36,23 +36,22 @@ const Map: React.FC = (props: any) => {
     await getSystemById()
     await getManagers()
     await getMarker();
+   
   }
   const getSystemById = async () => {
-    debugger
+    
     await systemStore.getSystemById(String(id))
-    debugger;
+
     console.log(systemStore.currentSystem._id)
   }
   const getManagers = async () => {
-    debugger
+  
     if (userStore.user) {
       await ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id, systemStore.currentSystem._id)
-      console.log(ManagerStore.currentManager.role)
     }
   }
   async function getMarker() {
     try {
-      debugger
       if (systemStore.currentSystem) {
         console.log(systemStore.currentSystem._id)
         await markerStore.getAllMarkerForSystem(systemStore.currentSystem._id);
@@ -71,15 +70,17 @@ const Map: React.FC = (props: any) => {
       styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
     };
   };
-  const [direction, setDirection] = useState<directionResult>()
-  const [lat, setLat] = useState<number>(0);
-  const [lng, setLng] = useState<number>(0);
+  const [lat, setLat] = useState<number>(mapStore.yourLocation.center.lat);
+  const [lng, setLng] = useState<number>(mapStore.yourLocation.center.lng);
   const [status, setStatus] = useState<string>("");
-  const [mapp, setMapp] = useState()
   useEffect(() => {
-    getLocationNameByLatLng()
+    getLocationlatLng()
+   
   }, [lat, lng]);
-
+const getLocationlatLng=async () => {
+  debugger;
+ await getLocationNameByLatLng()
+}
   useEffect(() => {
     debugger
     getLocation()
@@ -87,12 +88,12 @@ const Map: React.FC = (props: any) => {
   }, []);
 
 
-  const getLocation = () => {
+  const getLocation = async() => {
     if (!navigator.geolocation) {
       setStatus('Geolocation is not supported by your browser');
     } else {
       setStatus('Locating...');
-      navigator.geolocation.getCurrentPosition((position) => {
+     await navigator.geolocation.getCurrentPosition((position) => {
         setStatus("");
         setLat(position.coords.latitude);
         setLng(position.coords.longitude);
@@ -104,17 +105,20 @@ const Map: React.FC = (props: any) => {
     }
   }
 
-  const getLocationNameByLatLng = () => {
+  const getLocationNameByLatLng = async() => {
     debugger
-    Geocode.setApiKey(process.env.MAP_APY_KEY|| '');
-    Geocode.enableDebug();
-    Geocode.fromLatLng(lat.toString(), lng.toString()).then(
-      (response: any) => {
-        const address = response.results[0].formatted_address;
+  await  Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k');
+  await  Geocode.enableDebug();
+    console.log(lat, lng ,"jjjjjjjj")
+    await Geocode.fromLatLng(lat.toString(), lng.toString()).then(
+      async (response: any) => {
+        debugger;
+         const address =await response.results[0].formatted_address;
+        
         requestStore.currentRequestAddressesName = address;
         console.log(address);
       },
-      (error: any) => {
+      (error) => {
         console.error(error);
       }
     );

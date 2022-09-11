@@ -7,7 +7,7 @@ const getManagersByUserIdAndSystemId = async (user_id: string, system_id: string
     try {
         debugger
         const res = await axios.get(`http://localhost:3333/managers/${user_id}/${system_id}`);
-       // const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/managers/${user_id}/${system_id}`);
+        // const res = await axios.get(`https://waze-project-360208.el.r.appspot.com/managers/${user_id}/${system_id}`);
         debugger
         let tempList = await res.data;
         // ManagerStore.currentManager=tempList
@@ -43,8 +43,14 @@ class Store {
     }
     async getManagersByUserIdAndSystemId(user_id: string, system_id: string) {
         debugger
-
+        console.log("user_id", user_id)
+        console.log("system_id", system_id)
+        debugger
         this.currentManager = await getManagersByUserIdAndSystemId(user_id, system_id)
+        debugger
+        debugger
+        debugger
+        console.log( this.currentManager)
         debugger
 
     }

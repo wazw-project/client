@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import AutoComplete from './AutoComplite';
 import Grid from '@mui/material/Grid';
@@ -10,7 +10,10 @@ import Button from '@mui/material/Button';
 import MapStore from '../../store/mapStore';
 
 const UserAutoCompliteInMap: React.FC = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  useEffect(() => {
+    debugger
+    console.log("nnnnnnnnnnnnn")
+}, [])
   return (
     <>
       <TitleMapLocationUser />

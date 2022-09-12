@@ -105,7 +105,9 @@ const Request = () => {
 
                 await requestStore.addRequest(newRequest)
                 requestStore.currentRequest = newRequest
-              await MailStore.sendMailToUser(newRequest.email)
+                await MailStore.sendMailToUser(newRequest.email)
+                console.log("mail",systemStore.currentSystem.email)
+                await MailStore.sendEmailManager(systemStore.currentSystem.email,newRequest.firstName+" "+newRequest.lastName,systemStore.currentSystem.topic,systemStore.currentSystem.urlName,systemStore.currentSystem._id)
                 swal("saved!", "your request send to manager and you get mail about it!", "success");
             }
             catch (error) {
@@ -123,7 +125,7 @@ const Request = () => {
     }
     const getLocationNameByLatLng = () => {
         debugger
-        Geocode.setApiKey(process.env.MAP_APY_KEY|| '');
+        Geocode.setApiKey(process.env.REACT_APP_MAP_APY_KEY|| '');
         Geocode.enableDebug();
         Geocode.fromLatLng(MapStore.currentMap.center.lat.toString(), MapStore.currentMap.center.lng.toString()).then(
             (response: any) => {
@@ -222,7 +224,7 @@ const Request = () => {
                         <Grid container spacing={2} height={592}>
                             <Grid item xs={6} md={8}>
                                 <GoogleMapReact
-                                    bootstrapURLKeys={{ key: process.env.MAP_APY_KEY || ''}}
+                                    bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_APY_KEY || ''}}
                                     center={{ lat: MapStore.currentMap.center.lat && MapStore.currentMap.center.lat, lng: MapStore.currentMap.center.lng && MapStore.yourLocation.center.lng }}
                                     zoom={18}
                                     // onGoogleApiLoaded={() => getLocation()}

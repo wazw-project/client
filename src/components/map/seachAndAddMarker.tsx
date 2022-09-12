@@ -260,7 +260,7 @@ const SearchAndAddMarker: React.FC = (props: any) => {
               <Grid container spacing={2} height={592}>
                 <Grid item xs={6} md={8}>
                   <GoogleMapReact
-                    bootstrapURLKeys={{ key: process.env.MAP_APY_KEY|| '' }}
+                    bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_APY_KEY|| '' }}
                     center={{ lat: lat && lat, lng: lng && lng }}
                     zoom={20}
                     options={getMapOptions}

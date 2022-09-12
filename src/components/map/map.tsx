@@ -19,6 +19,7 @@ import Geocode from "react-geocode";
 import requestStore from '../../store/request';
 import { useParams, useSearchParams } from 'react-router-dom';
 import mapStore from '../../store/mapStore';
+import {useLocation} from "react-router-dom";
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -28,6 +29,8 @@ function sleep(delay = 0) {
 
 
 const Map: React.FC = (props: any) => {
+  const search = useLocation().search;
+  const name = new URLSearchParams(search).get('fromEmail');
   const { id } = useParams();
   useEffect(() => {
     getAllForComponent()
@@ -106,15 +109,13 @@ const getLocationlatLng=async () => {
   }
 
   const getLocationNameByLatLng = async() => {
-    debugger
-  await  Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k');
+    
+  await  Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k')
   await  Geocode.enableDebug();
-    console.log(lat, lng ,"jjjjjjjj")
     await Geocode.fromLatLng(lat.toString(), lng.toString()).then(
       async (response: any) => {
-        debugger;
          const address =await response.results[0].formatted_address;
-        
+  
         requestStore.currentRequestAddressesName = address;
         console.log(address);
       },
@@ -154,7 +155,7 @@ const getLocationlatLng=async () => {
     <Grid container spacing={2} height={662}>
       <Grid item xs={6} md={8}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.MAP_APY_KEY || ''}}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_APY_KEY || ''}}
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
@@ -178,6 +179,7 @@ const getLocationlatLng=async () => {
         </GoogleMapReact>
       </Grid>
       <Grid item xs={6} md={4}>
+        
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role !== "1") &&
           <>
             {(requestStore.currentRequestAddressesName) &&

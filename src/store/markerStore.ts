@@ -63,7 +63,7 @@ const getMarkersBySystemId = async (systemId: string) => {
 const getLocationNameByLatLng = async (lat: number, lng: number) => {
     debugger
     let addresss = "";
-    Geocode.setApiKey(process.env.MAP_APY_KEY|| '');
+    Geocode.setApiKey(process.env.REACT_APP_MAP_APY_KEY|| '');
     
     Geocode.enableDebug();
     console.log(lat.toString())

@@ -105,7 +105,7 @@ const CardOfShortDistances: React.FC = () => {
         debugger
         let addresss = "";
 
-        Geocode.setApiKey(process.env.MAP_APY_KEY|| '');
+        Geocode.setApiKey(process.env.REACT_APP_MAP_APY_KEY|| '');
         Geocode.enableDebug();
         console.log(markerStore.markers[index].location.lat.toString())
         console.log(markerStore.markers[index].location.lng.toString())

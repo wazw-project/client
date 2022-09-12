@@ -24,7 +24,6 @@ onAuthStateChanged(auth, (user) => {
   userStore.userFromFireBase=user
   debugger
   console.log(userStore.userFromFireBase)     
-  console.log(userStore.userFromFireBase.uid)
   userStore.getUser(userStore.userFromFireBase.uid)
   debugger;
   // userStore.addUser(user);

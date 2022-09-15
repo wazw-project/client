@@ -19,7 +19,12 @@ import Geocode from "react-geocode";
 import requestStore from '../../store/request';
 import { useParams, useSearchParams } from 'react-router-dom';
 import mapStore from '../../store/mapStore';
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Login from '../login/Login';
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -29,26 +34,31 @@ function sleep(delay = 0) {
 
 
 const Map: React.FC = (props: any) => {
+  const [openLogin, setOpenLogin] = React.useState(false);
   const search = useLocation().search;
-  const name = new URLSearchParams(search).get('fromEmail');
+  const fromEmail = new URLSearchParams(search).get('fromEmail');
   const { id } = useParams();
   useEffect(() => {
+    debugger
     getAllForComponent()
   }, [])
   const getAllForComponent = async () => {
+    if (fromEmail) {
+      console.log('userStore');
+      console.log(userStore.user);
+      if (!userStore.user)
+        setOpenLogin(true);
+    }
     await getSystemById()
     await getManagers()
     await getMarker();
-   
   }
   const getSystemById = async () => {
-    
     await systemStore.getSystemById(String(id))
-
     console.log(systemStore.currentSystem._id)
   }
   const getManagers = async () => {
-  
+
     if (userStore.user) {
       await ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id, systemStore.currentSystem._id)
     }
@@ -71,19 +81,19 @@ const Map: React.FC = (props: any) => {
       mapTypeControl: true,
       streetViewControl: true,
       styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'on' }] }],
-    };
+    }
   };
   const [lat, setLat] = useState<number>(mapStore.yourLocation.center.lat);
   const [lng, setLng] = useState<number>(mapStore.yourLocation.center.lng);
   const [status, setStatus] = useState<string>("");
   useEffect(() => {
     getLocationlatLng()
-   
+
   }, [lat, lng]);
-const getLocationlatLng=async () => {
-  debugger;
- await getLocationNameByLatLng()
-}
+  const getLocationlatLng = async () => {
+    debugger;
+    await getLocationNameByLatLng()
+  }
   useEffect(() => {
     debugger
     getLocation()
@@ -91,12 +101,12 @@ const getLocationlatLng=async () => {
   }, []);
 
 
-  const getLocation = async() => {
+  const getLocation = async () => {
     if (!navigator.geolocation) {
       setStatus('Geolocation is not supported by your browser');
     } else {
       setStatus('Locating...');
-     await navigator.geolocation.getCurrentPosition((position) => {
+      await navigator.geolocation.getCurrentPosition((position) => {
         setStatus("");
         setLat(position.coords.latitude);
         setLng(position.coords.longitude);
@@ -108,14 +118,14 @@ const getLocationlatLng=async () => {
     }
   }
 
-  const getLocationNameByLatLng = async() => {
-    
-  await  Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k')
-  await  Geocode.enableDebug();
+  const getLocationNameByLatLng = async () => {
+
+    await Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k')
+    await Geocode.enableDebug();
     await Geocode.fromLatLng(lat.toString(), lng.toString()).then(
       async (response: any) => {
-         const address =await response.results[0].formatted_address;
-  
+        const address = await response.results[0].formatted_address;
+
         requestStore.currentRequestAddressesName = address;
         console.log(address);
       },
@@ -148,14 +158,29 @@ const getLocationlatLng=async () => {
     }
   }, [open]);
 
-
-
+  const handleClose = () => {
+    setOpenLogin(false);
+  };
 
   return (
     <Grid container spacing={2} height={662}>
+      {openLogin &&
+        <Dialog
+          open={openLogin}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            for see your requests you need login!
+          </DialogTitle>
+          <DialogActions>
+            <Login />
+          </DialogActions>
+        </Dialog>}
       <Grid item xs={6} md={8}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_APY_KEY || ''}}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_APY_KEY || '' }}
           center={{ lat: MapStore.yourLocation.center.lat, lng: MapStore.yourLocation.center.lng }}
           zoom={MapStore.yourLocation.zoom}
           options={getMapOptions}
@@ -179,7 +204,7 @@ const getLocationlatLng=async () => {
         </GoogleMapReact>
       </Grid>
       <Grid item xs={6} md={4}>
-        
+
         {(!ManagerStore.currentManager || ManagerStore.currentManager.role !== "1") &&
           <>
             {(requestStore.currentRequestAddressesName) &&
@@ -193,7 +218,7 @@ const getLocationlatLng=async () => {
             <RequestForSystem />
           </>}
       </Grid>
-    </Grid>
+    </Grid >
   );
 }
 

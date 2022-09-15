@@ -34,6 +34,7 @@ const apiIsLoaded =async (map:any) => {
 class Store {
        address:string[]=[]
        map:any=null;
+       dialogFromMail:boolean = false;
     currentMap: Map =
         {
             zoom: 18,

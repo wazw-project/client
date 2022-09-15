@@ -45,10 +45,10 @@ const Map: React.FC = (props: any) => {
   }, [])
   const getAllForComponent = async () => {
     if (fromEmail) {
-      debugger
-      userStore.loginFrom = `/Map/${name}/${id}`
-      if (!userStore.user)
-        setOpenLogin(true);
+      if (!userStore.user){
+        userStore.loginFrom = `/Map/${name}/${id}`;
+        mapStore.dialogFromMail=true;
+      } 
     }
     await getSystemById()
     await getManagers()
@@ -165,9 +165,9 @@ const Map: React.FC = (props: any) => {
 
   return (
     <Grid container spacing={2} height={662}>
-      {openLogin &&
+      {mapStore.dialogFromMail &&
         <Dialog
-          open={openLogin}
+          open={mapStore.dialogFromMail}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"

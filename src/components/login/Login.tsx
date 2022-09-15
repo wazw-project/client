@@ -16,6 +16,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import swal from 'sweetalert';
 import userStore from '../../store/userStore';
+import mapStore from '../../store/mapStore';
+import ManagerStore from "../../store/managerStore";
+import systemStore from "../../store/systemStore";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -70,11 +73,18 @@ const Login: React.FC = () => {
       debugger
       if(!userrr){
         debugger
-        await addUserToDb(Uid)
-             
+        await addUserToDb(Uid)   
       }  
       debugger
-      userStore.user=await userStore.getUser(Uid);    
+      userStore.user=await userStore.getUser(Uid);
+      debugger
+      if(mapStore.dialogFromMail==true){
+        debugger
+        console.log(userStore.user._id);
+        console.log(systemStore.currentSystem._id);
+        ManagerStore.getManagersByUserIdAndSystemId(userStore.user._id,systemStore.currentSystem._id);
+      }
+      mapStore.dialogFromMail=false;    
       navigate(userStore.loginFrom)
     } catch (error) { console.log(error); }
   }
@@ -112,13 +122,8 @@ const Login: React.FC = () => {
         <Typography component="h1" variant="h5">
           login
         </Typography>
-
         <Box component="form" noValidate sx={{ mt: 1 }}>
-
-
           <TextField
-
-
             margin="normal"
             required
             fullWidth

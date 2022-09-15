@@ -34,6 +34,7 @@ import userStore from '../../store/userStore';
 
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
+import MailStore from '../../store/mailStore';
 
 const RequestForSystem = () => {
     const [open, setOpen] = useState(true);
@@ -124,11 +125,9 @@ const RequestForSystem = () => {
         MapStore.yourLocation.center.lng = markerStore.currentMarker.location.lng;
         MapStore.yourLocation.center.lat = markerStore.currentMarker.location.lat;
         MapStore.yourLocation.zoom = 20
-
-
-
+       await MailStore.sendEmailConfirm(requestStore.currentRequest.email)
         requestStore.currentRequest = null
-
+      
 
     }
     const dontConfirm = async () => {

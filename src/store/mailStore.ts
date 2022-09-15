@@ -12,6 +12,17 @@ const sendMailToUser = async (userMail:string) => {
     }
     catch (error) { console.log(error); }
 }
+const sendEmailConfirm = async (userMail:string) => {
+    debugger
+    try {
+        const res = await axios.post(`http://localhost:3333/mail/confirm/?email=${userMail}`);
+        let tempList = await res.data;
+        if (tempList !== "")
+            return tempList;
+        throw new Error(`Could not  send email`)
+    }
+    catch (error) { console.log(error); }
+}
 const sendEmailManager = async (managerMail:string,mail:any) => {
 
     debugger
@@ -33,6 +44,10 @@ class Store {
     async sendMailToUser(userMail:string) {
         debugger;
         await sendMailToUser(userMail);
+    }
+    async sendEmailConfirm(userMail:string) {
+        debugger;
+        await sendEmailConfirm(userMail);
     }
     async sendEmailManager(managerMail:string,userName:string,systemName:string,urlName:string,systemId:string) {
         debugger;

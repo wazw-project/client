@@ -125,7 +125,9 @@ const RequestForSystem = () => {
         MapStore.yourLocation.center.lng = markerStore.currentMarker.location.lng;
         MapStore.yourLocation.center.lat = markerStore.currentMarker.location.lat;
         MapStore.yourLocation.zoom = 20
-       await MailStore.sendEmailConfirm(requestStore.currentRequest.email)
+        debugger;
+        console.log(newMarker.email)
+       await MailStore.sendEmailConfirm(newMarker.email)
         requestStore.currentRequest = null
       
 

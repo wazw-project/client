@@ -127,7 +127,7 @@ const RequestForSystem = () => {
         MapStore.yourLocation.zoom = 20
         debugger;
         console.log(newMarker.email)
-       await MailStore.sendEmailConfirm(newMarker.email)
+       await MailStore.sendEmailConfirm(newMarker.email,newMarker.name)
         requestStore.currentRequest = null
       
 

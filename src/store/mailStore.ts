@@ -12,10 +12,11 @@ const sendMailToUser = async (userMail:string) => {
     }
     catch (error) { console.log(error); }
 }
-const sendEmailConfirm = async (userMail:string) => {
+const sendEmailConfirm = async (userMail:string,userName:string) => {
     debugger
+    console.log(userName)
     try {
-        const res = await axios.post(`http://localhost:3333/mail/confirm/?email=${userMail}`);
+        const res = await axios.post(`http://localhost:3333/mail/confirm/?email=${userMail}`,{userName});
         let tempList = await res.data;
         if (tempList !== "")
             return tempList;
@@ -45,9 +46,9 @@ class Store {
         debugger;
         await sendMailToUser(userMail);
     }
-    async sendEmailConfirm(userMail:string) {
+    async sendEmailConfirm(userMail:string,userName:string) {
         debugger;
-        await sendEmailConfirm(userMail);
+        await sendEmailConfirm(userMail,userName);
     }
     async sendEmailManager(managerMail:string,userName:string,systemName:string,urlName:string,systemId:string) {
         debugger;

@@ -38,14 +38,15 @@ const Map: React.FC = (props: any) => {
   const search = useLocation().search;
   const fromEmail = new URLSearchParams(search).get('fromEmail');
   const { id } = useParams();
+  const { name } = useParams();
   useEffect(() => {
     debugger
     getAllForComponent()
   }, [])
   const getAllForComponent = async () => {
     if (fromEmail) {
-      console.log('userStore');
-      console.log(userStore.user);
+      debugger
+      userStore.loginFrom = `/Map/${name}/${id}`
       if (!userStore.user)
         setOpenLogin(true);
     }

@@ -49,7 +49,7 @@ const CardSolution: React.FC = () => {
       <CardMedia
         component="img"
         height="150"
-        image="https://img.icons8.com/external-wanicon-lineal-color-wanicon/344/external-map-user-interface-wanicon-lineal-color-wanicon.png"
+        image="https://il-trend.com/wp-content/uploads/2022/05/%D7%9E%D7%A4%D7%95%D7%AA-%D7%92%D7%95%D7%92%D7%9C-%D7%95-Waze.jpg"
         alt="green iguana"
       />
       <CardContent>

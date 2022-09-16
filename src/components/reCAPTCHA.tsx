@@ -12,7 +12,7 @@ const Recaptcha: React.FC = () => {
     return (
         <div className="App">
             <ReCAPTCHA
-                sitekey="6LeeMgAiAAAAABLltkluy8_NP8YgbzwRQZqUCKhb"
+                sitekey="6LcYY7khAAAAAOL3e8Ah4gKrhlxlfykO615GjHaY"
                 onChange={onChange}
             />
         </div>

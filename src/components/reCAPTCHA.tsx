@@ -5,18 +5,14 @@ import requestStore from '../store/request';
 
 const Recaptcha: React.FC = () => {
     function onChange(value: any) {
-     
-        console.log('Captcha value:', value);
-        debugger;
         if(value){
             requestStore.robot=true;
         }
-
     }
     return (
         <div className="App">
             <ReCAPTCHA
-                sitekey="6LdrZ_EhAAAAALjA8rLsOIySYOiXE0n0k6TUsTUE"
+                sitekey="6LeeMgAiAAAAABLltkluy8_NP8YgbzwRQZqUCKhb"
                 onChange={onChange}
             />
         </div>

@@ -14,7 +14,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
-import logo from '../style/דד.png';
+import logo from '../style/picture.png';
 import "../style/Dashboard.css";
 
 const OurAppBar = () => {
@@ -58,7 +58,7 @@ const OurAppBar = () => {
           <Button color="inherit" onClick={() => About()}>about</Button>
           {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
-          <img style={{marginLeft:'50%'}} src={logo} alt="Logo" />
+          <img style={{marginLeft:'45%'}} src={logo} alt="Logo" />
         </Toolbar>
       </AppBar>
     </Box>

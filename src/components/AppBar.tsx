@@ -58,8 +58,7 @@ const OurAppBar = () => {
           <Button color="inherit" onClick={() => About()}>about</Button>
           {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
-          <img src={logo} alt="Logo" />
-          <div id="logoTN">TamarNaama</div>
+          <img style={{marginLeft:'50%'}} src={logo} alt="Logo" />
         </Toolbar>
       </AppBar>
     </Box>

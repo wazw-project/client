@@ -14,7 +14,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
-
+import logo from '../style/צילום מסך 2022-09-22 213639.png';
 const OurAppBar = () => {
   const navigate = useNavigate();
 
@@ -38,7 +38,6 @@ const OurAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-      
           {userStore.userFromFireBase &&
             <div>
               <Stack direction="row" spacing={2}>
@@ -53,12 +52,11 @@ const OurAppBar = () => {
               <Button color="inherit" onClick={() => system()}>your system</Button>
             </>
           }
-            
           <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
-        
           <Button color="inherit" onClick={() => About()}>about</Button>
           {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
+          <img src={logo} alt="Logo" />
         </Toolbar>
       </AppBar>
     </Box>

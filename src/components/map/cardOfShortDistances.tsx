@@ -53,7 +53,6 @@ const CardOfShortDistances: React.FC = () => {
 
 
     const find_closest_marker = async (lat: number, lng: number) => {
-        debugger;
         let arr = [-1, -1, -1];
         if (markerStore.markers.length !== 0) {
             for (let j = 0; j < arr.length; j++) {
@@ -79,14 +78,11 @@ const CardOfShortDistances: React.FC = () => {
                         } else
                             arr[j] = i;
                     }
-
                 }
             }
         }
-        else {
+        else 
             alert("there is no markers");
-        }
-
         let addressesName: any[] = [];
         for (let i = 0; i < arr.length; i++) {
             const x = await getLocationNameByLatLng(arr[i]);

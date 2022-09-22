@@ -28,6 +28,7 @@ const EditMarker = () => {
         setOpen(false);
     };
     const saveDetails=async()=>{
+        debugger;
         const newMarker: any = {
         
             "location": {
@@ -42,6 +43,7 @@ const EditMarker = () => {
             "email": inputEmail.current?.value
         }
        try{
+           debugger;
        await markerStore.UpdateMarker(markerStore.currentMarker._id, newMarker);
        MapStore.setCardOfSolution(false)
     
@@ -80,14 +82,18 @@ const EditMarker = () => {
                         <TextField inputRef={inputDescription} label="description" variant="standard" defaultValue={markerStore.currentMarker.description}/>
                     </Grid>
                     <Grid item sx={{ marginTop: "4%" }}>
-                        <TextField inputRef={inputPhone} label="phone" variant="standard" defaultValue={markerStore.currentMarker.phone}/>
+                        <TextField 
+                        inputRef={inputPhone}
+                         label="phone"
+                          variant="standard" 
+                          defaultValue={markerStore.currentMarker.phone}/>
                     </Grid>
                     <Grid item sx={{ marginTop: "4%" }}>
                         <TextField inputRef={inputEmail} label="email" variant="standard" defaultValue={markerStore.currentMarker.email} />
                     </Grid>
                     <Grid item sx={{ marginTop: "4%" }}>
                         <TextField
-                        value={markerStore.currentMarker.notes}
+                        defaultValue={markerStore.currentMarker.notes}
                             inputRef={inputNotes}
                             id="standard-textarea"
                             label="notes"

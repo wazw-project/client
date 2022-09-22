@@ -14,7 +14,9 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
-import logo from '../style/צילום מסך 2022-09-22 213639.png';
+import logo from '../style/דד.png';
+import "../style/Dashboard.css";
+
 const OurAppBar = () => {
   const navigate = useNavigate();
 
@@ -57,6 +59,7 @@ const OurAppBar = () => {
           {userStore.user === null &&
             <Button color="inherit" onClick={() => login()}>if you have a system or location login here</Button>}
           <img src={logo} alt="Logo" />
+          <div id="logoTN">TamarNaama</div>
         </Toolbar>
       </AppBar>
     </Box>

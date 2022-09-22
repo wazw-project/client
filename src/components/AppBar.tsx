@@ -14,7 +14,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
-import logo from '../style/picture.png';
+import logo from '../style/מושלם.png';
 import "../style/Dashboard.css";
 
 const OurAppBar = () => {

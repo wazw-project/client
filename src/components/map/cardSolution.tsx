@@ -12,7 +12,11 @@ import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import swal from 'sweetalert';
 import EditMarker from './editMarker'
-
+import PersonIcon from '@mui/icons-material/Person';
+import DescriptionIcon from '@mui/icons-material/Description';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import PhoneAndroidRoundedIcon from '@mui/icons-material/PhoneAndroidRounded';
+import MailRoundedIcon from '@mui/icons-material/MailRounded';
 const CardSolution: React.FC = () => {
 
   const deleteMarker = () => {
@@ -54,23 +58,30 @@ const CardSolution: React.FC = () => {
       />
       <CardContent>
         {markerStore.currentMarker.name &&
-          <Typography gutterBottom variant="h5" component="div">
-            {markerStore.currentMarker.name}
-          </Typography>}
+    
+          <Typography gutterBottom variant="h5" component="div">   
+                <PersonIcon/>                           
+             {markerStore.currentMarker.name}
+          </Typography> }
+         
         {markerStore.currentMarker.description &&
           <Typography gutterBottom variant="h5" component="div">
+            <DescriptionIcon/>
             {markerStore.currentMarker.description}
           </Typography>}
         {markerStore.currentMarker.notes &&
           <Typography variant="body2" color="text.secondary">
+            <SpeakerNotesIcon/>
             {markerStore.currentMarker.notes}
           </Typography>}
         {markerStore.currentMarker.phone &&
           <Typography variant="body2" color="text.secondary">
+            <PhoneAndroidRoundedIcon/>
             {markerStore.currentMarker.phone}
           </Typography>}
         {markerStore.currentMarker.email &&
           <Typography variant="body2" color="text.secondary">
+            <MailRoundedIcon/>
             {markerStore.currentMarker.email}
           </Typography>}
       </CardContent>

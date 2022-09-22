@@ -28,6 +28,7 @@ const EditMarker = () => {
         setOpen(false);
     };
     const saveDetails=async()=>{
+        debugger;
         const newMarker: any = {
         
             "location": {
@@ -42,6 +43,7 @@ const EditMarker = () => {
             "email": inputEmail.current?.value
         }
        try{
+           debugger;
        await markerStore.UpdateMarker(markerStore.currentMarker._id, newMarker);
        MapStore.setCardOfSolution(false)
     

@@ -15,7 +15,9 @@ const addMarker = async (marker: Marker) => {
     } catch (error) { console.log(error); }
 }
 const UpdateMarker = async (id: string, marker: Marker) => {
+    debugger
     try {
+        debugger;
         const res = await axios.put(`http://localhost:3333/marker/${id}`, marker);
       // const res = await axios.put(`https://waze-project-360208.el.r.appspot.com/marker/${id}`, marker);
 

@@ -20,9 +20,15 @@ import TextField from '@mui/material/TextField';
 import swal from 'sweetalert';
 import Container from '@mui/material/Container';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SendIcon from '@mui/icons-material/Send';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import systenStore from '../../store/systemStore'
 import { observer } from 'mobx-react';
+import TopicIcon from '@mui/icons-material/Topic';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import EmailIcon from '@mui/icons-material/Email';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import Grid from '@mui/material/Grid';
 
 const SystemDetails: React.FC = () => {
   const navigate = useNavigate();
@@ -138,41 +144,64 @@ const SystemDetails: React.FC = () => {
             image={systenStore.currentSystem?.urlImage}
             alt="ha ha ha"
           />
-          <CardContent>
-            <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h3" component="div">
-              {systenStore.currentSystem?.description}
-            </Typography>
-            <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {systenStore.currentSystem?.objectName}
-            </Typography>
-            <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {systenStore.currentSystem?.phone}
-            </Typography>
-            <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {systenStore.currentSystem?.topic}
-            </Typography>
-            <Typography sx={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-              {systenStore.currentSystem?.email}
 
-            </Typography>
-          </CardContent>
+          <Grid container spacing={3}>
+            <Grid item xs>
+                <Button variant="contained" onClick={handleClickOpen} sx={{
+                  width: '35%', height: '17vh', borderRadius: '100%', marginLeft:'30%'
+                }} endIcon={<ModeEditIcon />}>
+                  Edit
+                </Button>
+            
+              <Button variant="contained" endIcon={<DeleteIcon />} onClick={deleteSystem} sx={{
+                width: '35%', height: '17vh', borderRadius: '100%',marginLeft:'30%',marginTop:'5%',marginBottom:'9%'
+              }}>
+                Delete
+              </Button>
+          
+            </Grid>
+           
+            <Grid item xs={6} sx={{marginLeft:'-10%'}}>
+              <CardContent sx={{ marginLeft: '35%' }}>
+                <Typography gutterBottom variant="h3" component="div" sx={{color:'#80cbc4'}}>
+                  {systenStore.currentSystem?.description}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  <SettingsSuggestIcon />
+                  {systenStore.currentSystem?.objectName}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  <PhoneIphoneIcon />
+                  {systenStore.currentSystem?.phone}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  <TopicIcon />
+                  {systenStore.currentSystem?.topic}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  <EmailIcon />
+                  {systenStore.currentSystem?.email}
+
+                </Typography>
+              </CardContent>
+            </Grid>
+            <Grid item xs>
+            
+                <Button sx={{
+                 height: '10vh', marginTop:'20%', borderRadius: '30%'}} variant="outlined" onClick={() => { navigate(`/Map/${systenStore.currentSystem.urlName}/${systenStore.currentSystem._id}`) }}  endIcon={<RemoveRedEyeIcon />}  >
+               
+                  see all business location
+               
+                </Button>
+            
+            </Grid>
+          </Grid>
+
 
           <div>
 
 
-            <Container component="main" maxWidth="xs" sx={{ marginBottom: 2, marginRight: 55 }}>
 
-              <Button variant="contained" onClick={handleClickOpen} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
-                Edit
-              </Button>
-              <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteSystem}>
-                Delete
-              </Button>
-              <Button variant="outlined" onClick={() => { navigate(`/Map/${systenStore.currentSystem.urlName}/${systenStore.currentSystem._id}`) }}>
-             
-                see all business location
-              </Button>
-            </Container>
             <Dialog
               fullScreen
               open={open}

@@ -229,34 +229,39 @@ const SearchAndAddMarker: React.FC = (props: any) => {
         open={openDialog}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
+       
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Use Google's location service?"}
+        <DialogTitle id="responsive-dialog-title" sx={{color:'#80cbc4'}}>
+          {"enter your new markers details!"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
             <React.Fragment>
-              <Grid item xs={4}>
-                <TextField inputRef={inputName} id="filled-basic" label="name" variant="filled" />
+              <Grid  item sx={{ marginTop: "4%" }}>
+                <TextField inputRef={inputName} id="filled-basic" label="name" variant="standard" />
               </Grid>
-              <Grid item xs={4}>
-                <TextField inputRef={inputDescription} id="filled-basic" label="description" variant="filled" />
+              <Grid  item sx={{ marginTop: "4%" }}>
+                <TextField inputRef={inputDescription} id="filled-basic" label="description" variant="standard" />
               </Grid>
-              <Grid item xs={4}>
-                <TextField inputRef={inputPhone} id="filled-basic" label="phone" variant="filled" />
+              <Grid  item sx={{ marginTop: "4%" }}>
+                <TextField inputRef={inputPhone} id="filled-basic" label="phone" variant="standard" />
               </Grid>
-              <Grid item xs={4}>
-                <TextField inputRef={inputEmail} id="filled-basic" label="email" variant="filled" />
+              <Grid  item sx={{ marginTop: "4%" }}>
+                <TextField inputRef={inputEmail} id="filled-basic" label="email" variant="standard" />
               </Grid>
-              <Grid item xs={4}>
-                <TextareaAutosize
-                  // inputRef={inputNotes}
-                  aria-label="minimum height"
-                  minRows={3}
-                  placeholder="notes"
-                  style={{ width: 200 }}
-                />
-              </Grid>
+              <Grid item sx={{ marginTop: "4%" }}>
+                        <TextField
+                      
+                            inputRef={inputNotes}
+                            id="standard-textarea"
+                            label="notes"
+                            placeholder="notes"
+                            minRows={3}
+                            multiline
+                            variant="standard"
+                        />
+                    </Grid>
+             
               <Grid container spacing={2} height={592}>
                 <Grid item xs={6} md={8}>
                   <GoogleMapReact

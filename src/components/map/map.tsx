@@ -119,6 +119,8 @@ const Map: React.FC = (props: any) => {
     }
   }
 
+  // distance = google.maps.geometry.spherical.computeDistanceBetween(latlng, locationlatlng)
+
   const getLocationNameByLatLng = async () => {
     await Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k')
     await Geocode.enableDebug();

@@ -120,15 +120,12 @@ const Map: React.FC = (props: any) => {
   }
 
   const getLocationNameByLatLng = async () => {
-
     await Geocode.setApiKey('AIzaSyBub3Ojwq9cNp4jhvTEkbrE21An_U8Cv5k')
     await Geocode.enableDebug();
     await Geocode.fromLatLng(lat.toString(), lng.toString()).then(
       async (response: any) => {
         const address = await response.results[0].formatted_address;
-
         requestStore.currentRequestAddressesName = address;
-        console.log(address);
       },
       (error) => {
         console.error(error);

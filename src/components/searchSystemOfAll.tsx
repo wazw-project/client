@@ -43,9 +43,6 @@ const SearchSystemOfAll: React.FC = () => {
 
     return (
         <div id="allBusiness" >
-            <Typography sx={{ textAlign: 'center' }} variant="h4" gutterBottom>
-                search for one system do you want
-            </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={9}>
                     <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 3 }, flexWrap: 'wrap' }} >

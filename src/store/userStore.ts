@@ -27,7 +27,14 @@ const getUser=async(id:string)=>{
 }
 
 class Store {
-    user: any = null;
+    // user: User={
+    //     firebaseUid: '',
+    //     firstName: '',
+    //     lastName: '',
+    //     phone: '',
+    //     email: ''
+    // };
+    user:any=null;
     userFromFireBase: any = null;
     token:string="";
     loginFrom="/";

@@ -36,9 +36,9 @@ function App() {
 theme = createTheme(theme, {
   palette: {
     primary: {
-      main: "#80cbc4",
-      light: "#b2dfdb",
-      dark: "#009688",
+      main: "#ffab91",
+      light:"#ffab91",
+      dark: "#ffab91",
     },
   },
 });

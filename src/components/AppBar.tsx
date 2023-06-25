@@ -16,7 +16,7 @@ import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import logo from '../style/מושלם.png';
 import "../style/Dashboard.css";
-
+import logo_closet from '../style/closet.png'
 const OurAppBar = () => {
   const navigate = useNavigate();
 
@@ -40,25 +40,37 @@ const OurAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+    
+          <img style={{ width: '80px', height: "80px", marginLeft: "-1%" }} src={logo_closet} alt="Logo" />
+          <h2 style={{ marginLeft: "2%" }}>The closet</h2>
+      
+          {userStore.user === null &&
+            <Button sx={{ marginLeft: "2%" }} color="inherit" onClick={() => login()}> Login </Button>}
+
+          {userStore.user &&
+            <>
+
+              <Button sx={{ marginLeft: "1%" }} color="inherit" onClick={() => logOut()}>log out</Button>
+              <Button sx={{ marginLeft: "1%" }} color="inherit" onClick={() => system()}>your system</Button>
+            </>
+          }
+
+          <Button sx={{ marginLeft: "1%" }} color="inherit" onClick={() => Allsystem()}>all system</Button>
+          <Button sx={{ marginLeft: "1%" }} color="inherit" onClick={() => About()}>about</Button>
           {userStore.userFromFireBase &&
-            <div>
+            <div style={{marginLeft:"40%"}}>
               <Stack direction="row" spacing={2}>
-                <Avatar src={userStore.userFromFireBase.photoURL} />
+              <h2>{userStore.userFromFireBase.displayName}</h2>
+              <div style={{marginTop:"5%"}}>
+              <Avatar  src={userStore.userFromFireBase.photoURL} />
+              </div>
+             
+                
                 {/* alt={userStore.userFromFireBase.displayName} sx={{ bgcolor: deepOrange[500] }} */}
               </Stack>
             </div>
           }
-            {userStore.user &&
-            <>
-              <Button color="inherit" onClick={() => logOut()}>log out</Button>
-              <Button color="inherit" onClick={() => system()}>your system</Button>
-            </>
-          }
-          <Button color="inherit" onClick={() => Allsystem()}>all system</Button>
-          <Button color="inherit" onClick={() => About()}>about</Button>
-          {userStore.user === null &&
-            <Button color="inherit" onClick={() => login()}> Login </Button>}
-          {/* <img style={{marginLeft:'45%'}} src={logo} alt="Logo" /> */}
+
         </Toolbar>
       </AppBar>
     </Box>

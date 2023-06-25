@@ -137,36 +137,27 @@ const SystemDetails: React.FC = () => {
     <div>
       <h1>{nameURL}</h1>
       {systenStore.currentSystem &&
-        <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: -2 }}>
-          <CardMedia
+       <Card sx={{ maxWidth: 2000, alignItems: 'center', marginTop: -2 }}>
+     <Grid container spacing={2}>
+        <Grid item xs={6}>
+        <CardMedia
             component="img"
-            height="330"
+            height="620"
             image={systenStore.currentSystem?.urlImage}
             alt="ha ha ha"
           />
-
-          <Grid container spacing={3}>
-            <Grid item xs>
-                <Button variant="contained" onClick={handleClickOpen} sx={{
-                  width: '35%', height: '17vh', borderRadius: '100%', marginLeft:'30%'
-                }} endIcon={<ModeEditIcon />}>
-                  Edit
-                </Button>
-            
-              <Button variant="contained" endIcon={<DeleteIcon />} onClick={deleteSystem} sx={{
-                width: '35%', height: '17vh', borderRadius: '100%',marginLeft:'30%',marginTop:'5%',marginBottom:'9%'
-              }}>
-                Delete
-              </Button>
-          
-            </Grid>
+        </Grid>
+ 
+        <Grid item xs={6}>
+     
+       
            
-            <Grid item xs={6} sx={{marginLeft:'-10%'}}>
+            <Grid item xs={12} sx={{marginLeft:'-30%'}}>
               <CardContent sx={{ marginLeft: '35%' }}>
-                <Typography gutterBottom variant="h3" component="div" sx={{color:'#80cbc4'}}>
+                <Typography gutterBottom variant="h3" component="div" sx={{color:'#ffab91'}}>
                   {systenStore.currentSystem?.description}
                 </Typography>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" sx={{marginTop:'3%'}}>
                   <SettingsSuggestIcon />
                   {systenStore.currentSystem?.objectName}
                 </Typography>
@@ -186,16 +177,33 @@ const SystemDetails: React.FC = () => {
               </CardContent>
             </Grid>
             <Grid item xs>
+                <Button variant="contained" onClick={handleClickOpen} sx={{
+                  width: '13%', height: '6vh',marginTop:'10%',marginLeft:'3%'
+                }} endIcon={<ModeEditIcon />}>
+                  Edit
+                </Button>
+            
+              <Button variant="contained" endIcon={<DeleteIcon />} onClick={deleteSystem} sx={{
+                width: '13%', height: '6vh',marginTop:'10%',marginLeft:'4%'
+              }}>
+                Delete
+              </Button>
+          
+            </Grid>
+            <Grid item xs>
             
                 <Button sx={{
-                 height: '10vh', marginTop:'20%', borderRadius: '30%'}} variant="outlined" onClick={() => { navigate(`/Map/${systenStore.currentSystem.urlName}/${systenStore.currentSystem._id}`) }}  endIcon={<RemoveRedEyeIcon />}  >
+                 height: '10vh',marginTop:'5%',marginLeft:'2%'}} variant="outlined" onClick={() => { navigate(`/Map/${systenStore.currentSystem.urlName}/${systenStore.currentSystem._id}`) }}  endIcon={<RemoveRedEyeIcon />}  >
                
                   see all business location
                
                 </Button>
             
             </Grid>
-          </Grid>
+         
+        </Grid>
+
+         
 
 
           <div>
@@ -271,7 +279,8 @@ const SystemDetails: React.FC = () => {
               </List>
             </Dialog>
           </div>
-        </Card>}
+       
+        </Grid> </Card>}
     </div>
   );
 }

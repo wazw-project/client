@@ -78,9 +78,9 @@ const SearchSystemOfAll: React.FC = () => {
                     <Grid item xs={6} md={8} sx={{ marginTop: '20%' }}>
                         <AutoComplitSystem />
                     </Grid>
-                    <Grid sx={{ marginTop: '20%', marginLeft: '15%' }} item xs={8} md={6}>
+                    <Grid sx={{ marginTop: '70%', marginLeft: '15%' }} item xs={8} md={6}>
                         <Button sx={{
-                            width: '100%', height: '20vh', borderRadius: 50
+                            width: '100%', height: '10vh'
                         }}
                             variant="outlined" onClick={addSystem}>
                             add system

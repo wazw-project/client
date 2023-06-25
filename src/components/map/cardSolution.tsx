@@ -8,6 +8,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 import MapStore from '../../store/mapStore';
 import { observer } from 'mobx-react';
 import swal from 'sweetalert';
@@ -17,7 +18,24 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 import PhoneAndroidRoundedIcon from '@mui/icons-material/PhoneAndroidRounded';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
+import closet from '../../style/closet.png'
+import mapStore from '../../store/mapStore';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import iconX from '../../style/x.png'
 const CardSolution: React.FC = () => {
+  const [flag, setFlag] = useState(true);
+  const closeCard = () => {
+    setFlag(false)
+    mapStore.setCardOfSolution(false)
+  }
+  useEffect(() => {
+    debugger
+    setFlag(true)
+    console.log(flag)
+    
+}, []);
+
 
   const deleteMarker = () => {
     swal({
@@ -47,41 +65,45 @@ const CardSolution: React.FC = () => {
   const updateMarker = () => {
     //add update marker function
   }
-  return (<> {MapStore.currentCard &&
+  return (<> {MapStore.currentCard && flag &&
 
-    <Card sx={{ maxWidth: 450, marginTop: "5%" }}>
-      <CardMedia
+    <Card sx={{ maxWidth: 300, marginTop: "5%", marginLeft: "20%", marginBottom: "5%" }}>
+      {/* <CardMedia
+  
         component="img"
-        height="150"
-        image="https://il-trend.com/wp-content/uploads/2022/05/%D7%9E%D7%A4%D7%95%D7%AA-%D7%92%D7%95%D7%92%D7%9C-%D7%95-Waze.jpg"
+        height="200"
+        image={closet}
         alt="green iguana"
-      />
+      /> */}
       <CardContent>
+   
+        <img style={{width:"20px", marginLeft:"90%"}} onClick={closeCard} src={iconX}/>
+
         {markerStore.currentMarker.name &&
-    
-          <Typography gutterBottom variant="h5" component="div">   
-                <PersonIcon/>                           
-             {markerStore.currentMarker.name}
-          </Typography> }
-         
+
+          <Typography gutterBottom variant="h5" component="div">
+            <PersonIcon />
+            {markerStore.currentMarker.name}
+          </Typography>}
+
         {markerStore.currentMarker.description &&
           <Typography gutterBottom variant="h5" component="div">
-            <DescriptionIcon/>
+            <DescriptionIcon />
             {markerStore.currentMarker.description}
           </Typography>}
         {markerStore.currentMarker.notes &&
           <Typography variant="body2" color="text.secondary">
-            <SpeakerNotesIcon/>
+            <SpeakerNotesIcon />
             {markerStore.currentMarker.notes}
           </Typography>}
         {markerStore.currentMarker.phone &&
           <Typography variant="body2" color="text.secondary">
-            <PhoneAndroidRoundedIcon/>
+            <PhoneAndroidRoundedIcon />
             {markerStore.currentMarker.phone}
           </Typography>}
         {markerStore.currentMarker.email &&
           <Typography variant="body2" color="text.secondary">
-            <MailRoundedIcon/>
+            <MailRoundedIcon />
             {markerStore.currentMarker.email}
           </Typography>}
       </CardContent>
@@ -92,9 +114,6 @@ const CardSolution: React.FC = () => {
         <div style={{ marginLeft: '5%' }}>
           <EditMarker />
         </div>
-        {/* <Button variant="contained" onClick={updateMarker} sx={{ marginRight: 3 }} endIcon={<SendIcon />}>
-          Edit
-        </Button> */}
       </CardActions>
     </Card>
   }

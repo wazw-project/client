@@ -121,13 +121,13 @@ const Systems: React.FC = () => {
 
     return (
         <div id="allBusiness" >
-            <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', }}>your systems</Typography>
+            <Typography gutterBottom variant="h2" component="div" sx={{ textAlign: 'center', padding: '10px', color:'#ffab91'}}>your systems</Typography>
             <Stack padding={3} direction="row" spacing={5} sx={{ '& .MuiCard-root': { m: 5 }, flexWrap: 'wrap' }} >
 
 
                 
             <Button sx={{
-                    width: '10%', height: '50vh', borderRadius: 50,marginTop:'2%'
+                    width: '10%', height: '50vh', marginTop:'2%'
                 }}
                     variant="outlined" onClick={handleClickOpen}>
                     add system
@@ -147,7 +147,7 @@ const Systems: React.FC = () => {
                             <Typography variant="body2" color="text.secondary">
                                 {system.objectName}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" sx={{maxWidth:"200px",minWidth:'200px'}}color="text.secondary">
                                 {system.description}
                             </Typography>
                         </CardContent>
